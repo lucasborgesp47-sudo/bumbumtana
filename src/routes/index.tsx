@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "../hooks/useQuiz";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 
