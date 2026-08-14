@@ -52,7 +52,7 @@ function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-6 overflow-x-hidden">
       <div className="max-w-md mx-auto">
         <ProgressBar step={step} />
         <div key={step}>
@@ -229,7 +229,7 @@ function Index() {
             )}
             
             {step === 7 && (
-              <div className="bg-card p-8 rounded-3xl border shadow-xl text-center space-y-6">
+              <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto">
                 <h2 className="text-2xl font-bold text-primary">🎯 Seu Protocolo Personalizado está pronto!</h2>
                 <div className="text-left space-y-2 bg-background p-4 rounded-xl border border-border">
                   <p><strong>Idade:</strong> Intensidade calibrada</p>
