@@ -177,9 +177,9 @@ function SalesPage() {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t border-border z-50">
         <button 
-          className="w-full bg-primary text-white py-4 rounded-xl font-bold shadow-lg"
+          className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-xl shadow-primary/20 transition-transform active:scale-95 text-lg"
           onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
         >
           Garantir Minha Vaga Agora →
