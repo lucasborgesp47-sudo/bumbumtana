@@ -33,7 +33,7 @@ function SalesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-32">
+    <div className="min-h-screen bg-background text-foreground pb-32 overflow-x-hidden">
       {/* Hero Section */}
       <div className="bg-card p-6 md:p-8 text-center space-y-4">
         <div className="text-5xl">🍑</div>
@@ -90,14 +90,14 @@ function SalesPage() {
           </p>
         </div>
 
-        <div className="bg-card p-8 rounded-[32px] border border-white/5 relative overflow-hidden shadow-2xl">
+        <div className="bg-card p-6 md:p-8 rounded-[32px] border border-white/5 relative overflow-hidden shadow-2xl mx-auto w-full max-w-sm md:max-w-md">
           <div className="flex justify-end gap-1 mb-6">
             {[1, 2, 3, 4, 5].map((s) => (
               <span key={s} className="text-[#FF6F00]">★</span>
             ))}
           </div>
           
-          <p className="italic mb-8 text-lg leading-relaxed text-center font-medium">
+          <p className="italic mb-8 text-base md:text-lg leading-relaxed text-center font-medium px-2">
             "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans levantou dois números mais confortáveis."
           </p>
           
@@ -107,9 +107,9 @@ function SalesPage() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-3 text-lg font-bold">
-          <span className="text-2xl">👇</span>
-          <span>Vamos descobrir o que está travando o seu resultado</span>
+        <div className="flex flex-col items-center justify-center gap-3 text-base md:text-lg font-bold text-center">
+          <span className="text-2xl animate-bounce">👇</span>
+          <span className="text-balance px-4">Vamos descobrir o que está travando o seu resultado</span>
         </div>
       </div>
 
@@ -136,7 +136,7 @@ function SalesPage() {
       </div>
 
       {/* Scarcity Section */}
-      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2">
+      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm mx-auto">
         <h3 className="font-bold text-lg">⚠️ PREÇO DE VALIDAÇÃO</h3>
         <p className="text-sm opacity-90">Esse valor é exclusivo para as primeiras 200 mulheres.</p>
         <div className="text-4xl font-bold">{spots}</div>
@@ -167,7 +167,7 @@ function SalesPage() {
       </div>
 
       {/* Guarantee */}
-      <div className="m-6 p-6 rounded-2xl border-2 border-success/30 bg-success/5 space-y-3">
+      <div className="m-6 p-6 rounded-2xl border-2 border-success/30 bg-success/5 space-y-3 max-w-sm mx-auto">
         <h3 className="font-bold text-success flex items-center gap-2">
           <Shield size={20} /> GARANTIA DE 7 DIAS
         </h3>
