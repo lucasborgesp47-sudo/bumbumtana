@@ -100,7 +100,7 @@ function SalesPage() {
       <div className="px-6 space-y-4">
         <h2 className="text-xl md:text-2xl font-bold text-center mb-2 text-balance">O que você vai receber</h2>
         <p className="text-center text-sm md:text-base mb-6 text-muted-foreground">
-          🔥 MAIS DE 47.832 MULHERES já usaram esse método nos últimos 6 meses.
+          🔥 MAIS DE 3.426 MULHERES já usaram esse método nos últimos 6 meses.
         </p>
         {[
           { title: "Protocolo Base ANS — 5 Minutos", icon: "🧠" },

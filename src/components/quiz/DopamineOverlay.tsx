@@ -14,7 +14,7 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
       <div className="max-w-md mx-auto w-full text-center space-y-8 py-8">
         <div className="space-y-4">
           <h2 className="text-2xl font-bold leading-tight">
-            🔥 MAIS DE 47.832 MULHERES já usaram esse método nos últimos 6 meses.
+            🔥 MAIS DE 3.426 MULHERES já usaram esse método nos últimos 6 meses.
           </h2>
           <p className="text-gray-400 text-lg">
             E o mais impressionante? 68% delas tinham mais de 35 anos e achavam que já era tarde demais.
