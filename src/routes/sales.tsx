@@ -124,7 +124,7 @@ function SalesPage() {
           </div>
           
           <p className="italic mb-8 text-base md:text-lg leading-relaxed text-center font-medium px-2">
-            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans levantou dois números mais confortáveis."
+            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada."
           </p>
           
           <div className="flex items-center justify-center gap-2 text-[#E91E63] font-bold">
