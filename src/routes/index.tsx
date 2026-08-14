@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "../hooks/useQuiz";
-import { ChevronRight, Check, X, Shield, Lock, Trophy, Instagram, Facebook } from "lucide-react";
+import { ChevronRight, Check, X, Shield, Lock, Trophy } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 
 export const Route = createFileRoute("/")({
