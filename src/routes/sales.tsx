@@ -43,7 +43,7 @@ function SalesPage() {
         
         <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2">
           <p className="text-sm font-bold text-muted-foreground">Resgate seu desconto:</p>
-          <div className="text-2xl font-mono font-bold text-primary">07:14</div>
+          <div className="text-2xl font-mono font-bold text-primary">{formatTime(timeLeft)}</div>
         </div>
 
         <div className="text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
