@@ -242,11 +242,21 @@ function Index() {
               <div className="bg-card p-8 rounded-3xl border shadow-xl text-center space-y-6">
                 <h2 className="text-2xl font-bold text-primary">🎯 Seu Protocolo Personalizado está pronto!</h2>
                 <div className="text-left space-y-2 bg-background p-4 rounded-xl border border-border">
-                  <p><strong>Idade:</strong> 30-39 → Intensidade calibrada</p>
-                  <p><strong>Objetivo:</strong> Levantar o bumbum</p>
+                  <p><strong>Idade:</strong> Intensidade calibrada</p>
                   <p><strong>Protocolo:</strong> 5 minutos</p>
                 </div>
+                
+                <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
+                  <p className="text-sm italic text-muted-foreground">
+                    {getConditional() === 'Y' && "Você foi vendida a ideia de que precisa passar 2h na academia. O Protocolo faz Ativação Neural (2min) e Estímulo Localizado."}
+                    {getConditional() === 'Z' && "'Não tenho tempo' é a desculpa #1, e a gente resolveu. Você precisa de 5 minutos de ativação glútea focada."}
+                    {getConditional() === 'X' && "Depois dos 35, o corpo quer estímulos curtos e direcionados. É por isso que o Protocolo funciona tão bem para mulheres 40+."}
+                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento. Você não precisa estar pronta."}
+                  </p>
+                </div>
+
                 <button
+                  onClick={() => navigate({ to: "/sales" })}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
                   Quero Meu Protocolo Agora →
