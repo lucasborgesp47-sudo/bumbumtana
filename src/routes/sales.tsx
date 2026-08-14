@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Trophy, Check, Shield, Lock, ChevronRight } from "lucide-react";
+import { useLoadingBar } from "../components/ui/LoadingBar";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -10,6 +11,16 @@ function SalesPage() {
   const navigate = useNavigate();
   const [spots, setSpots] = useState(47);
   const [timeLeft, setTimeLeft] = useState(434); // Default 7:14
+  const { start, finish } = useLoadingBar();
+
+  const handlePurchase = async () => {
+    start();
+    // Simulate some async check or redirect preparation
+    setTimeout(() => {
+      finish();
+      window.location.href = "https://kiwify.com.br/checkout";
+    }, 800);
+  };
 
   useEffect(() => {
     const timerStartKey = 'bbg_timer_start';
@@ -71,7 +82,7 @@ function SalesPage() {
         <div className="pb-4">
           <button 
             className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
-            onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
+            onClick={handlePurchase}
           >
             Garantir Minha Vaga Agora →
           </button>
@@ -218,7 +229,7 @@ function SalesPage() {
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t border-border z-50">
         <button 
           className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-xl shadow-primary/20 transition-transform active:scale-95 text-lg"
-          onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
+          onClick={handlePurchase}
         >
           Garantir Minha Vaga Agora →
         </button>
