@@ -9,12 +9,34 @@ export const Route = createFileRoute("/sales")({
 function SalesPage() {
   const navigate = useNavigate();
   const [spots, setSpots] = useState(47);
-  const [timeLeft, setTimeLeft] = useState(434); // 7:14 in seconds
+  const [timeLeft, setTimeLeft] = useState(434); // Default 7:14
 
   useEffect(() => {
+    const timerStartKey = 'bbg_timer_start';
+    const duration = 434;
+    const now = Math.floor(Date.now() / 1000);
+    
+    let startTime = parseInt(localStorage.getItem(timerStartKey) || '0');
+    
+    if (!startTime || (now - startTime) > duration) {
+      startTime = now;
+      localStorage.setItem(timerStartKey, startTime.toString());
+    }
+    
+    const elapsed = now - startTime;
+    const remaining = Math.max(0, duration - elapsed);
+    setTimeLeft(remaining);
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => {
+        if (prev <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -25,10 +47,9 @@ function SalesPage() {
   };
 
   useEffect(() => {
-    // Dynamic spot counter logic
     const interval = setInterval(() => {
       setSpots((prev) => (prev > 3 ? prev - 1 : 3));
-    }, 270000); // 4.5 minutes in ms
+    }, 270000);
     return () => clearInterval(interval);
   }, []);
 

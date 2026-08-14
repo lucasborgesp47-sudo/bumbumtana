@@ -160,14 +160,14 @@ function Index() {
             )}
             
             {step === 5 && (
-              <div className="space-y-8">
+              <div className="space-y-8 animate-in fade-in duration-500">
                 <div className="space-y-4">
                   <h1 className="text-xl md:text-2xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
                   <div className="grid grid-cols-2 gap-3">
                     {["⏱️ < 10 min", "⏱️ 10-15 min", "⏱️ 15-30 min", "⏱️ Sem limite"].map((opt) => (
                       <button
                         key={opt}
-                        onClick={() => updateData({ time: opt })}
+                        onClick={() => nextStep({ time: opt })}
                         className="bg-card p-4 rounded-xl border-2 border-border hover:border-primary text-center font-bold"
                       >
                         {opt}
@@ -175,7 +175,11 @@ function Index() {
                     ))}
                   </div>
                 </div>
-                
+              </div>
+            )}
+
+            {step === 6 && (
+              <div className="space-y-8 animate-in fade-in duration-500">
                 <div className="space-y-4">
                   <h1 className="text-xl md:text-2xl font-bold text-balance">E seu nível de atividade hoje?</h1>
                   <div className="grid gap-3">
@@ -198,14 +202,15 @@ function Index() {
               </div>
             )}
             
-            {step === 6 && (
-              <div className="space-y-4 md:space-y-6">
+            {step === 7 && (
+              <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Dados Físicos</h1>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
                     <input
                       type="number"
+                      inputMode="numeric"
                       placeholder="Ex: 68"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ weight: e.target.value })}
@@ -215,6 +220,7 @@ function Index() {
                     <label className="block text-sm font-bold mb-2">Qual a sua altura? (cm)</label>
                     <input
                       type="number"
+                      inputMode="numeric"
                       placeholder="Ex: 165"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ height: e.target.value })}
@@ -230,12 +236,14 @@ function Index() {
               </div>
             )}
             
-            {step === 7 && (
-              <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto">
+            {step === 8 && (
+              <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto animate-in fade-in duration-500">
                 <h2 className="text-2xl font-bold text-primary">🎯 Seu Protocolo Personalizado está pronto!</h2>
                 <div className="text-left space-y-2 bg-background p-4 rounded-xl border border-border">
-                  <p><strong>Idade:</strong> Intensidade calibrada</p>
-                  <p><strong>Protocolo:</strong> 5 minutos</p>
+                  <p><strong>Idade:</strong> {data.age || "Calibrada"}</p>
+                  <p><strong>Peso:</strong> {data.weight ? `${data.weight}kg` : "--"}</p>
+                  <p><strong>Altura:</strong> {data.height ? `${data.height}cm` : "--"}</p>
+                  <p><strong>Protocolo:</strong> {data.time?.includes("< 10") ? "5 minutos" : "12 minutos"}</p>
                 </div>
                 
                 <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
