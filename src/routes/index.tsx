@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "../hooks/useQuiz";
-import { ChevronRight, Check, X, Shield, Lock, Trophy } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
+import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,10 +24,22 @@ function ProgressBar({ step }: { step: number }) {
 }
 
 function Index() {
-  const { step, nextStep, loading, showDopamine, dopamineType, closeDopamine } = useQuiz();
+  const { 
+    step, 
+    nextStep, 
+    loading, 
+    showDopamine, 
+    dopamineType, 
+    closeDopamine,
+    showEmotionalOverlay 
+  } = useQuiz();
 
   if (showDopamine) {
     return <DopamineOverlay type={dopamineType as 1 | 2 | 3} onContinue={closeDopamine} />;
+  }
+
+  if (showEmotionalOverlay) {
+    return <EmotionalOverlay />;
   }
 
   if (loading) {
@@ -87,6 +100,28 @@ function Index() {
                     <button
                       key={opt}
                       onClick={() => nextStep({ objective: opt })}
+                      className="w-full text-left bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all font-bold text-lg"
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {step === 3 && (
+              <div className="space-y-6">
+                <h1 className="text-3xl font-bold">Como você REALMENTE se sente quando olha para suas coxas e bumbum no espelho?</h1>
+                <div className="grid gap-4">
+                  {[
+                    "😔 Frustrada — já tentei de tudo e nada muda",
+                    "😤 Irritada — vejo outras mulheres com resultado",
+                    "😶 Desmotivada — cheguei a desistir de tentar",
+                    "😰 Ansiosa — tenho evento/data marcada",
+                  ].map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => nextStep({ feelings: opt })}
                       className="w-full text-left bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all font-bold text-lg"
                     >
                       {opt}
