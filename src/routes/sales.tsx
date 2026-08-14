@@ -82,19 +82,34 @@ function SalesPage() {
       </div>
 
       {/* Social Proof */}
-      <div className="px-6 mt-12 space-y-6">
-        <h2 className="text-xl font-bold text-center">Quem seguiu o plano, teve resultado</h2>
-        <div className="grid gap-4">
-          <div className="bg-card p-6 rounded-2xl border border-border">
-            <p className="italic mb-4 text-sm">"Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans subiu dois números mais confortáveis."</p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">C</div>
-              <span className="font-bold text-sm">Carla, 43 anos — 21 dias</span>
-            </div>
+      <div className="px-6 mt-12 space-y-8">
+        <div className="text-center space-y-2">
+          <h2 className="text-4xl font-black">6 meses.</h2>
+          <p className="text-muted-foreground text-sm max-w-[280px] mx-auto">
+            E o mais impressionante? 68% deles tinham mais de 35 anos e acharam que já era tarde demais.
+          </p>
+        </div>
+
+        <div className="bg-card p-8 rounded-[32px] border border-white/5 relative overflow-hidden shadow-2xl">
+          <div className="flex justify-end gap-1 mb-6">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <span key={s} className="text-[#FF6F00]">★</span>
+            ))}
           </div>
-          <div className="bg-primary/5 p-4 rounded-xl text-center border border-primary/10">
-            <p className="font-bold text-primary">47.832 mulheres nos últimos 6 meses</p>
+          
+          <p className="italic mb-8 text-lg leading-relaxed text-center font-medium">
+            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans levantou dois números mais confortáveis."
+          </p>
+          
+          <div className="flex items-center justify-center gap-2 text-[#E91E63] font-bold">
+            <span className="w-5 h-[2px] bg-[#E91E63]"></span>
+            <span>Carla, 43 anos</span>
           </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-3 text-lg font-bold">
+          <span className="text-2xl">👇</span>
+          <span>Vamos descobrir o que está travando o seu resultado</span>
         </div>
       </div>
 
