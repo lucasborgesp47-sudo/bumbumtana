@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export interface QuizData {
+  name?: string;
   age?: string;
   objective?: string;
   feelings?: string;
