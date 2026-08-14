@@ -55,7 +55,7 @@ function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6 overflow-x-hidden">
+    <div className="min-h-screen bg-background py-8 px-6 overflow-x-hidden overflow-y-auto">
       <div className="max-w-md mx-auto">
         <ProgressBar step={step} />
         <div key={step}>

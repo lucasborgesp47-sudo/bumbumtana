@@ -68,12 +68,14 @@ function SalesPage() {
         </div>
 
         <div className="text-xl md:text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
-        <button 
-          className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
-          onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
-        >
-          Quero Treinar Meu Bumbum →
-        </button>
+        <div className="pb-4">
+          <button 
+            className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
+            onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
+          >
+            Garantir Minha Vaga Agora →
+          </button>
+        </div>
       </div>
 
       {/* Trust Badges */}
