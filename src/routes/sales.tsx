@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { Trophy, Check, Shield, Lock } from "lucide-react";
+import { Trophy, Check, Shield, Lock, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
