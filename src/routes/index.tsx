@@ -1,8 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "../hooks/useQuiz";
-import { ChevronRight, Check, X, Shield, Lock, Trophy } from "lucide-react";
+import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
+import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,10 +24,25 @@ function ProgressBar({ step }: { step: number }) {
 }
 
 function Index() {
-  const { step, nextStep, loading, showDopamine, dopamineType, closeDopamine } = useQuiz();
+  const navigate = useNavigate();
+  const { 
+    step, 
+    nextStep, 
+    loading, 
+    showDopamine, 
+    dopamineType, 
+    closeDopamine,
+    showEmotionalOverlay,
+    updateData,
+    getConditional
+  } = useQuiz();
 
   if (showDopamine) {
     return <DopamineOverlay type={dopamineType as 1 | 2 | 3} onContinue={closeDopamine} />;
+  }
+
+  if (showEmotionalOverlay) {
+    return <EmotionalOverlay />;
   }
 
   if (loading) {
@@ -96,15 +112,151 @@ function Index() {
               </div>
             )}
             
+            {step === 3 && (
+              <div className="space-y-6">
+                <h1 className="text-3xl font-bold">Como você REALMENTE se sente quando olha para suas coxas e bumbum no espelho?</h1>
+                <div className="grid gap-4">
+                  {[
+                    "😔 Frustrada — já tentei de tudo e nada muda",
+                    "😤 Irritada — vejo outras mulheres com resultado",
+                    "😶 Desmotivada — cheguei a desistir de tentar",
+                    "😰 Ansiosa — tenho evento/data marcada",
+                  ].map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => nextStep({ feelings: opt })}
+                      className="w-full text-left bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all font-bold text-lg"
+                    >
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {step === 4 && (
+              <div className="space-y-6">
+                <h1 className="text-3xl font-bold">Marque tudo que você já fez para mudar bumbum e coxa:</h1>
+                <div className="grid gap-3">
+                  {[
+                    "🏋️‍♀️ Academia tradicional",
+                    "🥗 Dieta restritiva / detox",
+                    "📱 Outros apps de exercício",
+                    "💊 Suplementos / cremes",
+                    "💉 Procedimentos estéticos",
+                    "🙅‍♀️ Nunca tentei nada direcionado",
+                  ].map((opt) => (
+                    <button
+                      key={opt}
+                      onClick={() => nextStep({ tried: [opt] })}
+                      className="w-full text-left bg-card p-4 rounded-xl border-2 border-border hover:border-primary transition-all flex items-center"
+                    >
+                      <div className="w-6 h-6 border-2 border-gray-300 rounded mr-4 flex items-center justify-center">
+                        <Check size={16} className="text-primary hidden group-active:block" />
+                      </div>
+                      <span className="font-medium">{opt}</span>
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => nextStep()}
+                    className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold"
+                  >
+                    Continuar →
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            {step === 5 && (
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <h1 className="text-2xl font-bold">Por dia, quantos minutos você consegue separar?</h1>
+                  <div className="grid grid-cols-2 gap-3">
+                    {["⏱️ < 10 min", "⏱️ 10-15 min", "⏱️ 15-30 min", "⏱️ Sem limite"].map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => updateData({ time: opt })}
+                        className="bg-card p-4 rounded-xl border-2 border-border hover:border-primary text-center font-bold"
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <h1 className="text-2xl font-bold">E seu nível de atividade hoje?</h1>
+                  <div className="grid gap-3">
+                    {[
+                      "🛋️ Sedentária — nada há meses",
+                      "🚶‍♀️ Leve — caminho eventualmente",
+                      "💪 Moderada — 1-2x por semana",
+                      "🏃‍♀️ Ativa — treino regular",
+                    ].map((opt) => (
+                      <button
+                        key={opt}
+                        onClick={() => nextStep({ activityLevel: opt })}
+                        className="w-full text-left bg-card p-4 rounded-xl border-2 border-border hover:border-primary font-bold"
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {step === 6 && (
+              <div className="space-y-6">
+                <h1 className="text-3xl font-bold">Dados Físicos</h1>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
+                    <input
+                      type="number"
+                      placeholder="Ex: 68"
+                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
+                      onChange={(e) => updateData({ weight: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold mb-2">Qual a sua altura? (cm)</label>
+                    <input
+                      type="number"
+                      placeholder="Ex: 165"
+                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
+                      onChange={(e) => updateData({ height: e.target.value })}
+                    />
+                  </div>
+                  <button
+                    onClick={() => nextStep()}
+                    className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg mt-4"
+                  >
+                    Calibrar Meu Protocolo →
+                  </button>
+                </div>
+              </div>
+            )}
+            
             {step === 7 && (
               <div className="bg-card p-8 rounded-3xl border shadow-xl text-center space-y-6">
                 <h2 className="text-2xl font-bold text-primary">🎯 Seu Protocolo Personalizado está pronto!</h2>
                 <div className="text-left space-y-2 bg-background p-4 rounded-xl border border-border">
-                  <p><strong>Idade:</strong> 30-39 → Intensidade calibrada</p>
-                  <p><strong>Objetivo:</strong> Levantar o bumbum</p>
+                  <p><strong>Idade:</strong> Intensidade calibrada</p>
                   <p><strong>Protocolo:</strong> 5 minutos</p>
                 </div>
+                
+                <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
+                  <p className="text-sm italic text-muted-foreground">
+                    {getConditional() === 'Y' && "Você foi vendida a ideia de que precisa passar 2h na academia. O Protocolo faz Ativação Neural (2min) e Estímulo Localizado."}
+                    {getConditional() === 'Z' && "'Não tenho tempo' é a desculpa #1, e a gente resolveu. Você precisa de 5 minutos de ativação glútea focada."}
+                    {getConditional() === 'X' && "Depois dos 35, o corpo quer estímulos curtos e direcionados. É por isso que o Protocolo funciona tão bem para mulheres 40+."}
+                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento. Você não precisa estar pronta."}
+                  </p>
+                </div>
+
                 <button
+                  onClick={() => navigate({ to: "/sales" })}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
                   Quero Meu Protocolo Agora →
