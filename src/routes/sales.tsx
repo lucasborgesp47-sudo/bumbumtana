@@ -9,12 +9,34 @@ export const Route = createFileRoute("/sales")({
 function SalesPage() {
   const navigate = useNavigate();
   const [spots, setSpots] = useState(47);
-  const [timeLeft, setTimeLeft] = useState(434); // 7:14 in seconds
+  const [timeLeft, setTimeLeft] = useState(434); // Default 7:14
 
   useEffect(() => {
+    const timerStartKey = 'bbg_timer_start';
+    const duration = 434;
+    const now = Math.floor(Date.now() / 1000);
+    
+    let startTime = parseInt(localStorage.getItem(timerStartKey) || '0');
+    
+    if (!startTime || (now - startTime) > duration) {
+      startTime = now;
+      localStorage.setItem(timerStartKey, startTime.toString());
+    }
+    
+    const elapsed = now - startTime;
+    const remaining = Math.max(0, duration - elapsed);
+    setTimeLeft(remaining);
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+      setTimeLeft((prev) => {
+        if (prev <= 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -25,10 +47,9 @@ function SalesPage() {
   };
 
   useEffect(() => {
-    // Dynamic spot counter logic
     const interval = setInterval(() => {
       setSpots((prev) => (prev > 3 ? prev - 1 : 3));
-    }, 270000); // 4.5 minutes in ms
+    }, 270000);
     return () => clearInterval(interval);
   }, []);
 
@@ -47,24 +68,29 @@ function SalesPage() {
         </div>
 
         <div className="text-xl md:text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
-        <button 
-          className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
-          onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
-        >
-          Quero Treinar Meu Bumbum →
-        </button>
+        <div className="pb-4">
+          <button 
+            className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
+            onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
+          >
+            Garantir Minha Vaga Agora →
+          </button>
+        </div>
       </div>
 
       {/* Trust Badges */}
       <div className="flex justify-center gap-6 py-6 text-xs text-muted-foreground">
         <div className="flex items-center gap-1"><Shield size={16} /> Compra Segura</div>
         <div className="flex items-center gap-1"><Trophy size={16} /> Satisfação</div>
-        <div className="flex items-center gap-1"><Lock size={16} /> Privacidade</div>
+        <div className="flex items-center gap-1"><Lock size={16} /> Garantia</div>
       </div>
 
       {/* Offer Stack */}
       <div className="px-6 space-y-4">
-        <h2 className="text-xl md:text-2xl font-bold text-center mb-6 text-balance">O que você vai receber</h2>
+        <h2 className="text-xl md:text-2xl font-bold text-center mb-2 text-balance">O que você vai receber</h2>
+        <p className="text-center text-sm md:text-base mb-6 text-muted-foreground">
+          🔥 MAIS DE 47.832 MULHERES já usaram esse método nos últimos 6 meses.
+        </p>
         {[
           { title: "Protocolo Base ANS — 5 Minutos", icon: "🧠" },
           { title: 'Rotina Express "Bumbum em Casa"', icon: "⚡" },
@@ -98,7 +124,7 @@ function SalesPage() {
           </div>
           
           <p className="italic mb-8 text-base md:text-lg leading-relaxed text-center font-medium px-2">
-            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans levantou dois números mais confortáveis."
+            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada."
           </p>
           
           <div className="flex items-center justify-center gap-2 text-[#E91E63] font-bold">
@@ -133,10 +159,22 @@ function SalesPage() {
             </ul>
           </div>
         </div>
+
+        <div className="bg-card p-6 rounded-2xl border border-border">
+          <div className="flex justify-end gap-1 mb-4">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <span key={s} className="text-[#FF6F00]">★</span>
+            ))}
+          </div>
+          <p className="italic text-sm font-medium mb-4">
+            "Sempre tive vergonha de usar legging clara. Depois de 3 semanas com o protocolo, sinto minhas pernas muito mais firmes."
+          </p>
+          <div className="text-primary font-bold text-sm">— Mariana, 31 anos</div>
+        </div>
       </div>
 
       {/* Scarcity Section */}
-      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm mx-auto">
+      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm md:mx-auto px-6">
         <h3 className="font-bold text-lg">⚠️ PREÇO DE VALIDAÇÃO</h3>
         <p className="text-sm opacity-90">Esse valor é exclusivo para as primeiras 200 mulheres.</p>
         <div className="text-4xl font-bold">{spots}</div>
