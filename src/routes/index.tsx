@@ -5,7 +5,6 @@ import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import { useLoadingBar } from "../components/ui/LoadingBar";
 
 export const Route = createFileRoute("/")({
   component: Index,
