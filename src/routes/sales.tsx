@@ -78,7 +78,11 @@ function SalesPage() {
           <div className="text-3xl font-mono font-black text-primary">{formatTime(timeLeft)}</div>
         </div>
 
-        <div className="text-xl md:text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
+        <div className="space-y-1">
+          <div className="text-sm md:text-base text-muted-foreground line-through">De R$ 99,90</div>
+          <div className="inline-block bg-success/10 text-success text-xs font-bold px-2 py-0.5 rounded-full mb-1">70% DE DESCONTO</div>
+          <div className="text-xl md:text-3xl font-black">Por apenas <span className="text-primary">R$ 29,90</span></div>
+        </div>
         <div className="pb-4">
           <button 
             className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
@@ -108,11 +112,18 @@ function SalesPage() {
           { title: 'Método "Porta Fechada"', icon: "🚪" },
           { title: "BÔNUS — Mapa da Silhueta Definida", icon: "🎁", bonus: true },
         ].map((item, i) => (
-          <div key={i} className="bg-card p-5 rounded-2xl border border-border flex items-center gap-4">
-            <span className="text-3xl">{item.icon}</span>
-            <div>
-              <h4 className="font-bold">{item.title}</h4>
-              {item.bonus && <span className="text-xs text-primary font-bold">Valor real: R$47 — incluso hoje</span>}
+          <div key={i} className="bg-card p-5 rounded-3xl border border-border flex items-center gap-4 relative overflow-hidden group hover:border-primary/50 transition-colors shadow-sm">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors" />
+            <span className="text-4xl relative z-10">{item.icon}</span>
+            <div className="relative z-10">
+              <h4 className="font-bold text-lg">{item.title}</h4>
+              {item.bonus ? (
+                <span className="text-xs text-primary font-bold bg-primary/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Presente Grátis: R$ 47,00</span>
+              ) : (
+                <div className="flex items-center gap-1 text-success text-xs font-bold">
+                  <Check size={12} /> Incluso no Protocolo
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -226,7 +237,11 @@ function SalesPage() {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t border-border z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-xl border-t border-border z-50 flex flex-col gap-2">
+        <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+          <div className="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
+          {spots} mulheres visualizando esta oferta agora
+        </div>
         <button 
           className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-xl shadow-primary/20 transition-transform active:scale-95 text-lg"
           onClick={handlePurchase}
