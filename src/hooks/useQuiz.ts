@@ -11,16 +11,19 @@ export const useQuiz = () => {
     setData((prev: any) => ({ ...prev, ...newData }));
   };
 
-  const nextStep = () => {
+  const nextStep = (stepData?: any) => {
+    if (stepData) {
+      updateData(stepData);
+    }
+
     if (step === 2 || step === 4 || step === 5) {
       setDopamineType(step === 2 ? 1 : step === 4 ? 2 : 3);
       setShowDopamine(true);
     } else if (step === 6) {
       setLoading(true);
-      // Simulate loading
       setTimeout(() => {
         setLoading(false);
-        setStep(7); // Final screen
+        setStep(7);
       }, 3000);
     } else {
       setStep((prev) => prev + 1);
