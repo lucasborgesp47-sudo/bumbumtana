@@ -27,24 +27,7 @@ function Index() {
   const { step, nextStep, loading, showDopamine, dopamineType, closeDopamine } = useQuiz();
 
   if (showDopamine) {
-    return (
-      <div className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold mb-6 text-center">
-          🔥 MAIS DE 47.832 MULHERES já usaram esse método nos últimos 6 meses.
-        </h2>
-        <div className="bg-white/5 p-6 rounded-2xl mb-8 border border-white/10">
-          <p className="italic text-lg">
-            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans subiu dois números mais confortáveis." — Carla, 43 anos
-          </p>
-        </div>
-        <button
-          onClick={closeDopamine}
-          className="w-full bg-primary hover:bg-primary-hover text-white py-4 px-6 rounded-2xl font-bold text-lg flex items-center justify-center transition-colors"
-        >
-          Continuar <ChevronRight className="ml-2" />
-        </button>
-      </div>
-    );
+    return <DopamineOverlay type={dopamineType as 1 | 2 | 3} onContinue={closeDopamine} />;
   }
 
   if (loading) {
