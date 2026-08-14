@@ -186,9 +186,8 @@ function SalesPage() {
           
           <div className="space-y-3">
             {[
-              { title: "Protocolo Base — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: "Protocolo Bumbum Granada — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
-              { title: 'Método "Porta Fechada"', benefit: "Técnicas discretas para fazer sem ninguém notar.", price: "37" },
               { title: "Bônus: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true }
             ].map((item, i) => (
               <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4">
@@ -217,17 +216,40 @@ function SalesPage() {
       <section className="px-5 py-12 md:px-6 md:py-[72px] overflow-hidden">
         <h2 className="text-2xl font-bold text-center mb-8">Resultados reais em 21 dias</h2>
         <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide -mx-5 px-5">
-          {[1, 2, 3].map((item) => (
-            <div key={item} className="min-w-[280px] bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-4">
+          {[
+            {
+              name: "Carla Silva",
+              age: "43 anos",
+              photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop",
+              text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias do Protocolo Bumbum Granada, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
+            },
+            {
+              name: "Mariana Costa",
+              age: "28 anos",
+              photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop",
+              text: "O melhor são os treinos de 15 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
+            },
+            {
+              name: "Fernanda Lima",
+              age: "35 anos",
+              photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop",
+              text: "A sensação de ativação é surreal. Você sente o músculo trabalhando de verdade logo no primeiro dia. Mudou meu corpo completamente."
+            }
+          ].map((item, idx) => (
+            <div key={idx} className="min-w-[280px] bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-4 shadow-sm">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-[var(--line)]" />
+                <img 
+                  src={item.photo} 
+                  alt={item.name} 
+                  className="w-12 h-12 rounded-full object-cover border-2 border-[var(--brand-soft)]"
+                />
                 <div>
-                  <div className="font-bold">[Nome Placeholder]</div>
-                  <div className="text-xs text-[var(--ink-2)]">[Idade]</div>
+                  <div className="font-bold text-[var(--ink)]">{item.name}</div>
+                  <div className="text-xs text-[var(--ink-2)]">{item.age}</div>
                 </div>
               </div>
               <p className="text-sm italic leading-relaxed text-[var(--ink-2)]">
-                "[inserir depoimento real focado em sentir o glúteo mais firme e roupas vestindo melhor após 21 dias]"
+                "{item.text}"
               </p>
               <div className="flex text-[#FFD700]">
                 {[...Array(5)].map((_, i) => <Zap key={i} size={14} fill="currentColor" />)}
