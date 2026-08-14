@@ -119,8 +119,13 @@ function SalesPage() {
             {formatTime(timeLeft)}
           </div>
           {!isExpired && (
-            <div className="mt-2 text-[13px] font-bold text-[var(--ok)] animate-pulse">
-              70% de desconto aplicado
+            <div className="mt-2 space-y-1">
+              <div className="text-sm font-bold text-[var(--ink-2)] line-through">
+                R$ 99,90
+              </div>
+              <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
+                70% de desconto aplicado
+              </div>
             </div>
           )}
         </div>
