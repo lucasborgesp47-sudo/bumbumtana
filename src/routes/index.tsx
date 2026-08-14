@@ -9,7 +9,9 @@ export const Route = createFileRoute("/")({
 });
 
 function ProgressBar({ step }: { step: number }) {
-  const percentage = (step / 6) * 100;
+  // Total steps in the funnel: 8 content steps + loading/results
+  const totalSteps = 10;
+  const percentage = Math.min((step / totalSteps) * 100, 100);
   return (
     <div className="w-full bg-slate-200 rounded-full h-2 mb-8 overflow-hidden">
       <div
