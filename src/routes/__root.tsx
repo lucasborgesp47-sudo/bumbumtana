@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LoadingBarProvider, useLoadingBar } from "../components/ui/LoadingBar";
 
 function NotFoundComponent() {
   return (
@@ -131,8 +132,31 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LoadingBarProvider>
+        <RouterListener />
+        <Outlet />
+      </LoadingBarProvider>
     </QueryClientProvider>
   );
+}
+
+function RouterListener() {
+  const router = useRouter();
+  const { start, finish } = useLoadingBar();
+
+  useEffect(() => {
+    const unsub = router.subscribe('onBeforeNavigate', () => {
+      start();
+    });
+    const unsub2 = router.subscribe('onLoad', () => {
+      finish();
+    });
+
+    return () => {
+      unsub();
+      unsub2();
+    };
+  }, [router, start, finish]);
+
+  return null;
 }
