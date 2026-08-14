@@ -9,9 +9,9 @@ interface DopamineProps {
 export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
   return (
     <div
-      className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-center animate-in fade-in duration-300"
+      className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-start overflow-y-auto animate-in fade-in duration-300"
     >
-      <div className="max-w-md mx-auto w-full text-center space-y-8">
+      <div className="max-w-md mx-auto w-full text-center space-y-8 py-8">
         <div className="space-y-4">
           <h2 className="text-2xl font-bold leading-tight">
             🔥 MAIS DE 47.832 MULHERES já usaram esse método nos últimos 6 meses.
@@ -31,7 +31,7 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
           </div>
           
           <p className="italic text-lg relative z-10 leading-relaxed">
-            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans subiu dois números mais confortáveis."
+            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada."
           </p>
           <p className="mt-4 font-bold text-primary">— Carla, 43 anos</p>
           
