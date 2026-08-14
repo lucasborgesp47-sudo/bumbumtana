@@ -35,6 +35,21 @@ export const useQuiz = () => {
       updateData(stepData);
     }
 
+    // Step mapping (Total steps increased due to split):
+    // 1: Age
+    // 2: Objective
+    // (Dopamine 1)
+    // 3: Feelings
+    // (Emotional)
+    // 4: Tried
+    // (Dopamine 2)
+    // 5: Time (Minutes)
+    // 6: Activity Level
+    // (Dopamine 3)
+    // 7: Physical Data (Weight/Height)
+    // (Loading)
+    // 8: Results
+
     if (step === 2) {
       setDopamineType(1);
       setShowDopamine(true);
@@ -47,14 +62,14 @@ export const useQuiz = () => {
     } else if (step === 4) {
       setDopamineType(2);
       setShowDopamine(true);
-    } else if (step === 5) {
+    } else if (step === 6) { // Now happens after step 6 (Activity Level)
       setDopamineType(3);
       setShowDopamine(true);
-    } else if (step === 6) {
+    } else if (step === 7) { // Now happens after step 7 (Physical Data)
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        setStep(7);
+        setStep(8);
       }, 3000);
     } else {
       setStep((prev) => prev + 1);
