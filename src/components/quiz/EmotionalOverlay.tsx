@@ -1,12 +1,9 @@
-import { motion } from "framer-motion";
+
 
 export const EmotionalOverlay = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-[#1A1A2E]/95 text-white p-6 flex flex-col justify-center items-center text-center"
+    <div
+      className="fixed inset-0 z-50 bg-[#1A1A2E]/95 text-white p-6 flex flex-col justify-center items-center text-center animate-in fade-in duration-300"
     >
       <div className="max-w-md space-y-6">
         <h2 className="text-2xl font-bold text-primary">Você não está sozinha.</h2>
@@ -22,6 +19,6 @@ export const EmotionalOverlay = () => {
           </p>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

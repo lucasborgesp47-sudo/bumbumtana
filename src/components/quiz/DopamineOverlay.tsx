@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Star } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -9,11 +8,8 @@ interface DopamineProps {
 
 export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-center"
+    <div
+      className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-center animate-in fade-in duration-300"
     >
       <div className="max-w-md mx-auto w-full text-center space-y-8">
         <div className="space-y-4">
@@ -43,7 +39,7 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
         </div>
 
         <div className="space-y-6">
-          <p className="text-xl font-medium animate-pulse">
+          <p className="text-xl font-medium">
             👇 Vamos descobrir o que está travando o seu resultado...
           </p>
           
@@ -55,6 +51,6 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
