@@ -33,7 +33,7 @@ function SalesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
+    <div className="min-h-screen bg-background text-foreground pb-32">
       {/* Hero Section */}
       <div className="bg-card p-8 text-center space-y-4">
         <div className="text-5xl">🍑</div>
