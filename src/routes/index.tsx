@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { motion, AnimatePresence } from "framer-motion";
 import { useQuiz } from "../hooks/useQuiz";
 import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
@@ -12,12 +11,10 @@ export const Route = createFileRoute("/")({
 function ProgressBar({ step }: { step: number }) {
   const percentage = (step / 6) * 100;
   return (
-    <div className="w-full bg-slate-200 rounded-full h-2 mb-8">
-      <motion.div
-        className="bg-primary h-2 rounded-full"
-        initial={{ width: 0 }}
-        animate={{ width: `${percentage}%` }}
-        transition={{ duration: 0.5 }}
+    <div className="w-full bg-slate-200 rounded-full h-2 mb-8 overflow-hidden">
+      <div
+        className="bg-primary h-2 rounded-full transition-all duration-500 ease-out"
+        style={{ width: `${percentage}%` }}
       />
     </div>
   );
@@ -58,14 +55,7 @@ function Index() {
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-md mx-auto">
         <ProgressBar step={step} />
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={step}
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -20, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-          >
+        <div key={step}>
             {step === 1 && (
               <div className="space-y-6">
                 <h1 className="text-3xl font-bold">Qual a sua idade?</h1>
@@ -263,8 +253,7 @@ function Index() {
                 </button>
               </div>
             )}
-          </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
     </div>
   );
