@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useQuiz } from "../hooks/useQuiz";
 import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
+import { useLoadingBar } from "../components/ui/LoadingBar";
 import { useLoadingBar } from "../components/ui/LoadingBar";
 
 export const Route = createFileRoute("/")({
@@ -37,6 +39,15 @@ function Index() {
     getConditional,
     data
   } = useQuiz();
+  const { start, finish } = useLoadingBar();
+
+  useEffect(() => {
+    if (loading) {
+      start();
+    } else {
+      finish();
+    }
+  }, [loading, start, finish]);
 
   if (showDopamine) {
     return <DopamineOverlay type={dopamineType as 1 | 2 | 3} onContinue={closeDopamine} />;
