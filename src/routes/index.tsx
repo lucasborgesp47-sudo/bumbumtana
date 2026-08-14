@@ -63,7 +63,7 @@ function Index() {
                   ].map((opt) => (
                     <button
                       key={opt.label}
-                      onClick={nextStep}
+                      onClick={() => nextStep({ age: opt.label })}
                       className="flex items-center text-left w-full bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all"
                     >
                       <span className="text-3xl mr-4">{opt.icon}</span>
