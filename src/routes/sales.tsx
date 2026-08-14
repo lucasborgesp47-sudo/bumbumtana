@@ -363,13 +363,13 @@ function SalesPage() {
 
       {/* STICKY CTA BAR */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[var(--line)] z-[100] h-[82px] md:h-[92px] pb-[env(safe-area-inset-bottom)]">
-        <div className="max-w-lg mx-auto px-5 h-full flex flex-col justify-center items-center gap-1">
+        <div className="max-w-lg mx-auto px-5 h-full flex flex-col justify-center items-center gap-1 text-center">
           <button 
             onClick={handlePurchase}
-            className="w-full bg-[var(--brand)] text-white h-12 md:h-14 rounded-xl font-bold flex flex-col items-center justify-center leading-tight shadow-lg shadow-[var(--brand)]/20"
+            className="w-full bg-[var(--brand)] text-white h-14 rounded-xl font-bold flex flex-col items-center justify-center leading-tight shadow-lg shadow-[var(--brand)]/20 active:scale-95 transition-transform"
           >
-            <span className="text-sm md:text-base">Quero meu protocolo — R$ {currentPrice}</span>
-            <span className="text-[10px] md:text-[11px] font-medium opacity-90">Pagamento único · Acesso imediato</span>
+            <span className="text-base">Quero meu protocolo — R$ {currentPrice}</span>
+            <span className="text-[12px] font-medium opacity-90">Pagamento único · Acesso imediato</span>
           </button>
         </div>
       </div>
