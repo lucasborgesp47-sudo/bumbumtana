@@ -82,7 +82,7 @@ function SalesPage() {
   const handlePurchase = () => {
     start();
     const checkoutLink = isExpired 
-      ? "https://kiwify.com.br/checkout?plan=49" // Placeholder for {{link_checkout_49}}
+      ? "https://kiwify.com.br/checkout?plan=99" // Placeholder for {{link_checkout_99}}
       : "https://kiwify.com.br/checkout?plan=29"; // Placeholder for {{link_checkout_29}}
     
     setTimeout(() => {
@@ -91,7 +91,7 @@ function SalesPage() {
     }, 800);
   };
 
-  const currentPrice = isExpired ? "49,90" : "29,90";
+  const currentPrice = isExpired ? "99,90" : "29,90";
   const anchorPrice = "99,90";
 
   return (
@@ -119,8 +119,13 @@ function SalesPage() {
             {formatTime(timeLeft)}
           </div>
           {!isExpired && (
-            <div className="mt-2 text-[13px] font-bold text-[var(--ok)] animate-pulse">
-              70% de desconto aplicado
+            <div className="mt-2 space-y-1">
+              <div className="text-sm font-bold text-[var(--ink-2)] line-through">
+                R$ 99,90
+              </div>
+              <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
+                70% de desconto aplicado
+              </div>
             </div>
           )}
         </div>
