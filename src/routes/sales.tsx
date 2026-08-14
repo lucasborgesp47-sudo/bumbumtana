@@ -1,6 +1,20 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { Trophy, Check, Shield, Lock, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { 
+  Shield, 
+  ChevronRight, 
+  CheckCircle2, 
+  Zap, 
+  Clock, 
+  Smartphone, 
+  Users, 
+  ArrowRight,
+  HelpCircle,
+  Menu,
+  Heart,
+  Layout,
+  PlayCircle
+} from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
 
 export const Route = createFileRoute("/sales")({
@@ -9,39 +23,47 @@ export const Route = createFileRoute("/sales")({
 
 function SalesPage() {
   const navigate = useNavigate();
-  const [spots, setSpots] = useState(47);
-  const [timeLeft, setTimeLeft] = useState(434); // Default 7:14
   const { start, finish } = useLoadingBar();
-
-  const handlePurchase = async () => {
-    start();
-    // Simulate some async check or redirect preparation
-    setTimeout(() => {
-      finish();
-      window.location.href = "https://kiwify.com.br/checkout";
-    }, 800);
-  };
+  
+  // Timer State
+  const [timeLeft, setTimeLeft] = useState(900); // 15:00
+  const [isExpired, setIsExpired] = useState(false);
+  
+  // Quiz data fallbacks
+  const [quizData, setQuizData] = useState<{name?: string, objective?: string}>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('bbg_quiz_data');
+      return saved ? JSON.parse(saved) : {};
+    }
+    return {};
+  });
 
   useEffect(() => {
-    const timerStartKey = 'bbg_timer_start';
-    const duration = 434;
+    const timerStartKey = 'oferta_inicio';
+    const DURATION = 900; // 15 mins
     const now = Math.floor(Date.now() / 1000);
     
     let startTime = parseInt(localStorage.getItem(timerStartKey) || '0');
     
-    if (!startTime || (now - startTime) > duration) {
+    if (!startTime) {
       startTime = now;
       localStorage.setItem(timerStartKey, startTime.toString());
     }
     
     const elapsed = now - startTime;
-    const remaining = Math.max(0, duration - elapsed);
+    const remaining = Math.max(0, DURATION - elapsed);
+    
+    if (remaining === 0) {
+      setIsExpired(true);
+    }
+    
     setTimeLeft(remaining);
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
-        if (prev <= 0) {
+        if (prev <= 1) {
           clearInterval(timer);
+          setIsExpired(true);
           return 0;
         }
         return prev - 1;
@@ -57,198 +79,325 @@ function SalesPage() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSpots((prev) => (prev > 3 ? prev - 1 : 3));
-    }, 270000);
-    return () => clearInterval(interval);
-  }, []);
+  const handlePurchase = () => {
+    start();
+    const checkoutLink = isExpired 
+      ? "https://kiwify.com.br/checkout?plan=49" // Placeholder for {{link_checkout_49}}
+      : "https://kiwify.com.br/checkout?plan=29"; // Placeholder for {{link_checkout_29}}
+    
+    setTimeout(() => {
+      finish();
+      window.location.href = checkoutLink;
+    }, 800);
+  };
+
+  const currentPrice = isExpired ? "49,90" : "29,90";
+  const anchorPrice = "99,90";
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-32 overflow-x-hidden">
-      {/* Hero Section */}
-      <div className="bg-card p-6 md:p-8 text-center space-y-4">
-        <div className="text-5xl">🍑</div>
-        <div className="bg-primary/10 text-primary py-1 px-3 rounded-full inline-block font-bold text-sm">100% Personalizado</div>
-        <h1 className="text-2xl md:text-3xl font-bold leading-tight px-2">Seu treino personalizado está pronto!</h1>
-        <p className="text-muted-foreground text-sm md:text-base px-2">Com base nas suas respostas, identificamos que você pode conquistar bumbum mais firme e coxas definidas em 4 semanas — mesmo sem academia.</p>
+    <div className="min-h-screen bg-[var(--surface)] text-[var(--ink)] font-sans overflow-x-hidden selection:bg-[var(--brand-soft)] selection:text-[var(--brand)]">
+      
+      {/* SECTION 1: DIAGNÓSTICO PERSONALIZADO */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] text-center max-w-2xl mx-auto space-y-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--brand-soft)] text-[var(--brand)] font-bold text-sm">
+          <Zap size={14} fill="currentColor" />
+          <span>PROTOCOLO 100% PERSONALIZADO</span>
+        </div>
         
-        <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2 max-w-[280px] mx-auto">
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Resgate seu desconto:</p>
-          <div className="text-3xl font-mono font-black text-primary">{formatTime(timeLeft)}</div>
-        </div>
-
-        <div className="space-y-1">
-          <div className="text-sm md:text-base text-muted-foreground line-through">De R$ 99,90</div>
-          <div className="inline-block bg-success/10 text-success text-xs font-bold px-2 py-0.5 rounded-full mb-1">70% DE DESCONTO</div>
-          <div className="text-xl md:text-3xl font-black">Por apenas <span className="text-primary">R$ 29,90</span></div>
-        </div>
-        <div className="pb-4">
-          <button 
-            className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
-            onClick={handlePurchase}
-          >
-            Garantir Minha Vaga Agora →
-          </button>
-        </div>
-      </div>
-
-      {/* Trust Badges */}
-      <div className="flex justify-center gap-6 py-6 text-xs text-muted-foreground">
-        <div className="flex items-center gap-1"><Shield size={16} /> Compra Segura</div>
-        <div className="flex items-center gap-1"><Trophy size={16} /> Satisfação</div>
-        <div className="flex items-center gap-1"><Lock size={16} /> Garantia</div>
-      </div>
-
-      {/* Offer Stack */}
-      <div className="px-6 space-y-4">
-        <h2 className="text-xl md:text-2xl font-bold text-center mb-2 text-balance">O que você vai receber</h2>
-        <p className="text-center text-sm md:text-base mb-6 text-muted-foreground">
-          🔥 MAIS DE 3.426 MULHERES já usaram esse método nos últimos 6 meses.
+        <h1 className="text-[32px] leading-[1.15] font-extrabold tracking-tight text-[var(--ink)]">
+          Seu protocolo está pronto, {quizData.name || "Guerreira"}
+        </h1>
+        
+        <p className="text-base leading-relaxed text-[var(--ink-2)] text-balance">
+          Pelas suas respostas, seu ponto de travamento é <span className="text-[var(--brand)] font-bold">{quizData.objective || "a falta de estímulo correto nas fibras musculares"}</span> — e é exatamente isso que o protocolo ataca nas primeiras 72 horas.
         </p>
-        {[
-          { title: "Protocolo Base ANS — 5 Minutos", icon: "🧠" },
-          { title: 'Rotina Express "Bumbum em Casa"', icon: "⚡" },
-          { title: 'Método "Porta Fechada"', icon: "🚪" },
-          { title: "BÔNUS — Mapa da Silhueta Definida", icon: "🎁", bonus: true },
-        ].map((item, i) => (
-          <div key={i} className="bg-card p-5 rounded-3xl border border-border flex items-center gap-4 relative overflow-hidden group hover:border-primary/50 transition-colors shadow-sm">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors" />
-            <span className="text-4xl relative z-10">{item.icon}</span>
-            <div className="relative z-10">
-              <h4 className="font-bold text-lg">{item.title}</h4>
-              {item.bonus ? (
-                <span className="text-xs text-primary font-bold bg-primary/10 px-2 py-0.5 rounded-full uppercase tracking-wider">Presente Grátis: R$ 47,00</span>
-              ) : (
-                <div className="flex items-center gap-1 text-success text-xs font-bold">
-                  <Check size={12} /> Incluso no Protocolo
+
+        {/* Real Timer */}
+        <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl p-4 inline-block w-full max-w-[280px]">
+          <p className="text-[13px] font-semibold text-[var(--ink-2)] uppercase mb-1">Oferta expira em:</p>
+          <div className={`text-[40px] font-extrabold leading-none ${isExpired ? 'text-[var(--ink-2)]' : 'text-[var(--brand)]'}`}>
+            {formatTime(timeLeft)}
+          </div>
+          {!isExpired && (
+            <div className="mt-2 text-[13px] font-bold text-[var(--ok)] animate-pulse">
+              70% de desconto aplicado
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* SECTION 2: O QUE TRAVA O RESULTADO */}
+      <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px]">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { icon: <Clock className="text-[var(--brand)]" />, title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
+            { icon: <Layout className="text-[var(--brand)]" />, title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
+            { icon: <Zap className="text-[var(--brand)]" />, title: "Falta de ativação", desc: "O problema não é o peso, é a conexão neural que está desligada." }
+          ].map((item, i) => (
+            <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--brand-soft)] flex items-center justify-center">
+                {item.icon}
+              </div>
+              <h3 className="text-lg font-bold leading-tight">{item.title}</h3>
+              <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 3: O PRODUTO (VISUAL) */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] text-center space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
+        
+        {/* CSS-Only Phone Mockup */}
+        <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
+          <div className="flex h-full animate-scroll-mockup">
+             {/* Mocking a horizontal scroll of screenshots */}
+             <div className="min-w-full h-full bg-gradient-to-b from-[var(--brand)] to-[var(--ink)] flex items-center justify-center text-white font-black text-2xl">SÉRIE 01</div>
+             <div className="min-w-full h-full bg-gradient-to-b from-[var(--ink)] to-[var(--brand)] flex items-center justify-center text-white font-black text-2xl">DIETA</div>
+             <div className="min-w-full h-full bg-gradient-to-b from-[var(--brand-soft)] to-[var(--brand)] flex items-center justify-center text-[var(--brand)] font-black text-2xl">BÔNUS</div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
+          {[
+            { icon: <Clock size={16} />, text: "Treinos de 15 minutos" },
+            { icon: <Zap size={16} />, text: "Sem equipamento" },
+            { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-2 bg-[var(--surface-2)] px-4 py-2 rounded-full text-sm font-semibold text-[var(--ink-2)] border border-[var(--line)]">
+              {item.icon}
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 4: STACK DE ENTREGÁVEIS */}
+      <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px]">
+        <div className="max-w-2xl mx-auto space-y-6">
+          <h2 className="text-2xl font-bold text-center mb-8">O que você vai receber hoje</h2>
+          
+          <div className="space-y-3">
+            {[
+              { title: "Protocolo Base — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
+              { title: 'Método "Porta Fechada"', benefit: "Técnicas discretas para fazer sem ninguém notar.", price: "37" },
+              { title: "Bônus: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true }
+            ].map((item, i) => (
+              <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={18} className="text-[var(--ok)]" />
+                    <h4 className="font-bold text-base">{item.title}</h4>
+                  </div>
+                  <p className="text-[13px] text-[var(--ink-2)] pl-6">{item.benefit}</p>
                 </div>
-              )}
+                <div className="text-[var(--ink-2)] line-through font-semibold text-sm whitespace-nowrap">R$ {item.price}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center">
+            <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ 198</p>
+            <div className="text-2xl font-black text-[var(--brand)]">
+              HOJE: R$ {currentPrice}
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Social Proof */}
-      <div className="px-6 mt-12 space-y-8">
-        <div className="text-center space-y-2">
-          <h2 className="text-4xl font-black">6 meses.</h2>
-          <p className="text-muted-foreground text-sm max-w-[280px] mx-auto">
-            E o mais impressionante? 68% deles tinham mais de 35 anos e acharam que já era tarde demais.
-          </p>
         </div>
+      </section>
 
-        <div className="bg-card p-6 md:p-8 rounded-[32px] border border-white/5 relative overflow-hidden shadow-2xl mx-auto w-full max-w-sm md:max-w-md">
-          <div className="flex justify-end gap-1 mb-6">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <span key={s} className="text-[#FF6F00]">★</span>
-            ))}
-          </div>
+      {/* SECTION 5: PROVA SOCIAL */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] overflow-hidden">
+        <h2 className="text-2xl font-bold text-center mb-8">Resultados reais em 21 dias</h2>
+        <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide -mx-5 px-5">
+          {[1, 2, 3].map((item) => (
+            <div key={item} className="min-w-[280px] bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-[var(--line)]" />
+                <div>
+                  <div className="font-bold">[Nome Placeholder]</div>
+                  <div className="text-xs text-[var(--ink-2)]">[Idade]</div>
+                </div>
+              </div>
+              <p className="text-sm italic leading-relaxed text-[var(--ink-2)]">
+                "[inserir depoimento real focado em sentir o glúteo mais firme e roupas vestindo melhor após 21 dias]"
+              </p>
+              <div className="flex text-[#FFD700]">
+                {[...Array(5)].map((_, i) => <Zap key={i} size={14} fill="currentColor" />)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 6: OFERTA */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] bg-[var(--surface-2)]">
+        <div className="max-w-md mx-auto bg-[var(--surface)] border-2 border-[var(--brand)] rounded-[32px] p-8 text-center space-y-6 shadow-xl relative overflow-hidden">
+          {!isExpired && (
+            <div className="absolute top-4 right-[-35px] rotate-45 bg-[var(--brand)] text-white text-[10px] font-bold py-1 px-10 shadow-md">
+              70% OFF
+            </div>
+          )}
           
-          <p className="italic mb-8 text-base md:text-lg leading-relaxed text-center font-medium px-2">
-            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada."
-          </p>
-          
-          <div className="flex items-center justify-center gap-2 text-[#E91E63] font-bold">
-            <span className="w-5 h-[2px] bg-[#E91E63]"></span>
-            <span>Carla, 43 anos</span>
+          <div className="space-y-1">
+            <h3 className="text-xl font-bold uppercase tracking-widest text-[var(--ink-2)]">Acesso Vitalício</h3>
+            <p className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</p>
+            <div className="text-[40px] font-black text-[var(--brand)] leading-none">R$ {currentPrice}</div>
+            <p className="text-sm font-bold text-[var(--ok)]">Pagamento único · Sem assinaturas</p>
+          </div>
+
+          <button 
+            onClick={handlePurchase}
+            className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
+          >
+            QUERO MEU PROTOCOLO AGORA
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          <div className="pt-2 space-y-3">
+            <div className="flex items-center justify-center gap-2 text-xs font-semibold text-[var(--ink-2)] opacity-70">
+              <Shield size={14} /> Compra Segura · Kiwify
+            </div>
+            <div className="flex justify-center gap-3 opacity-40 grayscale">
+              <img src="https://logodownload.org/wp-content/uploads/2014/07/visa-logo-1.png" alt="Visa" className="h-4" />
+              <img src="https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo.png" alt="Master" className="h-4" />
+              <img src="https://logodownload.org/wp-content/uploads/2015/03/pix-logo.png" alt="Pix" className="h-4" />
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="flex flex-col items-center justify-center gap-3 text-base md:text-lg font-bold text-center">
-          <span className="text-2xl animate-bounce">👇</span>
-          <span className="text-balance px-4">Vamos descobrir o que está travando o seu resultado</span>
-        </div>
-      </div>
-
-      {/* Before/After */}
-      <div className="px-6 mt-12 space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-slate-100 p-4 rounded-2xl text-slate-500">
-            <h4 className="font-bold mb-2 flex items-center gap-1">❌ ANTES</h4>
-            <ul className="text-xs space-y-1">
-              <li>Mensalidade cara</li>
-              <li>Falta de tempo</li>
-              <li>Frustração</li>
-            </ul>
-          </div>
-          <div className="bg-primary/5 p-4 rounded-2xl text-primary border border-primary/10">
-            <h4 className="font-bold mb-2 flex items-center gap-1">✅ DEPOIS</h4>
-            <ul className="text-xs space-y-1">
-              <li>Treina em casa</li>
-              <li>Confiança</li>
-              <li>Bumbum firme</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="bg-card p-6 rounded-2xl border border-border">
-          <div className="flex justify-end gap-1 mb-4">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <span key={s} className="text-[#FF6F00]">★</span>
-            ))}
-          </div>
-          <p className="italic text-sm font-medium mb-4">
-            "Sempre tive vergonha de usar legging clara. Depois de 3 semanas com o protocolo, sinto minhas pernas muito mais firmes."
-          </p>
-          <div className="text-primary font-bold text-sm">— Mariana, 31 anos</div>
-        </div>
-      </div>
-
-      {/* Scarcity Section */}
-      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm md:mx-auto px-6">
-        <h3 className="font-bold text-lg">⚠️ PREÇO DE VALIDAÇÃO</h3>
-        <p className="text-sm opacity-90">Esse valor é exclusivo para as primeiras 200 mulheres.</p>
-        <div className="text-4xl font-bold">{spots}</div>
-        <p className="font-bold">Vagas restantes</p>
-      </div>
-
-      {/* FAQ */}
-      <div className="px-6 space-y-4">
-        <h2 className="text-xl md:text-2xl font-bold text-center text-balance">Perguntas Frequentes</h2>
-        <div className="space-y-2">
+      {/* SECTION 7: COMO FUNCIONA DEPOIS DA COMPRA */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] max-w-2xl mx-auto space-y-8">
+        <h2 className="text-2xl font-bold text-center">O que acontece após o pagamento?</h2>
+        <div className="space-y-6">
           {[
-            "Funciona sem equipamento?",
-            "Precisa de espaço grande?",
-            "Melhora a aparência da pele?",
-            "Quanto tempo para ver resultado?",
-          ].map((q, i) => (
-            <details key={i} className="bg-card border border-border rounded-xl">
-              <summary className="p-4 font-bold text-sm cursor-pointer list-none flex justify-between items-center">
-                {q}
-                <ChevronRight size={16} className="text-primary" />
+            { step: "1", title: "Pagamento Aprovado", desc: "Assim que o sistema confirma o pagamento (instantâneo no PIX e Cartão)." },
+            { step: "2", title: "Acesso Imediato no E-mail", desc: "Você recebe o link único de acesso e sua senha em até 2 minutos." },
+            { step: "3", title: "Primeiro Treino Hoje", desc: "Basta abrir no celular e começar o seu primeiro ciclo de 15 minutos." }
+          ].map((item, i) => (
+            <div key={i} className="flex gap-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--ink)] text-white flex items-center justify-center font-bold">
+                {item.step}
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-bold text-base">{item.title}</h4>
+                <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* SECTION 8: GARANTIA */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] bg-[var(--surface-2)]">
+        <div className="max-w-xl mx-auto bg-white border-2 border-[var(--ok)] rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+          <div className="w-20 h-20 flex-shrink-0 rounded-full bg-[var(--ok)]/10 flex items-center justify-center text-[var(--ok)]">
+            <Shield size={48} />
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-xl font-bold text-[var(--ok)]">7 dias para testar sem risco</h3>
+            <p className="text-sm text-[var(--ink-2)] leading-relaxed">
+              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <span className="font-bold">suporte@bumbumgranada.com</span>. Devolvemos 100% do valor, sem perguntas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 9: FAQ */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] max-w-2xl mx-auto space-y-8">
+        <h2 className="text-2xl font-bold text-center">Dúvidas Frequentes</h2>
+        <div className="space-y-3">
+          {[
+            { q: "É um aplicativo? Preciso baixar alguma coisa?", a: "Não! É um WebApp (PWA). Você acessa direto pelo navegador e pode adicionar o ícone na tela inicial do celular como se fosse um app, sem ocupar memória." },
+            { q: "É cobrança única ou assinatura?", a: "Cobrança única! Você paga uma vez e o acesso é seu para sempre, incluindo todas as atualizações futuras do protocolo." },
+            { q: "Como e quando recebo o acesso?", a: "O acesso é enviado automaticamente para o seu e-mail cadastrado no checkout em até 2 minutos após a aprovação." },
+            { q: "Funciona se eu nunca treinei ou estou fora de forma?", a: "Com certeza. O protocolo respeita o seu nível e o estímulo neural não depende de força bruta ou experiência prévia." },
+            { q: "Preciso de equipamento ou espaço grande?", a: "Absolutamente nada. Você só precisa do seu peso corporal e de um espaço pequeno como um tapete de quarto." },
+            { q: "Em quanto tempo vejo diferença?", a: "A maioria das mulheres relata sentir a musculatura mais 'acordada' nas primeiras 72h e mudanças visíveis de firmeza em 21 dias." },
+            { q: "E se eu não gostar?", a: "Você tem 7 dias de garantia incondicional. Se não gostar, basta enviar um e-mail para o suporte." }
+          ].map((item, i) => (
+            <details key={i} className="group border border-[var(--line)] rounded-xl overflow-hidden bg-white">
+              <summary className="p-4 flex justify-between items-center font-bold text-sm md:text-base cursor-pointer hover:bg-[var(--surface-2)] transition-colors list-none">
+                {item.q}
+                <ChevronRight size={18} className="text-[var(--brand)] group-open:rotate-90 transition-transform" />
               </summary>
-              <div className="p-4 pt-0 text-sm text-muted-foreground border-t border-border">
-                Sim! O protocolo foi desenhado para ser feito 100% em casa, sem nenhum acessório extra, focando apenas na Ativação Neural Sequencial.
+              <div className="p-4 pt-0 text-sm text-[var(--ink-2)] leading-relaxed border-t border-[var(--line)]">
+                {item.a}
               </div>
             </details>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Guarantee */}
-      <div className="m-6 p-6 rounded-2xl border-2 border-success/30 bg-success/5 space-y-3 max-w-sm mx-auto">
-        <h3 className="font-bold text-success flex items-center gap-2">
-          <Shield size={20} /> GARANTIA DE 7 DIAS
-        </h3>
-        <p className="text-xs text-muted-foreground leading-relaxed">
-          Não gostou? Não funcionou pra você? Entre em contato em até 7 dias e devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.
-        </p>
-      </div>
-
-      {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-xl border-t border-border z-50 flex flex-col gap-2">
-        <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-          <div className="w-1.5 h-1.5 bg-success rounded-full animate-pulse" />
-          {spots} mulheres visualizando esta oferta agora
+      {/* SECTION 10: CTA FINAL */}
+      <section className="px-5 py-16 md:px-6 md:py-[80px] bg-[var(--ink)] text-white text-center space-y-8">
+        <div className="space-y-4 max-w-lg mx-auto">
+          <h2 className="text-3xl font-extrabold">Preparada para começar?</h2>
+          <p className="opacity-80">Junte-se a milhares de mulheres que decidiram ativar o bumbum sem sair de casa.</p>
         </div>
-        <button 
-          className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-xl shadow-primary/20 transition-transform active:scale-95 text-lg"
-          onClick={handlePurchase}
-        >
-          Garantir Minha Vaga Agora →
-        </button>
+
+        <div className="max-w-sm mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
+          <div className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</div>
+          <div className="text-4xl font-black text-[var(--brand)]">Por R$ {currentPrice}</div>
+          <button 
+            onClick={handlePurchase}
+            className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
+          >
+            QUERO MEU ACESSO AGORA
+          </button>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="px-5 py-8 md:px-6 text-center space-y-4 border-t border-[var(--line)] bg-[var(--surface-2)]">
+        <p className="text-[11px] text-[var(--ink-2)] leading-relaxed max-w-xl mx-auto">
+          Resultados variam de pessoa para pessoa. Este produto não substitui acompanhamento médico ou de profissional de educação física. Todas as informações contidas aqui são apenas para fins educativos.
+        </p>
+        <p className="text-[10px] text-[var(--ink-2)] opacity-50">
+          © 2024 Desafio Bumbum Granada · Todos os direitos reservados
+        </p>
+      </footer}
+
+      {/* STICKY CTA BAR */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[var(--line)] z-[100] h-[82px] md:h-[92px] pb-[env(safe-area-inset-bottom)]">
+        <div className="max-w-lg mx-auto px-5 h-full flex flex-col justify-center items-center gap-1">
+          <button 
+            onClick={handlePurchase}
+            className="w-full bg-[var(--brand)] text-white h-12 md:h-14 rounded-xl font-bold flex flex-col items-center justify-center leading-tight shadow-lg shadow-[var(--brand)]/20"
+          >
+            <span className="text-sm md:text-base">Quero meu protocolo — R$ {currentPrice}</span>
+            <span className="text-[10px] md:text-[11px] font-medium opacity-90">Pagamento único · Acesso imediato</span>
+          </button>
+        </div>
       </div>
+
+      {/* Spacing for sticky bar */}
+      <div className="h-[96px]" />
+
+      <style>{`
+        @keyframes scroll-mockup {
+          0% { transform: translateX(0); }
+          25% { transform: translateX(0); }
+          33% { transform: translateX(-100%); }
+          58% { transform: translateX(-100%); }
+          66% { transform: translateX(-200%); }
+          91% { transform: translateX(-200%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-scroll-mockup {
+          animation: scroll-mockup 12s infinite cubic-bezier(0.85, 0, 0.15, 1);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 }
