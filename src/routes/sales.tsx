@@ -33,22 +33,22 @@ function SalesPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
+    <div className="min-h-screen bg-background text-foreground pb-32">
       {/* Hero Section */}
-      <div className="bg-card p-8 text-center space-y-4">
+      <div className="bg-card p-6 md:p-8 text-center space-y-4">
         <div className="text-5xl">🍑</div>
-        <div className="bg-primary/10 text-primary py-1 px-3 rounded-full inline-block font-bold">100% Personalizado</div>
-        <h1 className="text-3xl font-bold leading-tight">Seu treino personalizado está pronto!</h1>
-        <p className="text-muted-foreground">Com base nas suas respostas, identificamos que você pode conquistar bumbum mais firme e coxas definidas em 4 semanas — mesmo sem academia.</p>
+        <div className="bg-primary/10 text-primary py-1 px-3 rounded-full inline-block font-bold text-sm">100% Personalizado</div>
+        <h1 className="text-2xl md:text-3xl font-bold leading-tight px-2">Seu treino personalizado está pronto!</h1>
+        <p className="text-muted-foreground text-sm md:text-base px-2">Com base nas suas respostas, identificamos que você pode conquistar bumbum mais firme e coxas definidas em 4 semanas — mesmo sem academia.</p>
         
-        <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2">
-          <p className="text-sm font-bold text-muted-foreground">Resgate seu desconto:</p>
-          <div className="text-2xl font-mono font-bold text-primary">{formatTime(timeLeft)}</div>
+        <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2 max-w-[280px] mx-auto">
+          <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Resgate seu desconto:</p>
+          <div className="text-3xl font-mono font-black text-primary">{formatTime(timeLeft)}</div>
         </div>
 
-        <div className="text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
+        <div className="text-xl md:text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
         <button 
-          className="w-full bg-primary hover:bg-primary-hover text-white py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20"
+          className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
           onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
         >
           Quero Treinar Meu Bumbum →
@@ -82,19 +82,34 @@ function SalesPage() {
       </div>
 
       {/* Social Proof */}
-      <div className="px-6 mt-12 space-y-6">
-        <h2 className="text-xl font-bold text-center">Quem seguiu o plano, teve resultado</h2>
-        <div className="grid gap-4">
-          <div className="bg-card p-6 rounded-2xl border border-border">
-            <p className="italic mb-4 text-sm">"Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans subiu dois números mais confortáveis."</p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">C</div>
-              <span className="font-bold text-sm">Carla, 43 anos — 21 dias</span>
-            </div>
+      <div className="px-6 mt-12 space-y-8">
+        <div className="text-center space-y-2">
+          <h2 className="text-4xl font-black">6 meses.</h2>
+          <p className="text-muted-foreground text-sm max-w-[280px] mx-auto">
+            E o mais impressionante? 68% deles tinham mais de 35 anos e acharam que já era tarde demais.
+          </p>
+        </div>
+
+        <div className="bg-card p-8 rounded-[32px] border border-white/5 relative overflow-hidden shadow-2xl">
+          <div className="flex justify-end gap-1 mb-6">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <span key={s} className="text-[#FF6F00]">★</span>
+            ))}
           </div>
-          <div className="bg-primary/5 p-4 rounded-xl text-center border border-primary/10">
-            <p className="font-bold text-primary">47.832 mulheres nos últimos 6 meses</p>
+          
+          <p className="italic mb-8 text-lg leading-relaxed text-center font-medium">
+            "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans levantou dois números mais confortáveis."
+          </p>
+          
+          <div className="flex items-center justify-center gap-2 text-[#E91E63] font-bold">
+            <span className="w-5 h-[2px] bg-[#E91E63]"></span>
+            <span>Carla, 43 anos</span>
           </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-3 text-lg font-bold">
+          <span className="text-2xl">👇</span>
+          <span>Vamos descobrir o que está travando o seu resultado</span>
         </div>
       </div>
 
@@ -162,9 +177,9 @@ function SalesPage() {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background border-t border-border z-50">
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t border-border z-50">
         <button 
-          className="w-full bg-primary text-white py-4 rounded-xl font-bold shadow-lg"
+          className="w-full bg-primary text-white py-4 rounded-2xl font-bold shadow-xl shadow-primary/20 transition-transform active:scale-95 text-lg"
           onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
         >
           Garantir Minha Vaga Agora →
