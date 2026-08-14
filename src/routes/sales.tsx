@@ -35,20 +35,20 @@ function SalesPage() {
   return (
     <div className="min-h-screen bg-background text-foreground pb-32">
       {/* Hero Section */}
-      <div className="bg-card p-8 text-center space-y-4">
+      <div className="bg-card p-6 md:p-8 text-center space-y-4">
         <div className="text-5xl">🍑</div>
-        <div className="bg-primary/10 text-primary py-1 px-3 rounded-full inline-block font-bold">100% Personalizado</div>
-        <h1 className="text-3xl font-bold leading-tight">Seu treino personalizado está pronto!</h1>
-        <p className="text-muted-foreground">Com base nas suas respostas, identificamos que você pode conquistar bumbum mais firme e coxas definidas em 4 semanas — mesmo sem academia.</p>
+        <div className="bg-primary/10 text-primary py-1 px-3 rounded-full inline-block font-bold text-sm">100% Personalizado</div>
+        <h1 className="text-2xl md:text-3xl font-bold leading-tight px-2">Seu treino personalizado está pronto!</h1>
+        <p className="text-muted-foreground text-sm md:text-base px-2">Com base nas suas respostas, identificamos que você pode conquistar bumbum mais firme e coxas definidas em 4 semanas — mesmo sem academia.</p>
         
-        <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2">
-          <p className="text-sm font-bold text-muted-foreground">Resgate seu desconto:</p>
-          <div className="text-2xl font-mono font-bold text-primary">{formatTime(timeLeft)}</div>
+        <div className="bg-card border border-primary/20 p-4 rounded-xl space-y-2 max-w-[280px] mx-auto">
+          <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Resgate seu desconto:</p>
+          <div className="text-3xl font-mono font-black text-primary">{formatTime(timeLeft)}</div>
         </div>
 
-        <div className="text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
+        <div className="text-xl md:text-2xl font-bold">Por apenas <span className="text-primary">R$29,90</span></div>
         <button 
-          className="w-full bg-primary hover:bg-primary-hover text-white py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20"
+          className="w-full bg-primary hover:bg-primary-hover text-white py-4 md:py-5 rounded-2xl font-bold text-lg shadow-lg shadow-primary/20 transition-transform active:scale-95"
           onClick={() => window.location.href = "https://kiwify.com.br/checkout"}
         >
           Quero Treinar Meu Bumbum →
