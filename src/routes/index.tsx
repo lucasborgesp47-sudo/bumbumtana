@@ -57,9 +57,9 @@ function Index() {
         <ProgressBar step={step} />
         <div key={step}>
             {step === 1 && (
-              <div className="space-y-6">
-                <h1 className="text-3xl font-bold">Qual a sua idade?</h1>
-                <p className="text-muted">Isso calibra a intensidade ideal para o seu metabolismo</p>
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Qual a sua idade?</h1>
+                <p className="text-muted text-sm md:text-base">Isso calibra a intensidade ideal para o seu metabolismo</p>
                 <div className="grid gap-4">
                   {[
                     { label: "18 a 29 anos", icon: "🔥" },
@@ -82,7 +82,7 @@ function Index() {
             
             {step === 2 && (
               <div className="space-y-6">
-                <h1 className="text-3xl font-bold">Se você pudesse escolher apenas UMA coisa para mudar nos próximos 21 dias...</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Se você pudesse escolher apenas UMA coisa para mudar nos próximos 21 dias...</h1>
                 <div className="grid gap-4">
                   {[
                     "🍑 Levantar o bumbum e dar mais volume",
@@ -103,8 +103,8 @@ function Index() {
             )}
             
             {step === 3 && (
-              <div className="space-y-6">
-                <h1 className="text-3xl font-bold">Como você REALMENTE se sente quando olha para suas coxas e bumbum no espelho?</h1>
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Como você REALMENTE se sente quando olha para suas coxas e bumbum no espelho?</h1>
                 <div className="grid gap-4">
                   {[
                     "😔 Frustrada — já tentei de tudo e nada muda",
@@ -125,8 +125,8 @@ function Index() {
             )}
             
             {step === 4 && (
-              <div className="space-y-6">
-                <h1 className="text-3xl font-bold">Marque tudo que você já fez para mudar bumbum e coxa:</h1>
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Marque tudo que você já fez para mudar bumbum e coxa:</h1>
                 <div className="grid gap-3">
                   {[
                     "🏋️‍♀️ Academia tradicional",
@@ -160,7 +160,7 @@ function Index() {
             {step === 5 && (
               <div className="space-y-8">
                 <div className="space-y-4">
-                  <h1 className="text-2xl font-bold">Por dia, quantos minutos você consegue separar?</h1>
+                  <h1 className="text-xl md:text-2xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
                   <div className="grid grid-cols-2 gap-3">
                     {["⏱️ < 10 min", "⏱️ 10-15 min", "⏱️ 15-30 min", "⏱️ Sem limite"].map((opt) => (
                       <button
@@ -175,7 +175,7 @@ function Index() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h1 className="text-2xl font-bold">E seu nível de atividade hoje?</h1>
+                  <h1 className="text-xl md:text-2xl font-bold text-balance">E seu nível de atividade hoje?</h1>
                   <div className="grid gap-3">
                     {[
                       "🛋️ Sedentária — nada há meses",
@@ -197,8 +197,8 @@ function Index() {
             )}
             
             {step === 6 && (
-              <div className="space-y-6">
-                <h1 className="text-3xl font-bold">Dados Físicos</h1>
+              <div className="space-y-4 md:space-y-6">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Dados Físicos</h1>
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
