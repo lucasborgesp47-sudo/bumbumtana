@@ -91,7 +91,7 @@ function SalesPage() {
     }, 800);
   };
 
-  const currentPrice = isExpired ? "49,90" : "29,90";
+  const currentPrice = isExpired ? "99,90" : "29,90";
   const anchorPrice = "99,90";
 
   return (
