@@ -82,7 +82,7 @@ function SalesPage() {
       <div className="flex justify-center gap-6 py-6 text-xs text-muted-foreground">
         <div className="flex items-center gap-1"><Shield size={16} /> Compra Segura</div>
         <div className="flex items-center gap-1"><Trophy size={16} /> Satisfação</div>
-        <div className="flex items-center gap-1"><Lock size={16} /> Privacidade</div>
+        <div className="flex items-center gap-1"><Lock size={16} /> Garantia</div>
       </div>
 
       {/* Offer Stack */}
@@ -159,10 +159,22 @@ function SalesPage() {
             </ul>
           </div>
         </div>
+
+        <div className="bg-card p-6 rounded-2xl border border-border">
+          <div className="flex justify-end gap-1 mb-4">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <span key={s} className="text-[#FF6F00]">★</span>
+            ))}
+          </div>
+          <p className="italic text-sm font-medium mb-4">
+            "Sempre tive vergonha de usar legging clara. Depois de 3 semanas com o protocolo, sinto minhas pernas muito mais firmes."
+          </p>
+          <div className="text-primary font-bold text-sm">— Mariana, 31 anos</div>
+        </div>
       </div>
 
       {/* Scarcity Section */}
-      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm mx-auto">
+      <div className="mx-6 my-12 bg-secondary p-6 rounded-2xl text-white text-center space-y-2 max-w-sm md:mx-auto px-6">
         <h3 className="font-bold text-lg">⚠️ PREÇO DE VALIDAÇÃO</h3>
         <p className="text-sm opacity-90">Esse valor é exclusivo para as primeiras 200 mulheres.</p>
         <div className="text-4xl font-bold">{spots}</div>
