@@ -82,7 +82,7 @@ function SalesPage() {
   const handlePurchase = () => {
     start();
     const checkoutLink = isExpired 
-      ? "https://kiwify.com.br/checkout?plan=49" // Placeholder for {{link_checkout_49}}
+      ? "https://kiwify.com.br/checkout?plan=99" // Placeholder for {{link_checkout_99}}
       : "https://kiwify.com.br/checkout?plan=29"; // Placeholder for {{link_checkout_29}}
     
     setTimeout(() => {
