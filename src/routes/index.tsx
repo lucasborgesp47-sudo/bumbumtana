@@ -86,7 +86,7 @@ function Index() {
                   ].map((opt) => (
                     <button
                       key={opt}
-                      onClick={nextStep}
+                      onClick={() => nextStep({ objective: opt })}
                       className="w-full text-left bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all font-bold text-lg"
                     >
                       {opt}
