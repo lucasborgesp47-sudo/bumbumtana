@@ -16,6 +16,9 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
+import mockup1 from "@/assets/image-5.png.asset.json";
+import mockup2 from "@/assets/image-7.png.asset.json";
+import mockup3 from "@/assets/image-6.png.asset.json";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -158,10 +161,9 @@ function SalesPage() {
         <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
           <div className="flex h-full animate-scroll-mockup">
-             {/* Mocking a horizontal scroll of screenshots */}
-             <div className="min-w-full h-full bg-gradient-to-b from-[var(--brand)] to-[var(--ink)] flex items-center justify-center text-white font-black text-2xl">SÉRIE 01</div>
-             <div className="min-w-full h-full bg-gradient-to-b from-[var(--ink)] to-[var(--brand)] flex items-center justify-center text-white font-black text-2xl">DIETA</div>
-             <div className="min-w-full h-full bg-gradient-to-b from-[var(--brand-soft)] to-[var(--brand)] flex items-center justify-center text-[var(--brand)] font-black text-2xl">BÔNUS</div>
+             <img src={mockup1.url} alt="Bumbum Granada Principal" className="min-w-full h-full object-cover" />
+             <img src={mockup2.url} alt="Express Bumbum em Casa" className="min-w-full h-full object-cover" />
+             <img src={mockup3.url} alt="Mapa da Silhueta" className="min-w-full h-full object-cover" />
           </div>
         </div>
 
