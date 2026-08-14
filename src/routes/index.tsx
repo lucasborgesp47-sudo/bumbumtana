@@ -24,6 +24,7 @@ function ProgressBar({ step }: { step: number }) {
 }
 
 function Index() {
+  const navigate = useNavigate();
   const { 
     step, 
     nextStep, 
@@ -32,7 +33,8 @@ function Index() {
     dopamineType, 
     closeDopamine,
     showEmotionalOverlay,
-    updateData
+    updateData,
+    getConditional
   } = useQuiz();
 
   if (showDopamine) {
