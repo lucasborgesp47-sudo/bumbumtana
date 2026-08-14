@@ -359,7 +359,7 @@ function SalesPage() {
         <p className="text-[10px] text-[var(--ink-2)] opacity-50">
           © 2024 Desafio Bumbum Granada · Todos os direitos reservados
         </p>
-      </footer}
+      </footer>
 
       {/* STICKY CTA BAR */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[var(--line)] z-[100] h-[82px] md:h-[92px] pb-[env(safe-area-inset-bottom)]">
