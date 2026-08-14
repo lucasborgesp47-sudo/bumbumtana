@@ -9,6 +9,20 @@ export const Route = createFileRoute("/sales")({
 function SalesPage() {
   const navigate = useNavigate();
   const [spots, setSpots] = useState(47);
+  const [timeLeft, setTimeLeft] = useState(434); // 7:14 in seconds
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
 
   useEffect(() => {
     // Dynamic spot counter logic
