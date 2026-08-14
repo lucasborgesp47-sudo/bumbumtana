@@ -31,7 +31,8 @@ function Index() {
     showDopamine, 
     dopamineType, 
     closeDopamine,
-    showEmotionalOverlay 
+    showEmotionalOverlay,
+    updateData
   } = useQuiz();
 
   if (showDopamine) {
