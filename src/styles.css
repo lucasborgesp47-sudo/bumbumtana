@@ -117,15 +117,4 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  @keyframes scroll-mockup {
-    0%, 25% { transform: translateX(0); }
-    33%, 58% { transform: translateX(-100%); }
-    66%, 91% { transform: translateX(-200%); }
-    100% { transform: translateX(0); }
-  }
-
-  .animate-scroll-mockup {
-    animation: scroll-mockup 12s cubic-bezier(0.85, 0, 0.15, 1) infinite;
-  }
 }
