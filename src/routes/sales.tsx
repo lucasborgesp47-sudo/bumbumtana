@@ -14,7 +14,7 @@ function SalesPage() {
     // Dynamic spot counter logic
     const interval = setInterval(() => {
       setSpots((prev) => (prev > 3 ? prev - 1 : 3));
-    }, 300000);
+    }, 270000); // 4.5 minutes in ms
     return () => clearInterval(interval);
   }, []);
 
