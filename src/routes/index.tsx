@@ -219,6 +219,15 @@ function Index() {
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Dados Físicos</h1>
                 <div className="space-y-4">
                   <div>
+                    <label className="block text-sm font-bold mb-2">Qual o seu nome?</label>
+                    <input
+                      type="text"
+                      placeholder="Ex: Ana"
+                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
+                      onChange={(e) => updateData({ name: e.target.value })}
+                    />
+                  </div>
+                  <div>
                     <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
                     <input
                       type="number"

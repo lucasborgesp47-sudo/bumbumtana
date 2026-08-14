@@ -38,27 +38,36 @@
 
 :root {
   --radius: 1rem;
-  --background: #FFFFFF;
-  --foreground: #1A1A2E;
-  --card: #FAFAFA;
-  --card-foreground: #1A1A2E;
-  --popover: #FAFAFA;
-  --popover-foreground: #1A1A2E;
-  --primary: #E91E63;
+  --brand: #E0245E;
+  --brand-soft: #FFF1F5;
+  --ink: #0F172A;
+  --ink-2: #475569;
+  --surface: #FFFFFF;
+  --surface-2: #F8FAFC;
+  --line: #E2E8F0;
+  --ok: #059669;
+
+  --background: var(--surface);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
   --primary-hover: #C2185B;
   --primary-foreground: #FFFFFF;
-  --secondary: #FF6F00;
+  --secondary: var(--brand);
   --secondary-foreground: #FFFFFF;
-  --muted: #6B7280;
-  --muted-foreground: #6B7280;
-  --accent: #E91E63;
+  --muted: var(--ink-2);
+  --muted-foreground: var(--ink-2);
+  --accent: var(--brand);
   --accent-foreground: #FFFFFF;
   --destructive: #ef4444;
   --destructive-foreground: #FFFFFF;
-  --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #E91E63;
-  --success: #10B981;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--brand);
+  --success: var(--ok);
 }
 
 .dark {
