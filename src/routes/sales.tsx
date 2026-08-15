@@ -16,9 +16,9 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import mockup1 from "@/assets/image-5.png.asset.json";
-import mockup2 from "@/assets/image-7.png.asset.json";
-import mockup3 from "@/assets/image-6.png.asset.json";
+import mockup1 from "@/assets/Capa_Bumbum_Granada.jpeg.asset.json";
+import mockup2 from "@/assets/Bumbum_Granada.jpg.asset.json";
+import mockup3 from "@/assets/Mapa_da_Silhueta.jpg.asset.json";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -161,9 +161,24 @@ function SalesPage() {
         <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
           <div className="flex h-full animate-scroll-mockup">
-             <img src={mockup1.url} alt="Bumbum Granada Principal" className="min-w-full h-full object-cover" />
-             <img src={mockup2.url} alt="Express Bumbum em Casa" className="min-w-full h-full object-cover" />
-             <img src={mockup3.url} alt="Mapa da Silhueta" className="min-w-full h-full object-cover" />
+             <div className="min-w-full h-full relative">
+               <img src={mockup1.url} alt="Bumbum Granada" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Granada</h3>
+               </div>
+             </div>
+             <div className="min-w-full h-full relative">
+               <img src={mockup2.url} alt="Express Bumbum em Casa" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Express Bumbum em Casa</h3>
+               </div>
+             </div>
+             <div className="min-w-full h-full relative">
+               <img src={mockup3.url} alt="Mapa da Silhueta" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Mapa da Silhueta</h3>
+               </div>
+             </div>
           </div>
         </div>
 
