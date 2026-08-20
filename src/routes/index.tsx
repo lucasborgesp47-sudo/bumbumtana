@@ -303,7 +303,7 @@ function Index() {
                   <p><strong>Idade:</strong> {data.age || "Calibrada"}</p>
                   <p><strong>Peso:</strong> {data.weight ? `${data.weight}kg` : "--"}</p>
                   <p><strong>Altura:</strong> {data.height ? `${data.height}cm` : "--"}</p>
-                  <p><strong>Protocolo:</strong> {data.time?.includes("< 10") ? "5 minutos" : "12 minutos"}</p>
+                  <p><strong>Protocolo:</strong> {data.time?.includes("Menos de 10") ? "5 minutos" : "12 minutos"}</p>
                 </div>
                 
                 <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
