@@ -24,6 +24,9 @@ export const Route = createFileRoute("/sales")({
   component: SalesPage,
 });
 
+// TODO: substituir pela URL real do produto na Kiwify quando estiver criado
+const CHECKOUT_URL = "https://kiwify.com.br/checkout";
+
 function SalesPage() {
   const navigate = useNavigate();
   const { start, finish } = useLoadingBar();
