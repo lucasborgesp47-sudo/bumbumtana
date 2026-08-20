@@ -196,20 +196,24 @@ function Index() {
             )}
             
             {step === 5 && (
-              <div className="space-y-8 animate-in fade-in duration-500">
-                <div className="space-y-4">
-                  <h1 className="text-xl md:text-2xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
-                  <div className="grid grid-cols-2 gap-3">
-                    {["⏱️ < 10 min", "⏱️ 10-15 min", "⏱️ 15-30 min", "⏱️ Sem limite"].map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => nextStep({ time: opt })}
-                        className="bg-card p-4 rounded-xl border-2 border-border hover:border-primary text-center font-bold"
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
+              <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
+                <div className="grid gap-4">
+                  {[
+                    { label: "Menos de 10 minutos", icon: "⏱️" },
+                    { label: "10 a 15 minutos", icon: "⏱️" },
+                    { label: "15 a 30 minutos", icon: "⏳" },
+                    { label: "Sem limite de tempo", icon: "🚀" },
+                  ].map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => nextStep({ time: opt.label })}
+                      className="flex items-center text-left w-full bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all shadow-sm"
+                    >
+                      <span className="text-3xl mr-4">{opt.icon}</span>
+                      <span className="font-bold text-lg">{opt.label}</span>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
