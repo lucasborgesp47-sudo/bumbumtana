@@ -252,7 +252,12 @@ function SalesPage() {
 
           <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center space-y-4">
             <div>
-              <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ {anchorPrice}</p>
+              <div className="flex flex-col items-center gap-1 mb-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[var(--ink-2)] font-semibold line-through">Valor total: R$ {anchorPrice}</span>
+                  <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+                </div>
+              </div>
               <div className="text-2xl font-black text-[var(--brand)]">
                 HOJE: R$ {currentPrice}
               </div>
