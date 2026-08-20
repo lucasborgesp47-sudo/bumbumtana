@@ -1,4 +1,7 @@
 import { ChevronRight, Star } from "lucide-react";
+import carlaImg from "@/assets/carla-before-after.jpg.asset.json";
+import julianaImg from "@/assets/juliana-before-after.jpg.asset.json";
+import fernandaImg from "@/assets/fernanda-before-after.jpg.asset.json";
 
 interface DopamineProps {
   onContinue: () => void;
@@ -12,6 +15,8 @@ const VARIANTS = {
     quote:
       "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada.",
     author: "— Carla, 43 anos",
+    image: carlaImg.url,
+    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Carla, 43 anos",
     transition: "👇 Vamos descobrir o que está travando o seu resultado...",
   },
   2: {
@@ -20,6 +25,8 @@ const VARIANTS = {
     quote:
       "Eu era completamente sedentária e tinha vergonha até de fazer vídeo. Com poucos minutos por dia, em 3 semanas já via a diferença no espelho.",
     author: "— Juliana, 31 anos",
+    image: julianaImg.url,
+    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Juliana, 31 anos",
     transition: "👇 Falta pouco para montar o seu protocolo...",
   },
   3: {
@@ -28,6 +35,8 @@ const VARIANTS = {
     quote:
       "Testei academia, dieta, de tudo. Nada tinha destravado tanto o meu corpo quanto esse protocolo em tão pouco tempo.",
     author: "— Fernanda, 27 anos",
+    image: fernandaImg.url,
+    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Fernanda, 27 anos",
     transition: "👇 Agora vamos calibrar a intensidade ideal para você...",
   },
 } as const;
@@ -43,17 +52,25 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
           <p className="text-gray-400 text-lg">{content.stat}</p>
         </div>
 
-        <div className="relative bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4">
-            <div className="flex gap-1 text-secondary">
+        <div className="relative bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm overflow-hidden group shadow-xl">
+          <img 
+            src={content.image} 
+            alt={content.alt}
+            className="w-full h-auto object-cover rounded-t-3xl border-b border-white/10"
+            loading="lazy"
+            width={500}
+          />
+          
+          <div className="p-8 text-left">
+            <div className="flex gap-1 text-secondary mb-4">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={16} fill="currentColor" />
               ))}
             </div>
-          </div>
 
-          <p className="italic text-lg relative z-10 leading-relaxed">"{content.quote}"</p>
-          <p className="mt-4 font-bold text-primary">{content.author}</p>
+            <p className="italic text-lg relative z-10 leading-relaxed text-gray-200">"{content.quote}"</p>
+            <p className="mt-4 font-bold text-primary">{content.author}</p>
+          </div>
 
           <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all duration-700" />
         </div>
