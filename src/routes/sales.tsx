@@ -16,9 +16,9 @@ import {
   PlayCircle
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import mockup1 from "@/assets/Capa_Bumbum_Granada.jpeg.asset.json";
-import mockup2 from "@/assets/Bumbum_Granada.jpg.asset.json";
-import mockup3 from "@/assets/Mapa_da_Silhueta.jpg.asset.json";
+import mockup1 from "@/assets/capa-bumbum-granada.jpg";
+import mockup2 from "@/assets/bumbum-granada.jpg";
+import mockup3 from "@/assets/mapa-da-silhueta.jpg";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -173,19 +173,19 @@ function SalesPage() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
           <div className="flex h-full animate-scroll-mockup">
              <div className="min-w-full h-full relative">
-               <img src={mockup1.url} alt="Bumbum Granada" className="w-full h-full object-cover" />
+               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Granada" className="w-full h-full object-cover" />
                <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
                  <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Granada</h3>
                </div>
              </div>
              <div className="min-w-full h-full relative">
-               <img src={mockup2.url} alt="Express Bumbum em Casa" className="w-full h-full object-cover" />
+               <img src={mockup2} width={500} height={500} loading="lazy" decoding="async" alt="Express Bumbum em Casa" className="w-full h-full object-cover" />
                <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
                  <h3 className="text-2xl font-black uppercase italic leading-tight">Express Bumbum em Casa</h3>
                </div>
              </div>
              <div className="min-w-full h-full relative">
-               <img src={mockup3.url} alt="Mapa da Silhueta" className="w-full h-full object-cover" />
+               <img src={mockup3} width={500} height={500} loading="lazy" decoding="async" alt="Mapa da Silhueta" className="w-full h-full object-cover" />
                <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
                  <h3 className="text-2xl font-black uppercase italic leading-tight">Mapa da Silhueta</h3>
                </div>
@@ -267,6 +267,10 @@ function SalesPage() {
             <div key={idx} className="min-w-[280px] bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-4 shadow-sm">
               <div className="flex items-center gap-3">
                 <img 
+                  loading="lazy"
+                  decoding="async"
+                  width={48}
+                  height={48}
                   src={item.photo} 
                   alt={item.name} 
                   className="w-12 h-12 rounded-full object-cover border-2 border-[var(--brand-soft)]"
@@ -315,10 +319,10 @@ function SalesPage() {
             <div className="flex items-center justify-center gap-2 text-xs font-semibold text-[var(--ink-2)] opacity-70">
               <Shield size={14} /> Compra Segura · Kiwify
             </div>
-            <div className="flex justify-center gap-3 opacity-40 grayscale">
-              <img src="https://logodownload.org/wp-content/uploads/2014/07/visa-logo-1.png" alt="Visa" className="h-4" />
-              <img src="https://logodownload.org/wp-content/uploads/2014/07/mastercard-logo.png" alt="Master" className="h-4" />
-              <img src="https://logodownload.org/wp-content/uploads/2015/03/pix-logo.png" alt="Pix" className="h-4" />
+            <div className="flex items-center justify-center gap-4 text-[var(--ink-2)] opacity-60">
+              <span className="flex items-center gap-1 text-[11px] font-semibold"><CreditCard size={16} /> Cartão</span>
+              <span className="flex items-center gap-1 text-[11px] font-semibold"><Landmark size={16} /> Pix</span>
+              <span className="flex items-center gap-1 text-[11px] font-semibold"><Wallet size={16} /> Boleto</span>
             </div>
           </div>
         </div>
