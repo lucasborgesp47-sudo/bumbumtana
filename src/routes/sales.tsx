@@ -95,10 +95,8 @@ function SalesPage() {
 
   const handlePurchase = () => {
     start();
-    const checkoutLink = isExpired 
-      ? "https://kiwify.com.br/checkout?plan=99" // Placeholder for {{link_checkout_99}}
-      : "https://kiwify.com.br/checkout?plan=29"; // Placeholder for {{link_checkout_29}}
-    
+    const checkoutLink = `${CHECKOUT_URL}?plan=${isExpired ? "99" : "29"}`;
+
     setTimeout(() => {
       finish();
       window.location.href = checkoutLink;
@@ -107,6 +105,8 @@ function SalesPage() {
 
   const currentPrice = isExpired ? "99,90" : "29,90";
   const anchorPrice = "99,90";
+
+  if (!hasQuizData) return null;
 
   return (
     <div className="min-h-screen bg-[var(--surface)] text-[var(--ink)] font-sans overflow-x-hidden selection:bg-[var(--brand-soft)] selection:text-[var(--brand)]">
