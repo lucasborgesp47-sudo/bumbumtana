@@ -35,6 +35,7 @@ function Index() {
     closeDopamine,
     showEmotionalOverlay,
     updateData,
+    toggleTried,
     getConditional,
     data
   } = useQuiz();

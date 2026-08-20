@@ -121,6 +121,7 @@ export const useQuiz = () => {
     step,
     data,
     updateData,
+    toggleTried,
     nextStep,
     loading,
     showDopamine,
