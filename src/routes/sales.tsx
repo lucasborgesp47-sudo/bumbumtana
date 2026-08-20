@@ -339,7 +339,7 @@ function SalesPage() {
             onClick={handlePurchase}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
-            QUERO MEU PROTOCOLO AGORA
+            QUERO ATIVAR MEU PROTOCOLO AGORA — R$ {currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
