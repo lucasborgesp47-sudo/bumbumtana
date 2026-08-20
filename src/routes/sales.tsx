@@ -37,7 +37,7 @@ function SalesPage() {
   const { start, finish } = useLoadingBar();
   
   // Timer State
-  const [timeLeft, setTimeLeft] = useState(900); // 15:00
+  const [timeLeft, setTimeLeft] = useState(0); // 15:00
   const [isExpired, setIsExpired] = useState(false);
   
   // Quiz data (obrigatório: sem quiz respondido, volta para o início)
