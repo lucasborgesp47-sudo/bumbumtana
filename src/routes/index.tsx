@@ -234,34 +234,45 @@ function Index() {
                     <label className="block text-sm font-bold mb-2">Qual o seu nome?</label>
                     <input
                       type="text"
+                      value={data.name || ""}
                       placeholder="Ex: Ana"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ name: e.target.value })}
                     />
+                    {touched && nameError && <p className="text-sm text-red-600 mt-1">{nameError}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
                     <input
                       type="number"
                       inputMode="numeric"
+                      value={data.weight || ""}
                       placeholder="Ex: 68"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ weight: e.target.value })}
                     />
+                    {touched && weightError && <p className="text-sm text-red-600 mt-1">{weightError}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual a sua altura? (cm)</label>
                     <input
                       type="number"
                       inputMode="numeric"
+                      value={data.height || ""}
                       placeholder="Ex: 165"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ height: e.target.value })}
                     />
+                    {touched && heightError && <p className="text-sm text-red-600 mt-1">{heightError}</p>}
                   </div>
                   <button
-                    onClick={() => nextStep()}
-                    className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg mt-4"
+                    onClick={() => {
+                      setTouched(true);
+                      if (!formValid) return;
+                      nextStep();
+                    }}
+                    disabled={touched && !formValid}
+                    className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg mt-4 disabled:opacity-50"
                   >
                     Calibrar Meu Protocolo →
                   </button>
