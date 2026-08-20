@@ -186,7 +186,7 @@ function Index() {
                   })}
                   <button
                     onClick={() => nextStep()}
-                    disabled={!(data.tried || []).length}
+                    disabled={!(Array.isArray(data.tried) ? data.tried : []).length}
                     className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold disabled:opacity-50"
                   >
                     Continuar →
