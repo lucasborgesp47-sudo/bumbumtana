@@ -149,21 +149,33 @@ function Index() {
                     "💊 Suplementos / cremes",
                     "💉 Procedimentos estéticos",
                     "🙅‍♀️ Nunca tentei nada direcionado",
-                  ].map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => nextStep({ tried: [opt] })}
-                      className="w-full text-left bg-card p-4 rounded-xl border-2 border-border hover:border-primary transition-all flex items-center"
-                    >
-                      <div className="w-6 h-6 border-2 border-gray-300 rounded mr-4 flex items-center justify-center">
-                        <Check size={16} className="text-primary hidden group-active:block" />
-                      </div>
-                      <span className="font-medium">{opt}</span>
-                    </button>
-                  ))}
+                  ].map((opt) => {
+                    const selected = (data.tried || []).includes(opt);
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          const current = data.tried || [];
+                          updateData({
+                            tried: selected
+                              ? current.filter((t) => t !== opt)
+                              : [...current, opt],
+                          });
+                        }}
+                        className={`w-full text-left bg-card p-4 rounded-xl border-2 transition-all flex items-center ${selected ? "border-primary" : "border-border hover:border-primary"}`}
+                      >
+                        <div className={`w-6 h-6 border-2 rounded mr-4 flex items-center justify-center ${selected ? "border-primary bg-primary" : "border-gray-300"}`}>
+                          {selected && <Check size={16} className="text-white" />}
+                        </div>
+                        <span className="font-medium">{opt}</span>
+                      </button>
+                    );
+                  })}
                   <button
                     onClick={() => nextStep()}
-                    className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold"
+                    disabled={!(data.tried || []).length}
+                    className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold disabled:opacity-50"
                   >
                     Continuar →
                   </button>
