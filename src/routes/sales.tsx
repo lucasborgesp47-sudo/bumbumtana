@@ -107,7 +107,7 @@ function SalesPage() {
   };
 
   const currentPrice = isExpired ? "99,90" : "29,90";
-  const anchorPrice = "225";
+  const anchorPrice = "188";
 
   if (!hasQuizData) return null;
 
@@ -142,7 +142,7 @@ function SalesPage() {
                   R$ {anchorPrice}
                 </div>
                 <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
-                  Desconto especial aplicado
+                  {isExpired ? 'Preço normal' : '84% de desconto aplicado'}
                 </div>
               </div>
             )}
@@ -236,7 +236,6 @@ function SalesPage() {
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
-              { title: "Bônus 3: Grupo de Acompanhamento VIP", benefit: "Suporte e motivação com outras mulheres no desafio.", price: "37", isBonus: true }
             ].map((item, i) => (
               <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4">
                 <div className="space-y-1">
@@ -253,7 +252,12 @@ function SalesPage() {
 
           <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center space-y-4">
             <div>
-              <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ {anchorPrice}</p>
+              <div className="flex flex-col items-center gap-1 mb-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[var(--ink-2)] font-semibold line-through">Valor total: R$ {anchorPrice}</span>
+                  <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+                </div>
+              </div>
               <div className="text-2xl font-black text-[var(--brand)]">
                 HOJE: R$ {currentPrice}
               </div>
@@ -324,13 +328,18 @@ function SalesPage() {
         <div className="max-w-md mx-auto bg-[var(--surface)] border-2 border-[var(--brand)] rounded-[32px] p-8 text-center space-y-6 shadow-xl relative overflow-hidden">
           {!isExpired && (
             <div className="absolute top-4 right-[-35px] rotate-45 bg-[var(--brand)] text-white text-[10px] font-bold py-1 px-10 shadow-md">
-              70% OFF
+              84% OFF
             </div>
           )}
           
           <div className="space-y-1">
             <h3 className="text-xl font-bold uppercase tracking-widest text-[var(--ink-2)]">Acesso Vitalício</h3>
-            <p className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</p>
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</span>
+                <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">84% OFF</span>
+              </div>
+            </div>
             <div className="text-[40px] font-black text-[var(--brand)] leading-none">R$ {currentPrice}</div>
             <p className="text-sm font-bold text-[var(--ok)]">Pagamento único · Sem assinaturas</p>
           </div>
@@ -433,7 +442,12 @@ function SalesPage() {
         </div>
 
         <div className="max-w-sm mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <div className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</span>
+              <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+            </div>
+          </div>
           <div className="text-4xl font-black text-[var(--brand)]">Por R$ {currentPrice}</div>
           <button 
             onClick={handlePurchase}
