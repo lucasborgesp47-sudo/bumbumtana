@@ -35,7 +35,7 @@ function SalesPage() {
   const [timeLeft, setTimeLeft] = useState(900); // 15:00
   const [isExpired, setIsExpired] = useState(false);
   
-  // Quiz data fallbacks
+  // Quiz data (obrigatório: sem quiz respondido, volta para o início)
   const [quizData, setQuizData] = useState<{name?: string, objective?: string}>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('bbg_quiz_data');
@@ -43,6 +43,14 @@ function SalesPage() {
     }
     return {};
   });
+
+  const hasQuizData = Boolean(quizData?.name && quizData?.objective);
+
+  useEffect(() => {
+    if (!hasQuizData) {
+      navigate({ to: "/" });
+    }
+  }, [hasQuizData, navigate]);
 
   useEffect(() => {
     const timerStartKey = 'oferta_inicio';
