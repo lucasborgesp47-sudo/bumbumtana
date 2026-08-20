@@ -107,7 +107,7 @@ function SalesPage() {
   };
 
   const currentPrice = isExpired ? "99,90" : "29,90";
-  const anchorPrice = "99,90";
+  const anchorPrice = "225";
 
   if (!hasQuizData) return null;
 
@@ -129,28 +129,42 @@ function SalesPage() {
           Pelas suas respostas, seu ponto de travamento é <span className="text-[var(--brand)] font-bold">{quizData.objective || "a falta de estímulo correto nas fibras musculares"}</span> — e é exatamente isso que o protocolo ataca nas primeiras 72 horas.
         </p>
 
-        {/* Real Timer */}
-        <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl p-4 inline-block w-full max-w-[280px]">
-          <p className="text-[13px] font-semibold text-[var(--ink-2)] uppercase mb-1">Oferta expira em:</p>
-          <div className={`text-[40px] font-extrabold leading-none ${isExpired ? 'text-[var(--ink-2)]' : 'text-[var(--brand)]'}`}>
-            {formatTime(timeLeft)}
-          </div>
-          {!isExpired && (
-            <div className="mt-2 space-y-1">
-              <div className="text-sm font-bold text-[var(--ink-2)] line-through">
-                R$ 99,90
-              </div>
-              <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
-                70% de desconto aplicado
-              </div>
+        <div className="space-y-6">
+          {/* Real Timer */}
+          <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl p-4 inline-block w-full max-w-[280px]">
+            <p className="text-[13px] font-semibold text-[var(--ink-2)] uppercase mb-1">Oferta expira em:</p>
+            <div className={`text-[40px] font-extrabold leading-none ${isExpired ? 'text-[var(--ink-2)]' : 'text-[var(--brand)]'}`}>
+              {formatTime(timeLeft)}
             </div>
-          )}
+            {!isExpired && (
+              <div className="mt-2 space-y-1">
+                <div className="text-sm font-bold text-[var(--ink-2)] line-through">
+                  R$ {anchorPrice}
+                </div>
+                <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
+                  Desconto especial aplicado
+                </div>
+              </div>
+            )}
+          </div>
+
+          <button 
+            onClick={handlePurchase}
+            className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-lg shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group max-w-md mx-auto"
+          >
+            QUERO ATIVAR MEU PROTOCOLO AGORA — R$ {currentPrice}
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </section>
 
       {/* SECTION 2: O QUE TRAVA O RESULTADO */}
-      <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px]">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px] text-center">
+        <div className="max-w-4xl mx-auto space-y-10">
+          <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
+            Não é falta de esforço. É isso que está travando seu resultado.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
             { icon: <Clock className="text-[var(--brand)]" />, title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
             { icon: <Layout className="text-[var(--brand)]" />, title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
@@ -164,6 +178,7 @@ function SalesPage() {
               <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
@@ -219,7 +234,9 @@ function SalesPage() {
             {[
               { title: "Protocolo Bumbum Granada — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
-              { title: "Bônus: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true }
+              { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
+              { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
+              { title: "Bônus 3: Grupo de Acompanhamento VIP", benefit: "Suporte e motivação com outras mulheres no desafio.", price: "37", isBonus: true }
             ].map((item, i) => (
               <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4">
                 <div className="space-y-1">
@@ -234,11 +251,19 @@ function SalesPage() {
             ))}
           </div>
 
-          <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center">
-            <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ 161</p>
-            <div className="text-2xl font-black text-[var(--brand)]">
-              HOJE: R$ {currentPrice}
+          <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center space-y-4">
+            <div>
+              <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ {anchorPrice}</p>
+              <div className="text-2xl font-black text-[var(--brand)]">
+                HOJE: R$ {currentPrice}
+              </div>
             </div>
+            <button 
+              onClick={handlePurchase}
+              className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
+            >
+              QUERO TODOS OS BÔNUS — R$ {currentPrice}
+            </button>
           </div>
         </div>
       </section>
@@ -314,7 +339,7 @@ function SalesPage() {
             onClick={handlePurchase}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
-            QUERO MEU PROTOCOLO AGORA
+            QUERO ATIVAR MEU PROTOCOLO AGORA — R$ {currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
@@ -364,6 +389,12 @@ function SalesPage() {
             <p className="text-sm text-[var(--ink-2)] leading-relaxed">
               Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <span className="font-bold">suporte@bumbumgranada.com</span>. Devolvemos 100% do valor, sem perguntas.
             </p>
+            <button 
+              onClick={handlePurchase}
+              className="mt-4 w-full bg-[var(--ok)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--ok)]/20 active:scale-95 transition-all"
+            >
+              QUERO TESTAR SEM RISCO — R$ {currentPrice}
+            </button>
           </div>
         </div>
       </section>
@@ -408,7 +439,7 @@ function SalesPage() {
             onClick={handlePurchase}
             className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
           >
-            QUERO MEU ACESSO AGORA
+            SIM, QUERO COMEÇAR HOJE — R$ {currentPrice}
           </button>
         </div>
       </section>
