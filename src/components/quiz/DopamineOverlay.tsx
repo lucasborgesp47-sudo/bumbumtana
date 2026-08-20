@@ -24,9 +24,9 @@ const VARIANTS = {
     stat: "E o que mais impressiona? 74% delas nunca tinham feito nenhum treino em casa antes.",
     quote:
       "Eu era completamente sedentária e tinha vergonha até de fazer vídeo. Com poucos minutos por dia, em 3 semanas já via a diferença no espelho.",
-    author: "— Juliana, 31 anos",
+    author: "— Mariana, 31 anos",
     image: julianaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Juliana, 31 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Mariana, 31 anos",
     transition: "👇 Falta pouco para montar o seu protocolo...",
   },
   3: {
