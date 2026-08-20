@@ -39,6 +39,22 @@ function Index() {
     data
   } = useQuiz();
   const { start, finish } = useLoadingBar();
+  const [touched, setTouched] = useState(false);
+
+  const weightNum = Number(data.weight);
+  const heightNum = Number(data.height);
+  const nameError = !data.name?.trim() ? "Informe seu nome" : "";
+  const weightError = !data.weight
+    ? "Informe seu peso"
+    : !Number.isFinite(weightNum) || weightNum < 30 || weightNum > 200
+      ? "Peso deve estar entre 30 e 200 kg"
+      : "";
+  const heightError = !data.height
+    ? "Informe sua altura"
+    : !Number.isFinite(heightNum) || heightNum < 120 || heightNum > 220
+      ? "Altura deve estar entre 120 e 220 cm"
+      : "";
+  const formValid = !nameError && !weightError && !heightError;
 
   useEffect(() => {
     if (loading) {
