@@ -15,8 +15,18 @@ export interface QuizData {
 export const useQuiz = () => {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<QuizData>(() => {
-    const saved = localStorage.getItem('bbg_quiz_data');
-    return saved ? JSON.parse(saved) : {};
+    if (typeof window === 'undefined') return {};
+    try {
+      const saved = window.localStorage.getItem('bbg_quiz_data');
+      const parsed = saved ? JSON.parse(saved) : {};
+      // Normalize legacy/corrupt values: `tried` must always be an array
+      if (parsed && !Array.isArray(parsed.tried)) {
+        parsed.tried = typeof parsed.tried === 'string' && parsed.tried ? [parsed.tried] : [];
+      }
+      return parsed;
+    } catch {
+      return {};
+    }
   });
   const [loading, setLoading] = useState(false);
   const [showDopamine, setShowDopamine] = useState(false);
@@ -29,6 +39,19 @@ export const useQuiz = () => {
 
   const updateData = (newData: Partial<QuizData>) => {
     setData((prev) => ({ ...prev, ...newData }));
+  };
+
+  // Independent multi-select toggle (never clears other options)
+  const toggleTried = (option: string) => {
+    setData((prev) => {
+      const current = Array.isArray(prev.tried) ? prev.tried : [];
+      return {
+        ...prev,
+        tried: current.includes(option)
+          ? current.filter((t) => t !== option)
+          : [...current, option],
+      };
+    });
   };
 
   const nextStep = (stepData?: Partial<QuizData>) => {
@@ -98,6 +121,7 @@ export const useQuiz = () => {
     step,
     data,
     updateData,
+    toggleTried,
     nextStep,
     loading,
     showDopamine,
