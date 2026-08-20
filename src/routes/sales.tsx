@@ -54,13 +54,15 @@ function SalesPage() {
     }
   }, []);
 
-  const hasQuizData = Boolean(quizData?.name && quizData?.objective);
+  const [hasCheckedQuiz, setHasCheckedQuiz] = useState(false);
 
   useEffect(() => {
-    if (!hasQuizData) {
+    const hasData = Boolean(quizData?.name && quizData?.objective);
+    if (!hasData && hasCheckedQuiz) {
       navigate({ to: "/" });
     }
-  }, [hasQuizData, navigate]);
+    setHasCheckedQuiz(true);
+  }, [quizData, navigate, hasCheckedQuiz]);
 
   useEffect(() => {
     const timerStartKey = 'oferta_inicio';
@@ -116,7 +118,7 @@ function SalesPage() {
   const currentPrice = isExpired ? "99,90" : "29,90";
   const anchorPrice = "188";
 
-  if (!hasQuizData) return null;
+  if (!hasCheckedQuiz || !quizData?.name) return null;
 
   return (
     <div className="min-h-screen bg-[var(--surface)] text-[var(--ink)] font-sans overflow-x-hidden selection:bg-[var(--brand-soft)] selection:text-[var(--brand)]">
