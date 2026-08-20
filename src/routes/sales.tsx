@@ -13,7 +13,10 @@ import {
   Menu,
   Heart,
   Layout,
-  PlayCircle
+  PlayCircle,
+  CreditCard,
+  Landmark,
+  Wallet
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
 import mockup1 from "@/assets/capa-bumbum-granada.jpg";
