@@ -167,19 +167,14 @@ function Index() {
                     "💉 Procedimentos estéticos",
                     "🙅‍♀️ Nunca tentei nada direcionado",
                   ].map((opt) => {
-                    const selected = (data.tried || []).includes(opt);
+                    const triedList = Array.isArray(data.tried) ? data.tried : [];
+                    const selected = triedList.includes(opt);
                     return (
                       <button
                         key={opt}
                         type="button"
-                        onClick={() => {
-                          const current = data.tried || [];
-                          updateData({
-                            tried: selected
-                              ? current.filter((t) => t !== opt)
-                              : [...current, opt],
-                          });
-                        }}
+                        aria-pressed={selected}
+                        onClick={() => toggleTried(opt)}
                         className={`w-full text-left bg-card p-4 rounded-xl border-2 transition-all flex items-center ${selected ? "border-primary" : "border-border hover:border-primary"}`}
                       >
                         <div className={`w-6 h-6 border-2 rounded mr-4 flex items-center justify-center ${selected ? "border-primary bg-primary" : "border-gray-300"}`}>
