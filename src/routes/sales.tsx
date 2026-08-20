@@ -195,7 +195,7 @@ function SalesPage() {
 
         <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
           {[
-            { icon: <Clock size={16} />, text: "Treinos de 15 minutos" },
+            { icon: <Clock size={16} />, text: "Treinos de 5 minutos" },
             { icon: <Zap size={16} />, text: "Sem equipamento" },
             { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
           ].map((item, i) => (
@@ -232,7 +232,7 @@ function SalesPage() {
           </div>
 
           <div className="bg-[var(--brand-soft)] border-2 border-dashed border-[var(--brand)] p-6 rounded-2xl text-center">
-            <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ 198</p>
+            <p className="text-[var(--ink-2)] font-semibold line-through mb-1">Valor total: R$ 161</p>
             <div className="text-2xl font-black text-[var(--brand)]">
               HOJE: R$ {currentPrice}
             </div>
@@ -255,7 +255,7 @@ function SalesPage() {
               name: "Mariana Costa",
               age: "28 anos",
               photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop",
-              text: "O melhor são os treinos de 15 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
+              text: "O melhor são os treinos de 5 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
             },
             {
               name: "Fernanda Lima",
@@ -331,7 +331,7 @@ function SalesPage() {
           {[
             { step: "1", title: "Pagamento Aprovado", desc: "Assim que o sistema confirma o pagamento (instantâneo no PIX e Cartão)." },
             { step: "2", title: "Acesso Imediato no E-mail", desc: "Você recebe o link único de acesso e sua senha em até 2 minutos." },
-            { step: "3", title: "Primeiro Treino Hoje", desc: "Basta abrir no celular e começar o seu primeiro ciclo de 15 minutos." }
+            { step: "3", title: "Primeiro Treino Hoje", desc: "Basta abrir no celular e começar o seu primeiro ciclo de 5 minutos." }
           ].map((item, i) => (
             <div key={i} className="flex gap-4">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--ink)] text-white flex items-center justify-center font-bold">

@@ -196,7 +196,7 @@ function Index() {
                   <h1 className="text-xl md:text-2xl font-bold text-balance">E seu nível de atividade hoje?</h1>
                   <div className="grid gap-3">
                     {[
-                      "🛋️ Sedentária — nada há meses",
+                      "🛋️ Sedentária — parada há meses",
                       "🚶‍♀️ Leve — caminho eventualmente",
                       "💪 Moderada — 1-2x por semana",
                       "🏃‍♀️ Ativa — treino regular",
