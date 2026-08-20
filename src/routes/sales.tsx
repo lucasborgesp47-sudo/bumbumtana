@@ -182,61 +182,59 @@ function SalesPage() {
           </div>
         </div>
       </section>
-184: 
-185:       {/* SECTION: ANTES E DEPOIS DO PROTOCOLO */}
-186:       <section className="px-5 py-12 md:px-6 md:py-[72px] text-center">
-187:         <div className="max-w-4xl mx-auto space-y-10">
-188:           <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
-189:             O que muda com o Protocolo Bumbum Granada
-190:           </h2>
-191:           
-192:           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-193:             {/* Bloco Antes */}
-194:             <div className="bg-[#FEF2F2] p-6 rounded-[32px] border border-[#FEE2E2] space-y-6 shadow-sm">
-195:               <h3 className="text-xl font-bold text-[#991B1B] flex items-center gap-2">
-196:                 Antes do Protocolo
-197:               </h3>
-198:               <ul className="space-y-4">
-199:                 {[
-200:                   "Dor ou desconforto ao tentar treinar sozinha",
-201:                   "Vergonha de postar foto de biquíni ou usar roupa justa",
-202:                   "Horas perdidas com treinos genéricos sem ver resultado",
-203:                   "Frustração de sentir que já tentou de tudo"
-204:                 ].map((item, i) => (
-205:                   <li key={i} className="flex gap-3 items-start">
-206:                     <div className="mt-1 w-5 h-5 rounded-full bg-[#FCA5A5] flex items-center justify-center shrink-0">
-207:                       <X size={12} className="text-[#991B1B]" strokeWidth={3} />
-208:                     </div>
-209:                     <span className="text-sm md:text-base font-medium text-[#991B1B]/80 leading-snug">{item}</span>
-210:                   </li>
-211:                 ))}
-212:               </ul>
-213:             </div>
-214: 
-215:             {/* Bloco Depois */}
-216:             <div className="bg-[#F0FDF4] p-6 rounded-[32px] border border-[#DCFCE7] space-y-6 shadow-sm">
-217:               <h3 className="text-xl font-bold text-[#166534] flex items-center gap-2">
-218:                 Depois do Protocolo
-219:               </h3>
-220:               <ul className="space-y-4">
-221:                 {[
-222:                   "Ativação correta do glúteo em minutos, sem dor nas articulações",
-223:                   "Confiança para usar a roupa que quiser",
-224:                   "Treino de 5 minutos que cabe em qualquer rotina",
-225:                   "Resultado visível que comprova que valeu a pena"
-226:                 ].map((item, i) => (
-227:                   <li key={i} className="flex gap-3 items-start">
-228:                     <div className="mt-1 w-5 h-5 rounded-full bg-[#86EFAC] flex items-center justify-center shrink-0">
-229:                       <CheckCircle2 size={12} className="text-[#166534]" strokeWidth={3} />
-230:                     </div>
-231:                     <span className="text-sm md:text-base font-medium text-[#166534]/80 leading-snug">{item}</span>
-232:                   </li>
-233:                 ))}
-234:               </ul>
-235:             </div>
-236:           </div>
-237:         </div>
 
+      {/* SECTION: ANTES E DEPOIS DO PROTOCOLO */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] text-center">
+        <div className="max-w-4xl mx-auto space-y-10">
+          <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
+            O que muda com o Protocolo Bumbum Granada
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div className="bg-[#FEF2F2] p-6 rounded-[32px] border border-[#FEE2E2] space-y-6 shadow-sm">
+              <h3 className="text-xl font-bold text-[#991B1B] flex items-center gap-2">
+                Antes do Protocolo
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Dor ou desconforto ao tentar treinar sozinha",
+                  "Vergonha de postar foto de biquíni ou usar roupa justa",
+                  "Horas perdidas com treinos genéricos sem ver resultado",
+                  "Frustração de sentir que já tentou de tudo",
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3 items-start">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-[#FCA5A5] flex items-center justify-center shrink-0">
+                      <X size={12} className="text-[#991B1B]" strokeWidth={3} />
+                    </div>
+                    <span className="text-sm md:text-base font-medium text-[#991B1B]/80 leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-[#F0FDF4] p-6 rounded-[32px] border border-[#DCFCE7] space-y-6 shadow-sm">
+              <h3 className="text-xl font-bold text-[#166534] flex items-center gap-2">
+                Depois do Protocolo
+              </h3>
+              <ul className="space-y-4">
+                {[
+                  "Ativação correta do glúteo em minutos, sem dor nas articulações",
+                  "Confiança para usar a roupa que quiser",
+                  "Treino de 5 minutos que cabe em qualquer rotina",
+                  "Resultado visível que comprova que valeu a pena",
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3 items-start">
+                    <div className="mt-1 w-5 h-5 rounded-full bg-[#86EFAC] flex items-center justify-center shrink-0">
+                      <CheckCircle2 size={12} className="text-[#166534]" strokeWidth={3} />
+                    </div>
+                    <span className="text-sm md:text-base font-medium text-[#166534]/80 leading-snug">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* SECTION 3: O PRODUTO (VISUAL) */}
       <section className="px-5 py-12 md:px-6 md:py-[72px] text-center space-y-8">
         <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
