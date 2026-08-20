@@ -437,7 +437,12 @@ function SalesPage() {
         </div>
 
         <div className="max-w-sm mx-auto bg-white/5 border border-white/10 rounded-2xl p-6 space-y-4">
-          <div className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</span>
+              <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+            </div>
+          </div>
           <div className="text-4xl font-black text-[var(--brand)]">Por R$ {currentPrice}</div>
           <button 
             onClick={handlePurchase}
