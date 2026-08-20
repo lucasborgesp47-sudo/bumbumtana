@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Desafio Bumbum Granada — Protocolo de 5 Minutos em Casa" },
+      { title: "Desafio Bumbum Tanajura — Protocolo de 5 Minutos em Casa" },
       { name: "description", content: "Treino de 5 minutos sem academia e sem equipamento. Ativação Neural Sequencial para bumbum mais firme e coxas definidas." },
-      { name: "author", content: "Bumbum Granada" },
-      { property: "og:title", content: "Desafio Bumbum Granada — Protocolo de 5 Minutos em Casa" },
+      { name: "author", content: "Bumbum Tanajura" },
+      { property: "og:title", content: "Desafio Bumbum Tanajura — Protocolo de 5 Minutos em Casa" },
       { property: "og:description", content: "Treino de 5 minutos sem academia e sem equipamento. Ativação Neural Sequencial para bumbum mais firme e coxas definidas." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

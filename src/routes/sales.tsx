@@ -20,8 +20,8 @@ import {
   X
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import mockup1 from "@/assets/capa-bumbum-granada.jpg";
-import mockup2 from "@/assets/bumbum-granada.jpg";
+import mockup1 from "@/assets/capa-bumbum-tanajura.jpg";
+import mockup2 from "@/assets/bumbum-tanajura.jpg";
 import mockup3 from "@/assets/mapa-da-silhueta.jpg";
 import resultHero from "@/assets/result-hero.jpeg.asset.json";
 
@@ -141,7 +141,7 @@ function SalesPage() {
         <div className="max-w-md mx-auto">
           <img 
             src={resultHero.url} 
-            alt="Resultado real do Protocolo Bumbum Granada" 
+            alt="Resultado real do Protocolo Bumbum Tanajura" 
             className="w-full rounded-3xl shadow-xl shadow-[var(--brand)]/10 border border-[var(--line)]"
             loading="eager"
             width={500}
@@ -206,16 +206,16 @@ function SalesPage() {
 
       {/* SECTION 3: O PRODUTO (VISUAL) */}
       <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Tanajura</h2>
         
         {/* CSS-Only Phone Mockup */}
         <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
           <div className="flex h-full animate-scroll-mockup">
              <div className="min-w-full h-full relative">
-               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Granada" className="w-full h-full object-cover" />
+               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Tanajura" className="w-full h-full object-cover" />
                <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
-                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Granada</h3>
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Tanajura</h3>
                </div>
              </div>
              <div className="min-w-full h-full relative">
@@ -251,7 +251,7 @@ function SalesPage() {
       <section className="px-5 py-12 md:px-6 md:py-[72px] text-center">
         <div className="max-w-4xl mx-auto space-y-10">
           <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
-            O que muda com o Protocolo Bumbum Granada
+            O que muda com o Protocolo Bumbum Tanajura
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
@@ -307,7 +307,7 @@ function SalesPage() {
           
           <div className="space-y-3">
             {[
-              { title: "Protocolo Bumbum Granada — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: "Protocolo Bumbum Tanajura — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
@@ -358,7 +358,7 @@ function SalesPage() {
               name: "Carla Silva",
               age: "43 anos",
               photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop",
-              text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias do Protocolo Bumbum Granada, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
+              text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias do Protocolo Bumbum Tanajura, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
             },
             {
               name: "Mariana Costa",
@@ -473,7 +473,7 @@ function SalesPage() {
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-[var(--ok)]">7 dias para testar sem risco</h3>
             <p className="text-sm text-[var(--ink-2)] leading-relaxed">
-              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <span className="font-bold">suporte@bumbumgranada.com</span>. Devolvemos 100% do valor, sem perguntas.
+              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <span className="font-bold">suporte@bumbumtanajura.com</span>. Devolvemos 100% do valor, sem perguntas.
             </p>
             <button 
               onClick={handlePurchase}
@@ -541,7 +541,7 @@ function SalesPage() {
           Resultados variam de pessoa para pessoa. Este produto não substitui acompanhamento médico ou de profissional de educação física. Todas as informações contidas aqui são apenas para fins educativos.
         </p>
         <p className="text-[10px] text-[var(--ink-2)] opacity-50">
-          © 2024 Desafio Bumbum Granada · Todos os direitos reservados
+          © 2024 Desafio Bumbum Tanajura · Todos os direitos reservados
         </p>
       </footer>
 

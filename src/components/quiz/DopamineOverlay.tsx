@@ -16,7 +16,7 @@ const VARIANTS = {
       "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada.",
     author: "— Carla, 43 anos",
     image: carlaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Carla, 43 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Carla, 43 anos",
     transition: "👇 Vamos descobrir o que está travando o seu resultado...",
   },
   2: {
@@ -26,7 +26,7 @@ const VARIANTS = {
       "Eu era completamente sedentária e tinha vergonha até de fazer vídeo. Com poucos minutos por dia, em 3 semanas já via a diferença no espelho.",
     author: "— Mariana, 31 anos",
     image: julianaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Mariana, 31 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Mariana, 31 anos",
     transition: "👇 Falta pouco para montar o seu protocolo...",
   },
   3: {
@@ -36,7 +36,7 @@ const VARIANTS = {
       "Testei academia, dieta, de tudo. Nada tinha destravado tanto o meu corpo quanto esse protocolo em tão pouco tempo.",
     author: "— Fernanda, 27 anos",
     image: fernandaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Granada — Fernanda, 27 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Fernanda, 27 anos",
     transition: "👇 Agora vamos calibrar a intensidade ideal para você...",
   },
 } as const;
