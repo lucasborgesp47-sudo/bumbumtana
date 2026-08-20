@@ -15,19 +15,19 @@ const VARIANTS = {
     transition: "👇 Vamos descobrir o que está travando o seu resultado...",
   },
   2: {
-    headline: "💪 MAIS DE 2.180 MULHERES já sentiram a diferença nos primeiros 7 dias.",
-    stat: "E o mais surpreendente? 74% delas nunca tinham feito nenhum treino em casa antes.",
+    headline: "🔥 Mais de 3.426 mulheres já comprovaram esse método nos últimos 6 meses.",
+    stat: "E o que mais impressiona? 74% delas nunca tinham feito nenhum treino em casa antes.",
     quote:
       "Eu era completamente sedentária e tinha vergonha até de fazer vídeo. Com poucos minutos por dia, em 3 semanas já via a diferença no espelho.",
     author: "— Juliana, 31 anos",
     transition: "👇 Falta pouco para montar o seu protocolo...",
   },
   3: {
-    headline: "✨ MAIS DE 1.590 MULHERES concluíram os 21 dias completos.",
-    stat: "E olha só: 81% relataram glúteos mais firmes já na segunda semana.",
+    headline: "🔥 São mais de 3.426 mulheres que já usaram esse método — e aprovaram.",
+    stat: "E o detalhe? 81% delas já tinham desistido de outros métodos antes de tentar esse.",
     quote:
-      "Tenho dois filhos e zero tempo. Fazia o treino enquanto o café passava. Nunca imaginei que tão pouco tempo mudaria tanto o meu corpo.",
-    author: "— Patrícia, 37 anos",
+      "Testei academia, dieta, de tudo. Nada tinha destravado tanto o meu corpo quanto esse protocolo em tão pouco tempo.",
+    author: "— Fernanda, 27 anos",
     transition: "👇 Agora vamos calibrar a intensidade ideal para você...",
   },
 } as const;
