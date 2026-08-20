@@ -329,7 +329,12 @@ function SalesPage() {
           
           <div className="space-y-1">
             <h3 className="text-xl font-bold uppercase tracking-widest text-[var(--ink-2)]">Acesso Vitalício</h3>
-            <p className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</p>
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</span>
+                <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">84% OFF</span>
+              </div>
+            </div>
             <div className="text-[40px] font-black text-[var(--brand)] leading-none">R$ {currentPrice}</div>
             <p className="text-sm font-bold text-[var(--ok)]">Pagamento único · Sem assinaturas</p>
           </div>
