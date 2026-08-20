@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuiz } from "../hooks/useQuiz";
 import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
@@ -39,6 +39,22 @@ function Index() {
     data
   } = useQuiz();
   const { start, finish } = useLoadingBar();
+  const [touched, setTouched] = useState(false);
+
+  const weightNum = Number(data.weight);
+  const heightNum = Number(data.height);
+  const nameError = !data.name?.trim() ? "Informe seu nome" : "";
+  const weightError = !data.weight
+    ? "Informe seu peso"
+    : !Number.isFinite(weightNum) || weightNum < 30 || weightNum > 200
+      ? "Peso deve estar entre 30 e 200 kg"
+      : "";
+  const heightError = !data.height
+    ? "Informe sua altura"
+    : !Number.isFinite(heightNum) || heightNum < 120 || heightNum > 220
+      ? "Altura deve estar entre 120 e 220 cm"
+      : "";
+  const formValid = !nameError && !weightError && !heightError;
 
   useEffect(() => {
     if (loading) {
@@ -149,21 +165,33 @@ function Index() {
                     "💊 Suplementos / cremes",
                     "💉 Procedimentos estéticos",
                     "🙅‍♀️ Nunca tentei nada direcionado",
-                  ].map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => nextStep({ tried: [opt] })}
-                      className="w-full text-left bg-card p-4 rounded-xl border-2 border-border hover:border-primary transition-all flex items-center"
-                    >
-                      <div className="w-6 h-6 border-2 border-gray-300 rounded mr-4 flex items-center justify-center">
-                        <Check size={16} className="text-primary hidden group-active:block" />
-                      </div>
-                      <span className="font-medium">{opt}</span>
-                    </button>
-                  ))}
+                  ].map((opt) => {
+                    const selected = (data.tried || []).includes(opt);
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          const current = data.tried || [];
+                          updateData({
+                            tried: selected
+                              ? current.filter((t) => t !== opt)
+                              : [...current, opt],
+                          });
+                        }}
+                        className={`w-full text-left bg-card p-4 rounded-xl border-2 transition-all flex items-center ${selected ? "border-primary" : "border-border hover:border-primary"}`}
+                      >
+                        <div className={`w-6 h-6 border-2 rounded mr-4 flex items-center justify-center ${selected ? "border-primary bg-primary" : "border-gray-300"}`}>
+                          {selected && <Check size={16} className="text-white" />}
+                        </div>
+                        <span className="font-medium">{opt}</span>
+                      </button>
+                    );
+                  })}
                   <button
                     onClick={() => nextStep()}
-                    className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold"
+                    disabled={!(data.tried || []).length}
+                    className="mt-4 w-full bg-primary text-white py-4 rounded-xl font-bold disabled:opacity-50"
                   >
                     Continuar →
                   </button>
@@ -196,7 +224,7 @@ function Index() {
                   <h1 className="text-xl md:text-2xl font-bold text-balance">E seu nível de atividade hoje?</h1>
                   <div className="grid gap-3">
                     {[
-                      "🛋️ Sedentária — nada há meses",
+                      "🛋️ Sedentária — parada há meses",
                       "🚶‍♀️ Leve — caminho eventualmente",
                       "💪 Moderada — 1-2x por semana",
                       "🏃‍♀️ Ativa — treino regular",
@@ -222,34 +250,45 @@ function Index() {
                     <label className="block text-sm font-bold mb-2">Qual o seu nome?</label>
                     <input
                       type="text"
+                      value={data.name || ""}
                       placeholder="Ex: Ana"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ name: e.target.value })}
                     />
+                    {touched && nameError && <p className="text-sm text-red-600 mt-1">{nameError}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
                     <input
                       type="number"
                       inputMode="numeric"
+                      value={data.weight || ""}
                       placeholder="Ex: 68"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ weight: e.target.value })}
                     />
+                    {touched && weightError && <p className="text-sm text-red-600 mt-1">{weightError}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-bold mb-2">Qual a sua altura? (cm)</label>
                     <input
                       type="number"
                       inputMode="numeric"
+                      value={data.height || ""}
                       placeholder="Ex: 165"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ height: e.target.value })}
                     />
+                    {touched && heightError && <p className="text-sm text-red-600 mt-1">{heightError}</p>}
                   </div>
                   <button
-                    onClick={() => nextStep()}
-                    className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg mt-4"
+                    onClick={() => {
+                      setTouched(true);
+                      if (!formValid) return;
+                      nextStep();
+                    }}
+                    disabled={touched && !formValid}
+                    className="w-full bg-primary text-white py-5 rounded-2xl font-bold text-lg mt-4 disabled:opacity-50"
                   >
                     Calibrar Meu Protocolo →
                   </button>

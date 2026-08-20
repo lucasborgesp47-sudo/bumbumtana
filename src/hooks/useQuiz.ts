@@ -89,7 +89,7 @@ export const useQuiz = () => {
     if (tried && tried.length > 0 && !tried.includes("Nunca tentei nada direcionado")) return 'Y';
     if (time === "Menos de 10 minutos") return 'Z';
     if (age === "40 a 49 anos" || age === "50+ anos") return 'X';
-    if (activityLevel === "Sedentária — nada há meses") return 'W';
+    if (activityLevel === "Sedentária — parada há meses") return 'W';
     
     return 'Y'; // Default
   };
