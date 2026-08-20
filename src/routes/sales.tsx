@@ -20,8 +20,8 @@ import {
   X
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import mockup1 from "@/assets/capa-bumbum-tanajura.jpg";
-import mockup2 from "@/assets/bumbum-tanajura.jpg";
+import mockup1 from "@/assets/capa-bumbum-granada.jpg";
+import mockup2 from "@/assets/bumbum-granada.jpg";
 import mockup3 from "@/assets/mapa-da-silhueta.jpg";
 import resultHero from "@/assets/result-hero.jpeg.asset.json";
 
