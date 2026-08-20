@@ -42,12 +42,17 @@ function SalesPage() {
   
   // Quiz data (obrigatório: sem quiz respondido, volta para o início)
   const [quizData, setQuizData] = useState<{name?: string, objective?: string}>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('bbg_quiz_data');
-      return saved ? JSON.parse(saved) : {};
-    }
     return {};
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('bbg_quiz_data');
+      if (saved) {
+        setQuizData(JSON.parse(saved));
+      }
+    }
+  }, []);
 
   const hasQuizData = Boolean(quizData?.name && quizData?.objective);
 
@@ -197,6 +202,49 @@ function SalesPage() {
         </div>
       </section>
 
+      {/* SECTION 3: O PRODUTO (VISUAL) */}
+      <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
+        
+        {/* CSS-Only Phone Mockup */}
+        <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
+          <div className="flex h-full animate-scroll-mockup">
+             <div className="min-w-full h-full relative">
+               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Granada" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Granada</h3>
+               </div>
+             </div>
+             <div className="min-w-full h-full relative">
+               <img src={mockup2} width={500} height={500} loading="lazy" decoding="async" alt="Express Bumbum em Casa" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Express Bumbum em Casa</h3>
+               </div>
+             </div>
+             <div className="min-w-full h-full relative">
+               <img src={mockup3} width={500} height={500} loading="lazy" decoding="async" alt="Mapa da Silhueta" className="w-full h-full object-cover" />
+               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Mapa da Silhueta</h3>
+               </div>
+             </div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
+          {[
+            { icon: <Clock size={16} />, text: "Treinos de 5 minutos" },
+            { icon: <Zap size={16} />, text: "Sem equipamento" },
+            { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
+          ].map((item, i) => (
+            <div key={i} className="flex items-center gap-2 bg-[var(--surface-2)] px-4 py-2 rounded-full text-sm font-semibold text-[var(--ink-2)] border border-[var(--line)]">
+              {item.icon}
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* SECTION: ANTES E DEPOIS DO PROTOCOLO */}
       <section className="px-5 py-12 md:px-6 md:py-[72px] text-center">
         <div className="max-w-4xl mx-auto space-y-10">
@@ -249,52 +297,10 @@ function SalesPage() {
           </div>
         </div>
       </section>
-      {/* SECTION 3: O PRODUTO (VISUAL) */}
-      <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
-        
-        {/* CSS-Only Phone Mockup */}
-        <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
-          <div className="flex h-full animate-scroll-mockup">
-             <div className="min-w-full h-full relative">
-               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Granada" className="w-full h-full object-cover" />
-               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
-                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Granada</h3>
-               </div>
-             </div>
-             <div className="min-w-full h-full relative">
-               <img src={mockup2} width={500} height={500} loading="lazy" decoding="async" alt="Express Bumbum em Casa" className="w-full h-full object-cover" />
-               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
-                 <h3 className="text-2xl font-black uppercase italic leading-tight">Express Bumbum em Casa</h3>
-               </div>
-             </div>
-             <div className="min-w-full h-full relative">
-               <img src={mockup3} width={500} height={500} loading="lazy" decoding="async" alt="Mapa da Silhueta" className="w-full h-full object-cover" />
-               <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
-                 <h3 className="text-2xl font-black uppercase italic leading-tight">Mapa da Silhueta</h3>
-               </div>
-             </div>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
-          {[
-            { icon: <Clock size={16} />, text: "Treinos de 5 minutos" },
-            { icon: <Zap size={16} />, text: "Sem equipamento" },
-            { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-2 bg-[var(--surface-2)] px-4 py-2 rounded-full text-sm font-semibold text-[var(--ink-2)] border border-[var(--line)]">
-              {item.icon}
-              <span>{item.text}</span>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* SECTION 4: STACK DE ENTREGÁVEIS */}
       <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px]">
-        <div className="max-w-2xl mx-auto space-y-6">
+        <div className="max-w-2xl mx-auto space-y-6 border-2 border-[var(--brand)] rounded-[32px] p-6 md:p-10 bg-[var(--surface)] shadow-2xl shadow-[var(--brand)]/10">
           <h2 className="text-2xl font-bold text-center mb-8">O que você vai receber hoje</h2>
           
           <div className="space-y-3">
@@ -370,11 +376,11 @@ function SalesPage() {
                 <img 
                   loading="lazy"
                   decoding="async"
-                  width={48}
-                  height={48}
+                  width={64}
+                  height={64}
                   src={item.photo} 
                   alt={item.name} 
-                  className="w-12 h-12 rounded-full object-cover border-2 border-[var(--brand-soft)]"
+                  className="w-16 h-16 rounded-2xl object-cover border-2 border-[var(--brand-soft)] shadow-md"
                 />
                 <div>
                   <div className="font-bold text-[var(--ink)]">{item.name}</div>
@@ -394,7 +400,7 @@ function SalesPage() {
 
       {/* SECTION 6: OFERTA */}
       <section className="px-5 py-12 md:px-6 md:py-[72px] bg-[var(--surface-2)]">
-        <div className="max-w-md mx-auto bg-[var(--surface)] border-2 border-[var(--brand)] rounded-[32px] p-8 text-center space-y-6 shadow-xl relative overflow-hidden">
+        <div className="max-w-md mx-auto bg-[var(--surface)] border-[3px] border-[var(--brand)] rounded-[32px] p-8 text-center space-y-6 shadow-2xl shadow-[var(--brand)]/20 relative overflow-hidden">
           {!isExpired && (
             <div className="absolute top-4 right-[-35px] rotate-45 bg-[var(--brand)] text-white text-[10px] font-bold py-1 px-10 shadow-md">
               84% OFF
