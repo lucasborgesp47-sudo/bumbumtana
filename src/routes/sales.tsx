@@ -23,6 +23,7 @@ import { useLoadingBar } from "../components/ui/LoadingBar";
 import mockup1 from "@/assets/capa-bumbum-granada.jpg";
 import mockup2 from "@/assets/bumbum-granada.jpg";
 import mockup3 from "@/assets/mapa-da-silhueta.jpg";
+import resultHero from "@/assets/result-hero.jpeg.asset.json";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -130,6 +131,17 @@ function SalesPage() {
           Pelas suas respostas, seu ponto de travamento é <span className="text-[var(--brand)] font-bold">{quizData.objective || "a falta de estímulo correto nas fibras musculares"}</span> — e é exatamente isso que o protocolo ataca nas primeiras 72 horas.
         </p>
 
+        <div className="max-w-md mx-auto">
+          <img 
+            src={resultHero.url} 
+            alt="Resultado real do Protocolo Bumbum Granada" 
+            className="w-full rounded-3xl shadow-xl shadow-[var(--brand)]/10 border border-[var(--line)]"
+            loading="eager"
+            width={500}
+            height={500}
+          />
+        </div>
+
         <div className="space-y-6">
           {/* Real Timer */}
           <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl p-4 inline-block w-full max-w-[280px]">
@@ -160,20 +172,20 @@ function SalesPage() {
       </section>
 
       {/* SECTION 2: O QUE TRAVA O RESULTADO */}
-      <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px] text-center">
+      <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center">
         <div className="max-w-4xl mx-auto space-y-10">
           <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
             Não é falta de esforço. É isso que está travando seu resultado.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
-            { icon: <Clock className="text-[var(--brand)]" />, title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
-            { icon: <Layout className="text-[var(--brand)]" />, title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
-            { icon: <Zap className="text-[var(--brand)]" />, title: "Falta de ativação", desc: "O problema não é o peso, é a conexão neural que está desligada." }
+            { emoji: "⏰", title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
+            { emoji: "🍑", title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
+            { emoji: "🔥", title: "Falta de ativação", desc: "O problema não é o peso, é a conexão neural que está desligada." }
           ].map((item, i) => (
-            <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--brand-soft)] flex items-center justify-center">
-                {item.icon}
+            <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--brand-soft)] flex items-center justify-center text-2xl">
+                {item.emoji}
               </div>
               <h3 className="text-lg font-bold leading-tight">{item.title}</h3>
               <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
@@ -236,7 +248,7 @@ function SalesPage() {
         </div>
       </section>
       {/* SECTION 3: O PRODUTO (VISUAL) */}
-      <section className="px-5 py-12 md:px-6 md:py-[72px] text-center space-y-8">
+      <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
         <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Granada</h2>
         
         {/* CSS-Only Phone Mockup */}
@@ -290,10 +302,12 @@ function SalesPage() {
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
             ].map((item, i) => (
-              <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4">
+              <div key={i} className="bg-[var(--surface)] p-5 rounded-2xl border border-[var(--line)] flex justify-between items-center gap-4 shadow-sm">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <CheckCircle2 size={18} className="text-[var(--ok)]" />
+                    <div className="w-7 h-7 rounded-full bg-[var(--brand-soft)] flex items-center justify-center text-sm shrink-0">
+                      ✅
+                    </div>
                     <h4 className="font-bold text-base">{item.title}</h4>
                   </div>
                   <p className="text-[13px] text-[var(--ink-2)] pl-6">{item.benefit}</p>
@@ -326,7 +340,7 @@ function SalesPage() {
       </section>
 
       {/* SECTION 5: PROVA SOCIAL */}
-      <section className="px-5 py-12 md:px-6 md:py-[72px] overflow-hidden">
+      <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] overflow-hidden">
         <h2 className="text-2xl font-bold text-center mb-8">Resultados reais em 21 dias</h2>
         <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide -mx-5 px-5">
           {[
