@@ -178,6 +178,7 @@ function SalesPage() {
               <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
             </div>
           ))}
+          </div>
         </div>
       </section>
 
