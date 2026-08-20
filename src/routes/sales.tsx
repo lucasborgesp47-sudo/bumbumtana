@@ -144,17 +144,19 @@ function SalesPage() {
 
         <div className="space-y-6">
           {/* Real Timer */}
-          <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl p-4 inline-block w-full max-w-[280px]">
-            <p className="text-[13px] font-semibold text-[var(--ink-2)] uppercase mb-1">Oferta expira em:</p>
-            <div className={`text-[40px] font-extrabold leading-none ${isExpired ? 'text-[var(--ink-2)]' : 'text-[var(--brand)]'}`}>
+          <div className="bg-[var(--brand)] text-white border-2 border-white/20 rounded-2xl p-4 inline-block w-full max-w-[280px] shadow-2xl shadow-[var(--brand)]/40">
+            <div className="flex items-center justify-center gap-2 text-[13px] font-semibold uppercase mb-1 opacity-90">
+              <Clock size={14} /> Oferta expira em:
+            </div>
+            <div className="text-[40px] font-extrabold leading-none">
               {formatTime(timeLeft)}
             </div>
             {!isExpired && (
               <div className="mt-2 space-y-1">
-                <div className="text-sm font-bold text-[var(--ink-2)] line-through">
+                <div className="text-sm font-bold opacity-75 line-through">
                   R$ {anchorPrice}
                 </div>
-                <div className="text-[13px] font-bold text-[var(--ok)] animate-pulse">
+                <div className="text-[13px] font-bold text-white animate-pulse">
                   {isExpired ? 'Preço normal' : '84% de desconto aplicado'}
                 </div>
               </div>
@@ -183,7 +185,7 @@ function SalesPage() {
             { emoji: "🍑", title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
             { emoji: "🔥", title: "Falta de ativação", desc: "O problema não é o peso, é a conexão neural que está desligada." }
           ].map((item, i) => (
-            <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3 shadow-sm">
+            <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3 shadow-lg shadow-[var(--brand)]/5">
               <div className="w-12 h-12 rounded-2xl bg-[var(--brand-soft)] flex items-center justify-center text-2xl">
                 {item.emoji}
               </div>
