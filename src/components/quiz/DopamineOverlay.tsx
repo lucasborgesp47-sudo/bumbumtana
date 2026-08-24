@@ -10,8 +10,8 @@ interface DopamineProps {
 
 const VARIANTS = {
   1: {
-    headline: "🔥 MAIS DE 3.426 MULHERES já usaram esse método nos últimos 6 meses.",
-    stat: "E o mais impressionante? 68% delas tinham mais de 35 anos e achavam que já era tarde demais.",
+    headline: "🔥 Mais de 3.400 mulheres já usaram esse método nos últimos 6 meses.",
+    stat: "E o mais impressionante? boa parte delas tinha mais de 35 anos e achava que já era tarde demais.",
     quote:
       "Pensei que meu bumbum nunca mais levantaria depois dos 40. Em 21 dias usando o app, minha calça jeans ficou dois números mais folgada.",
     author: "— Carla, 43 anos",
@@ -20,8 +20,8 @@ const VARIANTS = {
     transition: "👇 Vamos descobrir o que está travando o seu resultado...",
   },
   2: {
-    headline: "🔥 Mais de 3.426 mulheres já comprovaram esse método nos últimos 6 meses.",
-    stat: "E o que mais impressiona? 74% delas nunca tinham feito nenhum treino em casa antes.",
+    headline: "🔥 Mais de 3.400 mulheres já comprovaram esse método nos últimos 6 meses.",
+    stat: "E o que mais impressiona? muitas delas nunca tinham feito nenhum treino em casa antes.",
     quote:
       "Eu era completamente sedentária e tinha vergonha até de fazer vídeo. Com poucos minutos por dia, em 3 semanas já via a diferença no espelho.",
     author: "— Mariana, 31 anos",
@@ -30,8 +30,8 @@ const VARIANTS = {
     transition: "👇 Falta pouco para montar o seu protocolo...",
   },
   3: {
-    headline: "🔥 São mais de 3.426 mulheres que já usaram esse método — e aprovaram.",
-    stat: "E o detalhe? 81% delas já tinham desistido de outros métodos antes de tentar esse.",
+    headline: "Ela também achava que já tinha tentado de tudo.",
+    stat: "Mais de 3.400 mulheres já passaram por essa mesma sensação antes de encontrar esse método.",
     quote:
       "Testei academia, dieta, de tudo. Nada tinha destravado tanto o meu corpo quanto esse protocolo em tão pouco tempo.",
     author: "— Fernanda, 27 anos",
