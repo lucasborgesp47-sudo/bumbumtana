@@ -39,13 +39,10 @@ export const EmotionalOverlay = () => {
 
         <div className="space-y-4 text-lg text-gray-300 leading-relaxed">
           <p>
-            E o pior: não é culpa sua. O glúteo é o músculo mais 'preguiçoso' do corpo feminino.
-          </p>
-          <p>
-            Sem a ativação correta, você pode fazer 100 agachamentos e zero resultado.
+            O problema pode não ser falta de esforço. Em muitos exercícios, é possível sentir mais as pernas do que o glúteo.
           </p>
           <p className="font-bold text-white">
-            É por isso que academia tradicional não funciona para 89% das mulheres.
+            Quando o estímulo não é bem direcionado, você pode passar meses treinando sem perceber a evolução que esperava.
           </p>
         </div>
       </div>
