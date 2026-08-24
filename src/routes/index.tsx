@@ -11,8 +11,8 @@ export const Route = createFileRoute("/")({
 });
 
 function ProgressBar({ step }: { step: number }) {
-  // Total steps in the funnel: 8 content steps + loading/results
-  const totalSteps = 10;
+  // Total steps in the funnel: 9 content steps + loading/results
+  const totalSteps = 11;
   const percentage = Math.min((step / totalSteps) * 100, 100);
   return (
     <div className="w-full bg-slate-200 rounded-full h-2 mb-8 overflow-hidden">
@@ -90,7 +90,7 @@ function Index() {
             {step === 1 && (
               <div className="space-y-4 md:space-y-6">
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Qual a sua idade?</h1>
-                <p className="text-muted text-sm md:text-base">Isso calibra a intensidade ideal para o seu metabolismo</p>
+                <p className="text-muted text-sm md:text-base">Isso nos ajuda a definir a intensidade mais adequada para o seu perfil</p>
                 <div className="grid gap-4">
                   {[
                     { label: "18 a 29 anos", icon: "🔥" },
@@ -113,7 +113,7 @@ function Index() {
             
             {step === 2 && (
               <div className="space-y-6">
-                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Se você pudesse escolher apenas UMA coisa para mudar nos próximos 21 dias...</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Se você pudesse escolher apenas UMA coisa para mudar no seu bumbum nos próximos 21 dias...</h1>
                 <div className="grid gap-4">
                   {[
                     "🍑 Levantar o bumbum e dar mais volume",
@@ -135,7 +135,7 @@ function Index() {
             
             {step === 3 && (
               <div className="space-y-4 md:space-y-6">
-                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Como você REALMENTE se sente quando olha para suas coxas e bumbum no espelho?</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance leading-tight">Como você REALMENTE se sente quando olha para seu bumbum no espelho?</h1>
                 <div className="grid gap-4">
                   {[
                     "😔 Frustrada — já tentei de tudo e nada muda",
@@ -156,6 +156,29 @@ function Index() {
             )}
             
             {step === 4 && (
+              <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Durante seus exercícios, onde você sente mais o esforço?</h1>
+                <div className="grid gap-4">
+                  {[
+                    { label: "Principalmente no bumbum", icon: "🍑" },
+                    { label: "Mais nas coxas", icon: "🦵" },
+                    { label: "Sinto pouco o músculo", icon: "😕" },
+                    { label: "Não sei dizer", icon: "🤔" },
+                  ].map((opt) => (
+                    <button
+                      key={opt.label}
+                      onClick={() => nextStep({ effortLocation: opt.label })}
+                      className="flex items-center text-left w-full bg-card p-6 rounded-2xl border-2 border-border hover:border-primary transition-all"
+                    >
+                      <span className="text-3xl mr-4">{opt.icon}</span>
+                      <span className="font-bold text-lg">{opt.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {step === 5 && (
               <div className="space-y-4 md:space-y-6">
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Marque tudo que você já fez para mudar bumbum e coxa:</h1>
                 <div className="grid gap-3">
@@ -195,7 +218,7 @@ function Index() {
               </div>
             )}
             
-            {step === 5 && (
+            {step === 6 && (
               <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
                 <div className="grid gap-4">
@@ -218,7 +241,7 @@ function Index() {
               </div>
             )}
 
-            {step === 6 && (
+            {step === 7 && (
               <div className="space-y-8 animate-in fade-in duration-500">
                 <div className="space-y-4">
                   <h1 className="text-xl md:text-2xl font-bold text-balance">E seu nível de atividade hoje?</h1>
@@ -242,7 +265,7 @@ function Index() {
               </div>
             )}
             
-            {step === 7 && (
+            {step === 8 && (
               <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Dados Físicos</h1>
                 <div className="space-y-4">
@@ -296,14 +319,19 @@ function Index() {
               </div>
             )}
             
-            {step === 8 && (
+            {step === 9 && (
               <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto animate-in fade-in duration-500">
-                <h2 className="text-2xl font-bold text-primary">🎯 Seu Protocolo Personalizado está pronto!</h2>
-                <div className="text-left space-y-2 bg-background p-4 rounded-xl border border-border">
-                  <p><strong>Idade:</strong> {data.age || "Calibrada"}</p>
-                  <p><strong>Peso:</strong> {data.weight ? `${data.weight}kg` : "--"}</p>
-                  <p><strong>Altura:</strong> {data.height ? `${data.height}cm` : "--"}</p>
-                  <p><strong>Protocolo:</strong> {data.time?.includes("Menos de 10") ? "5 minutos" : "12 minutos"}</p>
+                <h2 className="text-2xl font-bold text-primary">🎯 SEU DIAGNÓSTICO ESTÁ PRONTO</h2>
+                <div className="text-left space-y-3 bg-background p-4 rounded-xl border border-border">
+                  <p>
+                    <strong>Principal ponto de atenção:</strong>{" "}
+                    {data.effortLocation === "Sinto pouco o músculo" || data.effortLocation === "Mais nas coxas"
+                      ? "falta de ativação do glúteo durante o treino"
+                      : "ativação do glúteo"}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Pelas suas respostas, seu protocolo foi ajustado para priorizar estímulos direcionados ao glúteo, dentro do tempo que você tem disponível: <strong>{data.time || "poucos minutos por dia"}</strong>.
+                  </p>
                 </div>
                 
                 <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
