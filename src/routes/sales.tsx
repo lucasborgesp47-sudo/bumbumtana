@@ -135,7 +135,7 @@ function SalesPage() {
         </h1>
         
         <p className="text-base leading-relaxed text-[var(--ink-2)] text-balance">
-          Pelas suas respostas, seu ponto de travamento é <span className="text-[var(--brand)] font-bold">{quizData.objective || "a falta de estímulo correto nas fibras musculares"}</span> — e é exatamente isso que o protocolo ataca nas primeiras 72 horas.
+          Pelas suas respostas, seu principal ponto de atenção é a <span className="text-[var(--brand)] font-bold">ativação do glúteo</span>. Por isso, ajustamos seu protocolo para trabalhar o glúteo de forma mais direcionada, sem exigir horas de academia.
         </p>
 
         <div className="max-w-md mx-auto">
@@ -174,7 +174,7 @@ function SalesPage() {
             onClick={handlePurchase}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-lg shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group max-w-md mx-auto"
           >
-            QUERO ATIVAR MEU PROTOCOLO AGORA — R$ {currentPrice}
+            QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
@@ -186,6 +186,9 @@ function SalesPage() {
           <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
             Não é falta de esforço. É isso que está travando seu resultado.
           </h2>
+          <p className="text-base md:text-lg text-[var(--ink-2)] max-w-xl mx-auto -mt-4">
+            Você pode estar direcionando o estímulo para o lugar errado.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
             { emoji: "⏰", title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
@@ -201,6 +204,29 @@ function SalesPage() {
             </div>
           ))}
           </div>
+        </div>
+      </section>
+
+      {/* SECTION 2.5: COMO FUNCIONA */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px] max-w-2xl mx-auto space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">Como o Protocolo Bumbum Tanajura funciona</h2>
+        <div className="space-y-6">
+          {[
+            { step: "1", title: "Ativação", desc: "Aprenda a direcionar o estímulo para o glúteo." },
+            { step: "2", title: "Estímulo localizado", desc: "Movimentos selecionados para o objetivo do protocolo." },
+            { step: "3", title: "Rotina curta", desc: "Sessões que cabem no tempo que você tem disponível." },
+            { step: "4", title: "Progressão", desc: "Evolução organizada ao longo dos dias." },
+          ].map((item) => (
+            <div key={item.step} className="flex gap-4">
+              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--brand)] text-white flex items-center justify-center font-bold">
+                {item.step}
+              </div>
+              <div className="space-y-1">
+                <h4 className="font-bold text-base">{item.title}</h4>
+                <p className="text-sm text-[var(--ink-2)] leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -370,7 +396,7 @@ function SalesPage() {
               name: "Fernanda Lima",
               age: "35 anos",
               photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop",
-              text: "A sensação de ativação é surreal. Você sente o músculo trabalhando de verdade logo no primeiro dia. Mudou meu corpo completamente."
+              text: "Já tinha tentado outros aplicativos e até creme, sem resultado nenhum. A sensação de ativação desse protocolo é surreal — senti o músculo trabalhando de verdade logo no primeiro dia."
             }
           ].map((item, idx) => (
             <div key={idx} className="min-w-[280px] bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-4 shadow-sm">
@@ -425,7 +451,7 @@ function SalesPage() {
             onClick={handlePurchase}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
-            QUERO ATIVAR MEU PROTOCOLO AGORA — R$ {currentPrice}
+            QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
