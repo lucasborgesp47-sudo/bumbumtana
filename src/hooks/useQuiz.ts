@@ -5,6 +5,7 @@ export interface QuizData {
   age?: string;
   objective?: string;
   feelings?: string;
+  effortLocation?: string;
   tried?: string[];
   time?: string;
   activityLevel?: string;
@@ -59,20 +60,21 @@ export const useQuiz = () => {
       updateData(stepData);
     }
 
-    // Step mapping (Total steps increased due to split):
+    // Step mapping (Total steps increased due to split + new diagnostic question):
     // 1: Age
     // 2: Objective
     // (Dopamine 1)
     // 3: Feelings
-    // (Emotional)
-    // 4: Tried
+    // (Emotional / mechanism explanation)
+    // 4: Effort location (new diagnostic question — feeds the result's "ponto de atenção")
+    // 5: Tried
     // (Dopamine 2)
-    // 5: Time (Minutes)
-    // 6: Activity Level
+    // 6: Time (Minutes)
+    // 7: Activity Level
     // (Dopamine 3)
-    // 7: Physical Data (Weight/Height)
+    // 8: Physical Data (Weight/Height)
     // (Loading)
-    // 8: Results
+    // 9: Results
 
     if (step === 2) {
       setDopamineType(1);
@@ -83,17 +85,17 @@ export const useQuiz = () => {
         setShowEmotionalOverlay(false);
         setStep(4);
       }, 3000);
-    } else if (step === 4) {
+    } else if (step === 5) { // Now happens after step 5 (Tried)
       setDopamineType(2);
       setShowDopamine(true);
-    } else if (step === 6) { // Now happens after step 6 (Activity Level)
+    } else if (step === 7) { // Now happens after step 7 (Activity Level)
       setDopamineType(3);
       setShowDopamine(true);
-    } else if (step === 7) { // Now happens after step 7 (Physical Data)
+    } else if (step === 8) { // Now happens after step 8 (Physical Data)
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        setStep(8);
+        setStep(9);
       }, 3000);
     } else {
       setStep((prev) => prev + 1);
