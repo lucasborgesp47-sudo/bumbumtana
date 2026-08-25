@@ -4,6 +4,7 @@ import { useQuiz } from "../hooks/useQuiz";
 import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
+import { EntryGate } from "../components/quiz/EntryGate";
 import { useLoadingBar } from "../components/ui/LoadingBar";
 
 export const Route = createFileRoute("/")({
@@ -41,6 +42,7 @@ function Index() {
   } = useQuiz();
   const { start, finish } = useLoadingBar();
   const [touched, setTouched] = useState(false);
+  const [showEntryGate, setShowEntryGate] = useState(true);
 
   const weightNum = Number(data.weight);
   const heightNum = Number(data.height);
@@ -64,6 +66,10 @@ function Index() {
       finish();
     }
   }, [loading, start, finish]);
+
+  if (showEntryGate) {
+    return <EntryGate onEnter={() => setShowEntryGate(false)} />;
+  }
 
   if (showDopamine) {
     return <DopamineOverlay type={dopamineType as 1 | 2 | 3} onContinue={closeDopamine} />;
