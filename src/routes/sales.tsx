@@ -275,7 +275,7 @@ function SalesPage() {
 
         <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
           {[
-            { icon: <Clock size={16} />, text: "Treinos de 5 minutos" },
+            { icon: <Clock size={16} />, text: "Treinos de 20 minutos" },
             { icon: <Zap size={16} />, text: "Sem equipamento" },
             { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
           ].map((item, i) => (
@@ -324,7 +324,7 @@ function SalesPage() {
                 {[
                   "Ativação correta do glúteo em minutos, sem dor nas articulações",
                   "Confiança para usar a roupa que quiser",
-                  "Treino de 5 minutos que cabe em qualquer rotina",
+                  "Treino de 20 minutos que cabe em qualquer rotina",
                   "Resultado visível que comprova que valeu a pena",
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3 items-start">
@@ -347,7 +347,7 @@ function SalesPage() {
           
           <div className="space-y-3">
             {[
-              { title: "Protocolo Bumbum Tanajura — 5 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: "Protocolo Bumbum Tanajura — 20 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
@@ -404,7 +404,7 @@ function SalesPage() {
               name: "Mariana Costa",
               age: "28 anos",
               photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop",
-              text: "O melhor são os treinos de 5 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
+              text: "O melhor são os treinos de 20 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
             },
             {
               name: "Fernanda Lima",
@@ -489,7 +489,7 @@ function SalesPage() {
           {[
             { step: "1", title: "Pagamento Aprovado", desc: "Assim que o sistema confirma o pagamento (instantâneo no PIX e Cartão)." },
             { step: "2", title: "Acesso Imediato no E-mail", desc: "Você recebe o link único de acesso e sua senha em até 2 minutos." },
-            { step: "3", title: "Primeiro Treino Hoje", desc: "Basta abrir no celular e começar o seu primeiro ciclo de 5 minutos." }
+            { step: "3", title: "Primeiro Treino Hoje", desc: "Basta abrir no celular e começar o seu primeiro ciclo de 20 minutos." }
           ].map((item, i) => (
             <div key={i} className="flex gap-4">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--ink)] text-white flex items-center justify-center font-bold">
