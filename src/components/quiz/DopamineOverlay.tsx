@@ -24,9 +24,9 @@ const VARIANTS = {
     stat: "E o que mais impressiona? muitas delas nunca tinham feito nenhum treino em casa antes.",
     quote:
       "Eu era completamente sedentária. Fazia agachamento e só engrossava a coxa. Com o Truque da Virgínia em casa, em 3 semanas o bumbum subiu.",
-    author: "Mariana, 31 anos — ex-viciada em agachamento",
+    author: "Mariana, 28 anos — ex-viciada em agachamento",
     image: julianaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Mariana, 31 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Mariana, 28 anos",
     transition: "👇 Falta pouco para montar o seu Protocolo Bumbum Tanajura...",
   },
   3: {
@@ -34,9 +34,9 @@ const VARIANTS = {
     stat: "Mais de 2.428 mulheres já passaram por essa mesma sensação antes de encontrar esse método.",
     quote:
       "Testei academia, agachamento, dieta, de tudo. Só engrossava a coxa. O Truque da Virgínia destravou meu bumbum em 21 dias — sem pisar na academia.",
-    author: "Fernanda, 27 anos — ex-frequentadora de academia",
+    author: "Fernanda, 35 anos — ex-frequentadora de academia",
     image: fernandaImg.url,
-    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Fernanda, 27 anos",
+    alt: "Resultado antes e depois do Protocolo Bumbum Tanajura — Fernanda, 35 anos",
     transition: "👇 Agora vamos calibrar o Truque da Virgínia para o seu corpo...",
   },
 } as const;
