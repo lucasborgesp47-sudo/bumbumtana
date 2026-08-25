@@ -20,7 +20,7 @@ const VARIANTS = {
     transition: "👇 Vamos descobrir por que o agachamento não funcionou para você...",
   },
   2: {
-    headline: "🔥 2.428 mulheres pararam de agachar e começaram a usar o Truque",
+    headline: "🔥 Mais de 2.428 mulheres pararam de agachar e começaram a usar o Truque",
     stat: "E o que mais impressiona? muitas delas nunca tinham feito nenhum treino em casa antes.",
     quote:
       "Eu era completamente sedentária. Fazia agachamento e só engrossava a coxa. Com o Truque da Virgínia em casa, em 3 semanas o bumbum subiu.",
@@ -30,8 +30,8 @@ const VARIANTS = {
     transition: "👇 Falta pouco para montar o seu Protocolo Bumbum Tanajura...",
   },
   3: {
-    headline: "2.428 mulheres sentiram exatamente isso antes de descobrir o Truque da Virgínia",
-    stat: "Mais de 3.400 mulheres já passaram por essa mesma sensação antes de encontrar esse método.",
+    headline: "Mais de 2.428 mulheres sentiram exatamente isso antes de descobrir o Truque da Virgínia",
+    stat: "Mais de 2.428 mulheres já passaram por essa mesma sensação antes de encontrar esse método.",
     quote:
       "Testei academia, agachamento, dieta, de tudo. Só engrossava a coxa. O Truque da Virgínia destravou meu bumbum em 21 dias — sem pisar na academia.",
     author: "Fernanda, 27 anos — ex-frequentadora de academia",
@@ -41,6 +41,23 @@ const VARIANTS = {
   },
 } as const;
 
+const HIGHLIGHT_PHRASES = ["Mais de 2.428 mulheres", "Truque da Virgínia"];
+const HIGHLIGHT_PATTERN = new RegExp(
+  `(${HIGHLIGHT_PHRASES.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+  "g"
+);
+
+const highlightText = (text: string) =>
+  text.split(HIGHLIGHT_PATTERN).map((part, i) =>
+    HIGHLIGHT_PHRASES.includes(part) ? (
+      <span key={i} className="text-primary font-bold">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+
 export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
   const content = VARIANTS[type] ?? VARIANTS[1];
 
@@ -48,8 +65,8 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
     <div className="fixed inset-0 z-50 bg-[#1A1A2E] text-white p-6 flex flex-col justify-start overflow-y-auto animate-in fade-in duration-300">
       <div className="max-w-md mx-auto w-full text-center space-y-8 py-8">
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold leading-tight">{content.headline}</h2>
-          <p className="text-gray-400 text-lg">{content.stat}</p>
+          <h2 className="text-2xl font-bold leading-tight">{highlightText(content.headline)}</h2>
+          <p className="text-gray-400 text-lg">{highlightText(content.stat)}</p>
         </div>
 
         <div className="relative bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm overflow-hidden group shadow-xl">
@@ -68,7 +85,7 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
               ))}
             </div>
 
-            <p className="italic text-lg relative z-10 leading-relaxed text-gray-200">"{content.quote}"</p>
+            <p className="italic text-lg relative z-10 leading-relaxed text-gray-200">"{highlightText(content.quote)}"</p>
             <p className="mt-4 font-bold text-primary">{content.author}</p>
           </div>
 
@@ -76,7 +93,7 @@ export const DopamineOverlay = ({ onContinue, type }: DopamineProps) => {
         </div>
 
         <div className="space-y-6">
-          <p className="text-xl font-medium">{content.transition}</p>
+          <p className="text-xl font-medium">{highlightText(content.transition)}</p>
 
           <button
             onClick={onContinue}
