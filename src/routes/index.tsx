@@ -336,10 +336,10 @@ function Index() {
                 
                 <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
                   <p className="text-sm italic text-muted-foreground">
-                    {getConditional() === 'Y' && "Foi vendido para você a ideia de que precisa passar 2h na academia. O Protocolo faz Ativação Neural (2min) e Estímulo Localizado."}
+                    {getConditional() === 'Y' && "Foi vendido para você a ideia de que precisa passar horas na academia. O Truque da Virgínia ativa o glúteo em 20 min — sem academia, sem coxa grande."}
                     {getConditional() === 'Z' && "'Não tenho tempo' é a desculpa #1. O Truque da Virgínia resolve isso: 20 minutos em casa, sem equipamento, sem academia."}
-                    {getConditional() === 'X' && "Depois dos 35, o corpo quer estímulos curtos e direcionados. É por isso que o Protocolo funciona tão bem para mulheres 40+."}
-                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento. Você não precisa estar pronta."}
+                    {getConditional() === 'X' && "Depois dos 35, o corpo responde a estímulos direcionados — não a agachamentos genéricos. É por isso que o Truque da Virgínia funciona tão bem para mulheres 40+."}
+                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta — só precisa de 20 minutos."}
                   </p>
                 </div>
 
