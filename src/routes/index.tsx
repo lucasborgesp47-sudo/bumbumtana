@@ -139,8 +139,8 @@ function Index() {
                 <div className="grid gap-4">
                   {[
                     "😔 Frustrada — já tentei de tudo e nada muda",
-                    "😤 Irritada — vejo outras mulheres com resultado",
-                    "😶 Desmotivada — cheguei a desistir de tentar",
+                    "😤 Irritada — agacho e a coxa cresce, o bumbum não",
+                    "😶 Desmotivada — já desisti de academia",
                     "😰 Ansiosa — tenho evento/data marcada",
                   ].map((opt) => (
                     <button
@@ -157,11 +157,11 @@ function Index() {
             
             {step === 4 && (
               <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
-                <h1 className="text-2xl md:text-3xl font-bold text-balance">Durante seus exercícios, onde você sente mais o esforço?</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Quando você faz agachamento ou exercício de perna, onde você sente mais o esforço?</h1>
                 <div className="grid gap-4">
                   {[
                     { label: "Principalmente no bumbum", icon: "🍑" },
-                    { label: "Mais nas coxas", icon: "🦵" },
+                    { label: "Mais nas coxas (esse é o problema)", icon: "🦵" },
                     { label: "Sinto pouco o músculo", icon: "😕" },
                     { label: "Não sei dizer", icon: "🤔" },
                   ].map((opt) => (
@@ -321,11 +321,11 @@ function Index() {
             
             {step === 9 && (
               <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto animate-in fade-in duration-500">
-                <h2 className="text-2xl font-bold text-primary">🎯 SEU DIAGNÓSTICO ESTÁ PRONTO</h2>
+                <h2 className="text-2xl font-bold text-primary">🎯 SEU PROTOCOLO BUMBUM TANAJURA ESTÁ PRONTO</h2>
                 <div className="text-left space-y-3 bg-background p-4 rounded-xl border border-border">
                   <p>
                     <strong>Principal ponto de atenção:</strong>{" "}
-                    {data.effortLocation === "Sinto pouco o músculo" || data.effortLocation === "Mais nas coxas"
+                    {data.effortLocation === "Sinto pouco o músculo" || data.effortLocation === "Mais nas coxas (esse é o problema)"
                       ? "falta de ativação do glúteo durante o treino"
                       : "ativação do glúteo"}
                   </p>
@@ -359,7 +359,7 @@ function Index() {
                   onClick={() => navigate({ to: "/sales" })}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
-                  Quero Meu Protocolo Agora →
+                  Quero Meu Truque da Virgínia Agora →
                 </button>
               </div>
             )}
