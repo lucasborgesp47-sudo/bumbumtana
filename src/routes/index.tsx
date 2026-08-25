@@ -344,12 +344,12 @@ function Index() {
                   <p className="text-sm italic text-muted-foreground">
                     {getConditional() === 'Y' && (
                       <>
-                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque da Virgínia</strong> ativa o glúteo em 20 min — sem academia, sem coxa grande.
+                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque da Virgínia</strong> ativa o glúteo em poucos minutos por dia — sem academia, sem coxa grande.
                       </>
                     )}
                     {getConditional() === 'Z' && (
                       <>
-                        'Não tenho tempo' é a desculpa #1. O <strong className="text-primary not-italic">Truque da Virgínia</strong> resolve isso: 20 minutos em casa, sem equipamento, sem academia.
+                        'Não tenho tempo' é a desculpa #1. O <strong className="text-primary not-italic">Truque da Virgínia</strong> resolve isso: leva poucos minutos, em casa, sem equipamento, sem academia.
                       </>
                     )}
                     {getConditional() === 'X' && (
@@ -357,7 +357,7 @@ function Index() {
                         Depois dos 35, o corpo responde a estímulos direcionados — não a agachamentos genéricos. É por isso que o <strong className="text-primary not-italic">Truque da Virgínia</strong> funciona tão bem para mulheres 40+.
                       </>
                     )}
-                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta — só precisa de 20 minutos."}
+                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta — só precisa de poucos minutos por dia."}
                   </p>
                 </div>
 
