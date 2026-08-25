@@ -116,7 +116,7 @@ function SalesPage() {
   };
 
   const currentPrice = isExpired ? "99,90" : "29,90";
-  const anchorPrice = "188";
+  const anchorPrice = "188"; const discountPercent = isExpired ? "47" : "84";
 
   if (!hasCheckedQuiz || !quizData?.name) return null;
 
@@ -246,7 +246,7 @@ function SalesPage() {
 
       {/* SECTION 3: O PRODUTO (VISUAL) */}
       <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold">O Desafio Bumbum Tanajura</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">O Protocolo Bumbum Tanajura</h2>
         
         {/* CSS-Only Phone Mockup */}
         <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
@@ -372,7 +372,7 @@ function SalesPage() {
               <div className="flex flex-col items-center gap-1 mb-1">
                 <div className="flex items-center gap-2">
                   <span className="text-[var(--ink-2)] font-semibold line-through">Valor total: R$ {anchorPrice}</span>
-                  <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+                  <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">{discountPercent}% OFF</span>
                 </div>
               </div>
               <div className="text-2xl font-black text-[var(--brand)]">
@@ -454,7 +454,7 @@ function SalesPage() {
             <div className="flex flex-col items-center gap-1">
               <div className="flex items-center gap-2">
                 <span className="text-[var(--ink-2)] line-through font-bold">R$ {anchorPrice}</span>
-                <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">84% OFF</span>
+                <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">{discountPercent}% OFF</span>
               </div>
             </div>
             <div className="text-[40px] font-black text-[var(--brand)] leading-none">R$ {currentPrice}</div>
@@ -562,7 +562,7 @@ function SalesPage() {
           <div className="flex flex-col items-center gap-1">
             <div className="flex items-center gap-2">
               <span className="text-sm font-bold opacity-60 line-through">De R$ {anchorPrice}</span>
-              <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">84% OFF</span>
+              <span className="bg-[var(--ok)] text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase">{discountPercent}% OFF</span>
             </div>
           </div>
           <div className="text-4xl font-black text-[var(--brand)]">Por R$ {currentPrice}</div>
@@ -581,7 +581,7 @@ function SalesPage() {
           Resultados variam de pessoa para pessoa. Este produto não substitui acompanhamento médico ou de profissional de educação física. Todas as informações contidas aqui são apenas para fins educativos.
         </p>
         <p className="text-[10px] text-[var(--ink-2)] opacity-50">
-          © 2024 Desafio Bumbum Tanajura · Todos os direitos reservados
+          © 2024 Protocolo Bumbum Tanajura · Todos os direitos reservados
         </p>
       </footer>
 
