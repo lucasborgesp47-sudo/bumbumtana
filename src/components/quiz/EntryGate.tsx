@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
-import julianaImg from "@/assets/juliana-before-after.jpg.asset.json";
+import antesImg from "@/assets/marianaentryantes.jpg";
+import depoisImg from "@/assets/marianaentrydepois.jpg";
 
 interface EntryGateProps {
   onEnter: () => void;
@@ -53,7 +54,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
         <div className="grid grid-cols-2 gap-3">
           <div className="text-center space-y-2">
             <img
-              src={julianaImg.url}
+              src={antesImg}
               alt="Mariana antes do Truque da Virgínia"
               className="w-full h-auto object-cover rounded-2xl border-2 border-border"
               loading="lazy"
@@ -63,7 +64,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
           </div>
           <div className="text-center space-y-2">
             <img
-              src={julianaImg.url}
+              src={depoisImg}
               alt="Mariana depois do Truque da Virgínia"
               className="w-full h-auto object-cover rounded-2xl border-2 border-border"
               loading="lazy"
