@@ -152,19 +152,33 @@ function SalesPage() {
         <div className="space-y-6">
           {/* Real Timer */}
           <div className="bg-[var(--brand)] text-white border-2 border-white/20 rounded-2xl p-4 inline-block w-full max-w-[280px] shadow-2xl shadow-[var(--brand)]/40">
-            <div className="flex items-center justify-center gap-2 text-[13px] font-semibold uppercase mb-1 opacity-90">
-              <Clock size={14} /> Oferta expira em:
-            </div>
-            <div className="text-[40px] font-extrabold leading-none">
-              {formatTime(timeLeft)}
-            </div>
-            {!isExpired && (
-              <div className="mt-2 space-y-1">
-                <div className="text-sm font-bold opacity-75 line-through">
-                  R$ {anchorPrice}
+            {!isExpired ? (
+              <>
+                <div className="flex items-center justify-center gap-2 text-[13px] font-semibold uppercase mb-1 opacity-90">
+                  <Clock size={14} /> Oferta expira em:
                 </div>
-                <div className="text-[13px] font-bold text-white animate-pulse">
-                  {isExpired ? 'Preço normal' : '84% de desconto aplicado'}
+                <div className="text-[40px] font-extrabold leading-none">
+                  {formatTime(timeLeft)}
+                </div>
+                <div className="mt-2 space-y-1">
+                  <div className="text-sm font-bold opacity-75 line-through">
+                    De R$ 99,90 por
+                  </div>
+                  <div className="text-[13px] font-bold text-white animate-pulse">
+                    R$ 29,90
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="space-y-1">
+                <div className="text-[13px] font-bold uppercase tracking-wide">
+                  ⚠️ Oferta especial encerrada
+                </div>
+                <div className="text-[13px] font-semibold opacity-90 mt-1">
+                  O preço promocional de R$ 29,90 terminou.
+                </div>
+                <div className="text-[26px] font-extrabold leading-none mt-2">
+                  Agora: R$ 99,90
                 </div>
               </div>
             )}
