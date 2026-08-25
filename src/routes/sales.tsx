@@ -23,7 +23,7 @@ import { useLoadingBar } from "../components/ui/LoadingBar";
 import mockup1 from "@/assets/capa-bumbum-granada.jpg";
 import mockup2 from "@/assets/bumbum-granada.jpg";
 import mockup3 from "@/assets/mapa-da-silhueta.jpg";
-import resultHero from "@/assets/result-hero.jpeg.asset.json";
+import resultHero from "@/assets/result-hero.jpeg.asset.json"; import photoCarla from "@/assets/testimonialcarla.jpg"; import photoMariana from "@/assets/testimonialmariana.jpg"; import photoFernanda from "@/assets/testimonialfernanda.jpg";
 
 export const Route = createFileRoute("/sales")({
   component: SalesPage,
@@ -397,19 +397,19 @@ function SalesPage() {
             {
               name: "Carla Silva",
               age: "43 anos",
-              photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop",
+              photo: photoCarla,
               text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias do Protocolo Bumbum Tanajura, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
             },
             {
               name: "Mariana Costa",
               age: "28 anos",
-              photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&h=120&fit=crop",
+              photo: photoMariana,
               text: "O melhor são os treinos de 20 minutos. Eu trabalho o dia todo e não tenho tempo pra academia. Meus glúteos estão muito mais firmes e empinados!"
             },
             {
               name: "Fernanda Lima",
               age: "35 anos",
-              photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop",
+              photo: photoFernanda,
               text: "Já tinha tentado outros aplicativos e até creme, sem resultado nenhum. A sensação de ativação desse protocolo é surreal — senti o músculo trabalhando de verdade logo no primeiro dia."
             }
           ].map((item, idx) => (
