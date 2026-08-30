@@ -513,7 +513,7 @@ function SalesPage() {
           <div className="space-y-3">
             <h3 className="text-xl font-bold text-[var(--ok)]">7 dias para testar sem risco</h3>
             <p className="text-sm text-[var(--ink-2)] leading-relaxed">
-              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <span className="font-bold">suporte@bumbumtanajura.com</span>. Devolvemos 100% do valor, sem perguntas.
+              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <a href="mailto:sacbumbumperfeito@gmail.com" className="font-bold underline">sacbumbumperfeito@gmail.com</a>. Devolvemos 100% do valor, sem perguntas.
             </p>
             <button 
               onClick={handlePurchase}
@@ -581,7 +581,7 @@ function SalesPage() {
           Resultados variam de pessoa para pessoa. Este produto não substitui acompanhamento médico ou de profissional de educação física. Todas as informações contidas aqui são apenas para fins educativos.
         </p>
         <p className="text-[10px] text-[var(--ink-2)] opacity-50">
-          © 2024 Protocolo Bumbum Tanajura · Todos os direitos reservados
+          © {new Date().getFullYear()} Protocolo Bumbum Tanajura · Todos os direitos reservados
         </p>
       </footer>
 
