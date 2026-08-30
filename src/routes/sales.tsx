@@ -30,7 +30,7 @@ export const Route = createFileRoute("/sales")({
 });
 
 // TODO: substituir pela URL real do produto na Kiwify quando estiver criado
-const CHECKOUT_URL = "https://kiwify.com.br/checkout";
+const CHECKOUT_URL_REGULAR = "https://pay.kiwify.com.br/JJb9YhU"; const CHECKOUT_URL_EXPIRED = "https://pay.kiwify.com.br/H8e9SxG";
 
 function SalesPage() {
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ function SalesPage() {
 
   const handlePurchase = () => {
     start();
-    const checkoutLink = `${CHECKOUT_URL}?plan=${isExpired ? "99" : "29"}`;
+    const checkoutLink = `${isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR}`;
 
     setTimeout(() => {
       finish();
