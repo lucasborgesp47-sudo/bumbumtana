@@ -106,7 +106,7 @@ function SalesPage() {
   };
 
   const handlePurchase = () => {
-    start();
+    start(); if (typeof window !== 'undefined' && (window as any).fbq) { (window as any).fbq('track', 'InitiateCheckout', { value: isExpired ? 99.90 : 29.90, currency: 'BRL' }); }
     const checkoutLink = `${isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR}`;
 
     setTimeout(() => {
