@@ -38,8 +38,8 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background py-8 px-6 overflow-x-hidden overflow-y-auto">
-      <div className="max-w-md mx-auto space-y-6">
+    <div className="min-h-screen bg-background flex items-center justify-center py-8 px-6 overflow-x-hidden overflow-y-auto">
+      <div className="w-full max-w-md mx-auto space-y-5">
         <div className="grid grid-cols-2 gap-3">
           <div className="bg-slate-500 text-white text-center py-3 px-2 rounded-xl">
             <span className="block font-bold text-lg leading-tight">SEM</span>
@@ -56,7 +56,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
             <img
               src={antesImg}
               alt="Mariana antes do Truque da Virgínia"
-              className="w-full h-auto object-cover rounded-2xl border-2 border-border"
+              className="w-full aspect-[3/4] object-cover rounded-2xl border-2 border-border"
               loading="lazy"
               width={220}
             />
@@ -66,7 +66,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
             <img
               src={depoisImg}
               alt="Mariana depois do Truque da Virgínia"
-              className="w-full h-auto object-cover rounded-2xl border-2 border-border"
+              className="w-full aspect-[3/4] object-cover rounded-2xl border-2 border-border"
               loading="lazy"
               width={220}
             />
@@ -79,13 +79,13 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
           <strong className="text-primary">Truque da Virgínia</strong>. <strong>SEM AGACHAMENTO.</strong>
         </p>
 
-        <div className="border-2 border-primary bg-primary/5 rounded-2xl p-4 text-center">
-          <p className="text-sm font-medium leading-relaxed">
-            ⚠️ Atenção, devido ao alto volume de acessos, esta oportunidade é disponibilizada{" "}
-            <strong className="text-primary">gratuitamente apenas 1 vez por pessoa</strong>. Se você
-            sair, perderá sua vez.
+        <div className="border border-primary/20 bg-primary/5 rounded-xl px-3 py-2 text-center">
+          <p className="text-xs text-muted-foreground leading-snug">
+            ⚠️ Devido ao alto volume de acessos, esta oportunidade é liberada{" "}
+            <span className="font-semibold">apenas 1 vez por pessoa</span>. Se você sair, perderá sua vez.
           </p>
         </div>
+
 
         <button
           onClick={onEnter}
