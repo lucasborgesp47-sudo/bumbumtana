@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { useUtmifyPixel } from "../hooks/useUtmifyPixel";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -117,11 +118,11 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <HeadContent /><script dangerouslySetInnerHTML={{ __html: "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','4040325316274524');fbq('track','PageView');" }} />
+        <HeadContent />
       </head>
       <body>
         {children}
-        <Scripts /><noscript><img height="1" width="1" style={{ display: "none" }} src="https://www.facebook.com/tr?id=4040325316274524&ev=PageView&noscript=1" alt="" /></noscript>
+        <Scripts />
       </body>
     </html>
   );
@@ -129,6 +130,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useUtmifyPixel();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -149,7 +151,7 @@ function RouterListener() {
       start();
     });
     const unsub2 = router.subscribe('onLoad', () => {
-      finish(); if (typeof window !== 'undefined' && (window as any).fbq) { (window as any).fbq('track', 'PageView'); }
+      finish();
     });
 
     return () => {

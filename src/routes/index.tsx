@@ -362,7 +362,7 @@ function Index() {
                 </div>
 
                 <button
-                  onClick={() => { if (typeof window !== 'undefined' && (window as any).fbq) { (window as any).fbq('track', 'Lead'); } navigate({ to: "/sales" }); }}
+                  onClick={() => { navigate({ to: "/sales" }); }}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
                   Quero Meu Truque da Virgínia Agora →
