@@ -106,6 +106,7 @@ function SalesPage() {
   };
 
   const handlePurchase = () => {
+    trackQuizStep("clique_checkout");
     start();
     const checkoutLink = `${isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR}`;
 

@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { useUtmifyPixel } from "../hooks/useUtmifyPixel";
+import { useGA4 } from "../lib/analytics";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -131,6 +132,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useUtmifyPixel();
+  useGA4();
 
   return (
     <QueryClientProvider client={queryClient}>
