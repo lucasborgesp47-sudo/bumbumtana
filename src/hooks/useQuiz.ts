@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackQuizStep } from '../lib/analytics';
 
 export interface QuizData {
   name?: string;
@@ -77,6 +78,7 @@ export const useQuiz = () => {
     // 9: Results
 
     if (step === 2) {
+      trackQuizStep('dopamina_1');
       setDopamineType(1);
       setShowDopamine(true);
     } else if (step === 3) {
@@ -86,9 +88,11 @@ export const useQuiz = () => {
         setStep(4);
       }, 3000);
     } else if (step === 5) { // Now happens after step 5 (Tried)
+      trackQuizStep('dopamina_2');
       setDopamineType(2);
       setShowDopamine(true);
     } else if (step === 7) { // Now happens after step 7 (Activity Level)
+      trackQuizStep('dopamina_3');
       setDopamineType(3);
       setShowDopamine(true);
     } else if (step === 8) { // Now happens after step 8 (Physical Data)

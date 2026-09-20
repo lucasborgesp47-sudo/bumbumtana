@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
+import { trackQuizStep } from "../lib/analytics";
 import { 
   Shield, 
   ChevronRight, 
@@ -106,6 +107,7 @@ function SalesPage() {
   };
 
   const handlePurchase = () => {
+    trackQuizStep("clique_checkout");
     start();
     const checkoutLink = `${isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR}`;
 
