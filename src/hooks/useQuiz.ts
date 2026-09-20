@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { trackQuizStep } from '../lib/analytics';
 
 export interface QuizData {
   name?: string;
