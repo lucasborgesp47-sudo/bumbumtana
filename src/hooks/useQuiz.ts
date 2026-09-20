@@ -85,7 +85,6 @@ export const useQuiz = () => {
       setShowEmotionalOverlay(true);
       setTimeout(() => {
         setShowEmotionalOverlay(false);
-        trackQuizStep('quiz_etapa_2');
         setStep(4);
       }, 3000);
     } else if (step === 5) { // Now happens after step 5 (Tried)
@@ -97,16 +96,13 @@ export const useQuiz = () => {
       setDopamineType(3);
       setShowDopamine(true);
     } else if (step === 8) { // Now happens after step 8 (Physical Data)
-      trackQuizStep('quiz_etapa_6');
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
         setStep(9);
       }, 3000);
     } else {
-      const next = step + 1;
-      trackQuizStep(`quiz_etapa_${Math.min(next, 6)}`);
-      setStep(next);
+      setStep((prev) => prev + 1);
     }
   };
 

@@ -6,6 +6,7 @@ import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 import { EntryGate } from "../components/quiz/EntryGate";
 import { useLoadingBar } from "../components/ui/LoadingBar";
+import { trackQuizStep } from "../lib/analytics";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -66,6 +67,15 @@ function Index() {
       finish();
     }
   }, [loading, start, finish]);
+
+  useEffect(() => {
+    if (showEntryGate) return;
+    if (step === 9) {
+      trackQuizStep("previa_resultado");
+      return;
+    }
+    trackQuizStep(`quiz_etapa_${Math.min(step, 6)}`);
+  }, [step, showEntryGate]);
 
   if (showEntryGate) {
     return <EntryGate onEnter={() => setShowEntryGate(false)} />;
