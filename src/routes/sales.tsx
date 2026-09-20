@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
+import { trackQuizStep } from "../lib/analytics";
 import { 
   Shield, 
   ChevronRight, 
