@@ -6,7 +6,8 @@ import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 import { EntryGate } from "../components/quiz/EntryGate";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import { trackQuizStep } from "../lib/analytics";
+import { trackQuizStep, trackEvent, trackMetaCustom, cleanAnswer, imcBand } from "../lib/analytics";
+import { STEP_NAMES } from "../hooks/useQuiz";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -71,14 +72,34 @@ function Index() {
   useEffect(() => {
     if (showEntryGate) return;
     if (step === 9) {
-      trackQuizStep("previa_resultado");
+      // Perfil completo (sem dados pessoais) para cruzar respostas x compra
+      trackQuizStep("previa_resultado", {
+        perfil: getConditional(),
+        idade: cleanAnswer(data.age || ""),
+        objetivo: cleanAnswer(data.objective || ""),
+        local_esforco: cleanAnswer(data.effortLocation || ""),
+        tempo_disponivel: cleanAnswer(data.time || ""),
+        nivel_atividade: cleanAnswer(data.activityLevel || ""),
+        imc_faixa: imcBand(Number(data.weight), Number(data.height)),
+      });
       return;
     }
-    trackQuizStep(`quiz_etapa_${Math.min(step, 6)}`);
+    // GA4: um evento único com o número/nome da etapa (etapas 1 a 8, sem agrupar)
+    trackEvent("quiz_etapa", { etapa: step, nome_etapa: STEP_NAMES[step] });
+    // Meta: mantém os nomes antigos para não quebrar públicos/conversões existentes
+    trackMetaCustom(`quiz_etapa_${Math.min(step, 6)}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, showEntryGate]);
 
   if (showEntryGate) {
-    return <EntryGate onEnter={() => setShowEntryGate(false)} />;
+    return (
+      <EntryGate
+        onEnter={() => {
+          trackEvent("quiz_inicio");
+          setShowEntryGate(false);
+        }}
+      />
+    );
   }
 
   if (showDopamine) {
@@ -372,7 +393,10 @@ function Index() {
                 </div>
 
                 <button
-                  onClick={() => { navigate({ to: "/sales" }); }}
+                  onClick={() => {
+                    trackEvent("clique_ver_oferta", { perfil: getConditional() });
+                    navigate({ to: "/sales" });
+                  }}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
                   Quero Meu Truque da Virgínia Agora →
