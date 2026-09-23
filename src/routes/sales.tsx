@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
-import { trackQuizStep } from "../lib/analytics";
+import { trackQuizStep, trackEvent, withTrackingParams } from "../lib/analytics";
 import { 
   Shield, 
   ChevronRight, 
@@ -32,6 +32,8 @@ export const Route = createFileRoute("/sales")({
 
 // TODO: substituir pela URL real do produto na Kiwify quando estiver criado
 const CHECKOUT_URL_REGULAR = "https://pay.kiwify.com.br/JJb9YhU"; const CHECKOUT_URL_EXPIRED = "https://pay.kiwify.com.br/H8e9SxG";
+const PRICE_REGULAR = 29.9;
+const PRICE_EXPIRED = 99.9;
 
 function SalesPage() {
   const navigate = useNavigate();
@@ -40,6 +42,7 @@ function SalesPage() {
   // Timer State
   const [timeLeft, setTimeLeft] = useState(0); // 15:00
   const [isExpired, setIsExpired] = useState(false);
+  const offerTrackedRef = useRef(false);
   
   // Quiz data (obrigatório: sem quiz respondido, volta para o início)
   const [quizData, setQuizData] = useState<{name?: string, objective?: string}>(() => {
@@ -83,6 +86,16 @@ function SalesPage() {
     if (remaining === 0) {
       setIsExpired(true);
     }
+
+    // Qual oferta a pessoa viu ao chegar na página de vendas (1x por visita)
+    if (!offerTrackedRef.current) {
+      offerTrackedRef.current = true;
+      trackEvent("view_oferta", {
+        oferta: remaining === 0 ? "expirada" : "regular",
+        value: remaining === 0 ? PRICE_EXPIRED : PRICE_REGULAR,
+        currency: "BRL",
+      });
+    }
     
     setTimeLeft(remaining);
 
@@ -90,6 +103,8 @@ function SalesPage() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
+          // Timer zerou com a pessoa ainda na página
+          if (remaining > 0) trackEvent("timer_expirou");
           setIsExpired(true);
           return 0;
         }
@@ -106,10 +121,22 @@ function SalesPage() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handlePurchase = () => {
-    trackQuizStep("clique_checkout");
+  const handlePurchase = (posicao: string) => {
+    const oferta = isExpired ? "expirada" : "regular";
+    const value = isExpired ? PRICE_EXPIRED : PRICE_REGULAR;
+    // Meta + GA4 (nome antigo mantido para não quebrar conversões existentes)
+    trackQuizStep("clique_checkout", { oferta, posicao, value, currency: "BRL" });
+    // GA4: evento recomendado de e-commerce (alimenta relatórios de monetização)
+    trackEvent("begin_checkout", {
+      currency: "BRL",
+      value,
+      oferta,
+      posicao,
+      items: [{ item_id: `truque_virginia_${oferta}`, item_name: "Truque da Virgínia", price: value, quantity: 1 }],
+    });
     start();
-    const checkoutLink = `${isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR}`;
+    // Repassa as UTMs da origem para a Kiwify/UTMify atribuírem a venda ao anúncio certo
+    const checkoutLink = withTrackingParams(isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR);
 
     setTimeout(() => {
       finish();
@@ -187,7 +214,7 @@ function SalesPage() {
           </div>
 
           <button 
-            onClick={handlePurchase}
+            onClick={() => handlePurchase("topo")}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-lg shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group max-w-md mx-auto"
           >
             QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
@@ -382,7 +409,7 @@ function SalesPage() {
               </div>
             </div>
             <button 
-              onClick={handlePurchase}
+              onClick={() => handlePurchase("bonus")}
               className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
             >
               QUERO TODOS OS BÔNUS — R$ {currentPrice}
@@ -464,7 +491,7 @@ function SalesPage() {
           </div>
 
           <button 
-            onClick={handlePurchase}
+            onClick={() => handlePurchase("preco")}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
             QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
@@ -518,7 +545,7 @@ function SalesPage() {
               Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <a href="mailto:sacbumbumperfeito@gmail.com" className="font-bold underline">sacbumbumperfeito@gmail.com</a>. Devolvemos 100% do valor, sem perguntas.
             </p>
             <button 
-              onClick={handlePurchase}
+              onClick={() => handlePurchase("garantia")}
               className="mt-4 w-full bg-[var(--ok)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--ok)]/20 active:scale-95 transition-all"
             >
               QUERO TESTAR SEM RISCO — R$ {currentPrice}
@@ -569,7 +596,7 @@ function SalesPage() {
           </div>
           <div className="text-4xl font-black text-[var(--brand)]">Por R$ {currentPrice}</div>
           <button 
-            onClick={handlePurchase}
+            onClick={() => handlePurchase("final")}
             className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
           >
             SIM, QUERO COMEÇAR HOJE — R$ {currentPrice}
@@ -591,7 +618,7 @@ function SalesPage() {
       <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-[var(--line)] z-[100] h-[82px] md:h-[92px] pb-[env(safe-area-inset-bottom)]">
         <div className="max-w-lg mx-auto px-5 h-full flex flex-col justify-center items-center gap-1 text-center">
           <button 
-            onClick={handlePurchase}
+            onClick={() => handlePurchase("barra_fixa")}
             className="w-full bg-[var(--brand)] text-white h-14 rounded-xl font-bold flex flex-col items-center justify-center leading-tight shadow-lg shadow-[var(--brand)]/20 active:scale-95 transition-transform"
           >
             <span className="text-base">Quero meu protocolo — R$ {currentPrice}</span>
