@@ -147,10 +147,14 @@ export const useQuiz = () => {
   };
 
   const getConditional = () => {
-    const { tried, time, age, activityLevel } = data;
-    
+    // As respostas são salvas com emoji (ex.: "🛋️ Sedentária — ..."); normaliza antes de comparar
+    const tried = (Array.isArray(data.tried) ? data.tried : []).map(cleanAnswer);
+    const time = cleanAnswer(data.time || '');
+    const age = cleanAnswer(data.age || '');
+    const activityLevel = cleanAnswer(data.activityLevel || '');
+
     // Priority Y > Z > X > W
-    if (tried && tried.length > 0 && !tried.includes("Nunca tentei nada direcionado")) return 'Y';
+    if (tried.length > 0 && !tried.includes("Nunca tentei nada direcionado")) return 'Y';
     if (time === "Menos de 10 minutos") return 'Z';
     if (age === "40 a 49 anos" || age === "50+ anos") return 'X';
     if (activityLevel === "Sedentária — parada há meses") return 'W';
