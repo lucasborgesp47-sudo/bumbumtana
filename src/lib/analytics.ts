@@ -24,9 +24,13 @@ function ensureGtagQueue() {
   if (typeof window === "undefined") return;
   window.dataLayer = window.dataLayer || [];
   if (typeof window.gtag !== "function") {
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer!.push(args);
-    };
+    // IMPORTANTE: o gtag.js só processa comandos enfileirados como objeto `arguments`.
+    // Usar rest params (`...args`) empurra um Array comum, que o gtag.js ignora —
+    // por isso o 'config' nunca era lido e os hits ficavam "adiados".
+    window.gtag = function gtag() {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer!.push(arguments);
+    } as (...args: unknown[]) => void;
   }
 }
 
