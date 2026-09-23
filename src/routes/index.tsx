@@ -1,21 +1,82 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useQuiz } from "../hooks/useQuiz";
+import { useQuiz, type QuizData } from "../hooks/useQuiz";
 import { ChevronRight, Check } from "lucide-react";
 import { DopamineOverlay } from "../components/quiz/DopamineOverlay";
 import { EmotionalOverlay } from "../components/quiz/EmotionalOverlay";
 import { EntryGate } from "../components/quiz/EntryGate";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import { trackQuizStep, trackEvent, trackMetaCustom, cleanAnswer, imcBand } from "../lib/analytics";
+import { trackQuizStep, trackEvent, trackMetaCustom, cleanAnswer } from "../lib/analytics";
 import { STEP_NAMES } from "../hooks/useQuiz";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
+/** Monta o diagnóstico exibido no resultado a partir das respostas do quiz. */
+function buildDiagnosis(data: QuizData) {
+  const effort = data.effortLocation || "";
+  const activity = cleanAnswer(data.activityLevel || "");
+  const feelings = cleanAnswer(data.feelings || "");
+  const tried = (Array.isArray(data.tried) ? data.tried : [])
+    .map(cleanAnswer)
+    .filter((t) => t !== "Nunca tentei nada direcionado");
+
+  let activation = {
+    label: "Baixa",
+    level: 30,
+    text: "Pelas suas respostas, o glúteo está trabalhando menos do que deveria nos exercícios.",
+  };
+  if (effort === "Mais nas coxas (esse é o problema)") {
+    activation = {
+      label: "Baixa",
+      level: 25,
+      text: "Seu esforço está indo para as coxas. É por isso que a coxa engrossa e o bumbum não responde.",
+    };
+  } else if (effort === "Sinto pouco o músculo") {
+    activation = {
+      label: "Baixa",
+      level: 20,
+      text: "Seu glúteo está sendo pouco recrutado. Sem ativação, ele não recebe o estímulo para ganhar volume.",
+    };
+  } else if (effort === "Não sei dizer") {
+    activation = {
+      label: "Não percebida",
+      level: 35,
+      text: "Quando não dá para perceber onde está o esforço, o glúteo costuma trabalhar menos do que deveria.",
+    };
+  } else if (effort === "Principalmente no bumbum") {
+    activation = {
+      label: "Moderada",
+      level: 60,
+      text: "Você já sente o glúteo. O próximo passo é direcionar o estímulo para ganhar volume e empinar.",
+    };
+  }
+
+  const intensity = activity.startsWith("Sedentária")
+    ? "Leve: começa do zero, em pé e sem impacto"
+    : activity.startsWith("Leve")
+      ? "Leve a moderada"
+      : activity.startsWith("Moderada")
+        ? "Moderada"
+        : activity.startsWith("Ativa")
+          ? "Moderada a intensa"
+          : "Ajustada ao seu nível";
+
+  return {
+    activation,
+    intensity,
+    hasEvent: feelings.startsWith("Ansiosa"),
+    objective: cleanAnswer(data.objective || ""),
+    time: data.time || "poucos minutos por dia",
+    activityShort: activity.split(" — ")[0] || "—",
+    tried: tried.length > 0 ? tried.join(", ") : "Nada direcionado ainda",
+  };
+}
+
 function ProgressBar({ step }: { step: number }) {
-  // Total steps in the funnel: 9 content steps + loading/results
-  const totalSteps = 11;
+  // 9 etapas no total: a barra chega a 100% na tela de resultado
+  const totalSteps = 9;
   const percentage = Math.min((step / totalSteps) * 100, 100);
   return (
     <div className="w-full bg-slate-200 rounded-full h-2 mb-8 overflow-hidden">
@@ -46,20 +107,8 @@ function Index() {
   const [touched, setTouched] = useState(false);
   const [showEntryGate, setShowEntryGate] = useState(true);
 
-  const weightNum = Number(data.weight);
-  const heightNum = Number(data.height);
   const nameError = !data.name?.trim() ? "Informe seu nome" : "";
-  const weightError = !data.weight
-    ? "Informe seu peso"
-    : !Number.isFinite(weightNum) || weightNum < 30 || weightNum > 200
-      ? "Peso deve estar entre 30 e 200 kg"
-      : "";
-  const heightError = !data.height
-    ? "Informe sua altura"
-    : !Number.isFinite(heightNum) || heightNum < 120 || heightNum > 220
-      ? "Altura deve estar entre 120 e 220 cm"
-      : "";
-  const formValid = !nameError && !weightError && !heightError;
+  const formValid = !nameError;
 
   useEffect(() => {
     if (loading) {
@@ -80,7 +129,8 @@ function Index() {
         local_esforco: cleanAnswer(data.effortLocation || ""),
         tempo_disponivel: cleanAnswer(data.time || ""),
         nivel_atividade: cleanAnswer(data.activityLevel || ""),
-        imc_faixa: imcBand(Number(data.weight), Number(data.height)),
+        sentimento: cleanAnswer(data.feelings || ""),
+        ativacao: buildDiagnosis(data).activation.label,
       });
       return;
     }
@@ -304,42 +354,27 @@ function Index() {
             
             {step === 8 && (
               <div className="space-y-4 md:space-y-6 animate-in fade-in duration-500">
-                <h1 className="text-2xl md:text-3xl font-bold text-balance">Dados Físicos</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-balance">Para quem vamos montar o protocolo?</h1>
+                <p className="text-muted text-sm md:text-base">Seu nome aparece no seu diagnóstico personalizado.</p>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-bold mb-2">Qual o seu nome?</label>
+                    <label htmlFor="quiz-name" className="block text-sm font-bold mb-2">Seu primeiro nome</label>
                     <input
+                      id="quiz-name"
                       type="text"
+                      autoComplete="given-name"
+                      enterKeyHint="done"
                       value={data.name || ""}
                       placeholder="Ex: Ana"
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
                       onChange={(e) => updateData({ name: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (e.key !== "Enter") return;
+                        setTouched(true);
+                        if (formValid) nextStep();
+                      }}
                     />
                     {touched && nameError && <p className="text-sm text-red-600 mt-1">{nameError}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold mb-2">Qual o seu peso atual? (kg)</label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      value={data.weight || ""}
-                      placeholder="Ex: 68"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
-                      onChange={(e) => updateData({ weight: e.target.value })}
-                    />
-                    {touched && weightError && <p className="text-sm text-red-600 mt-1">{weightError}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold mb-2">Qual a sua altura? (cm)</label>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      value={data.height || ""}
-                      placeholder="Ex: 165"
-                      className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none"
-                      onChange={(e) => updateData({ height: e.target.value })}
-                    />
-                    {touched && heightError && <p className="text-sm text-red-600 mt-1">{heightError}</p>}
                   </div>
                   <button
                     onClick={() => {
@@ -356,26 +391,73 @@ function Index() {
               </div>
             )}
             
-            {step === 9 && (
-              <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl text-center space-y-6 max-w-sm mx-auto animate-in fade-in duration-500">
-                <h2 className="text-2xl font-bold text-primary">🎯 SEU PROTOCOLO BUMBUM TANAJURA ESTÁ PRONTO</h2>
-                <div className="text-left space-y-3 bg-background p-4 rounded-xl border border-border">
-                  <p>
-                    <strong>Principal ponto de atenção:</strong>{" "}
-                    {data.effortLocation === "Sinto pouco o músculo" || data.effortLocation === "Mais nas coxas (esse é o problema)"
-                      ? "falta de ativação do glúteo durante o treino"
-                      : "ativação do glúteo"}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Pelas suas respostas, seu protocolo foi ajustado para priorizar estímulos direcionados ao glúteo, dentro do tempo que você tem disponível: <strong>{data.time || "poucos minutos por dia"}</strong>.
-                  </p>
+            {step === 9 && (() => {
+              const d = buildDiagnosis(data);
+              const firstName = (data.name || "").trim().split(" ")[0];
+              const profileRows = [
+                { icon: "🎯", label: "Objetivo", value: d.objective },
+                { icon: "⏱️", label: "Tempo por dia", value: d.time },
+                { icon: "💪", label: "Nível atual", value: d.activityShort },
+                { icon: "🔁", label: "Já tentou", value: d.tried },
+              ];
+              return (
+              <div className="bg-card p-6 md:p-8 rounded-3xl border shadow-xl space-y-5 max-w-sm mx-auto animate-in fade-in duration-500">
+                <div className="text-center space-y-1">
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Diagnóstico concluído</p>
+                  <h2 className="text-2xl font-bold text-primary leading-tight">
+                    {firstName ? `${firstName}, seu protocolo do Truque da Virgínia está pronto` : "Seu protocolo do Truque da Virgínia está pronto"}
+                  </h2>
                 </div>
-                
+
+                {/* Espelho das respostas: a pessoa se reconhece no resultado */}
+                <div className="bg-background rounded-xl border border-border divide-y divide-border">
+                  {profileRows.map((row) => (
+                    <div key={row.label} className="flex items-start gap-3 px-4 py-3 text-left">
+                      <span className="text-lg leading-none mt-0.5">{row.icon}</span>
+                      <div className="min-w-0">
+                        <p className="text-xs text-muted-foreground">{row.label}</p>
+                        <p className="text-sm font-semibold leading-snug">{row.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Diagnóstico principal */}
+                <div className="text-left space-y-2">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="text-sm font-bold">Ativação do glúteo</p>
+                    <p className={`text-sm font-extrabold ${d.activation.level >= 50 ? "text-amber-600" : "text-red-600"}`}>
+                      {d.activation.label}
+                    </p>
+                  </div>
+                  <div className="w-full h-3 rounded-full bg-slate-200 overflow-hidden">
+                    <div
+                      className={`h-3 rounded-full ${d.activation.level >= 50 ? "bg-amber-500" : "bg-red-500"}`}
+                      style={{ width: `${d.activation.level}%` }}
+                    />
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{d.activation.text}</p>
+                </div>
+
+                <div className="bg-primary/5 border border-primary/10 rounded-xl p-4 text-left space-y-2">
+                  <p className="text-sm">
+                    <strong>Intensidade inicial:</strong> {d.intensity}
+                  </p>
+                  <p className="text-sm">
+                    <strong>Foco:</strong> estímulos direcionados ao glúteo, sem engrossar a coxa
+                  </p>
+                  {d.hasEvent && (
+                    <p className="text-sm font-semibold text-primary">
+                      📅 Como você tem uma data marcada, o ideal é começar ainda hoje para aproveitar os 21 dias do protocolo.
+                    </p>
+                  )}
+                </div>
+
                 <div className="bg-primary/5 p-4 rounded-xl text-left border border-primary/10">
                   <p className="text-sm italic text-muted-foreground">
                     {getConditional() === 'Y' && (
                       <>
-                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque da Virgínia</strong> ativa o glúteo em poucos minutos por dia — sem academia, sem coxa grande.
+                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque da Virgínia</strong> ativa o glúteo em poucos minutos por dia, sem academia e sem coxa grande.
                       </>
                     )}
                     {getConditional() === 'Z' && (
@@ -385,10 +467,10 @@ function Index() {
                     )}
                     {getConditional() === 'X' && (
                       <>
-                        Depois dos 35, o corpo responde a estímulos direcionados — não a agachamentos genéricos. É por isso que o <strong className="text-primary not-italic">Truque da Virgínia</strong> funciona tão bem para mulheres 40+.
+                        Depois dos 40, o corpo responde a estímulos direcionados, não a agachamentos genéricos. É por isso que o <strong className="text-primary not-italic">Truque da Virgínia</strong> funciona tão bem para mulheres 40+.
                       </>
                     )}
-                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta — só precisa de poucos minutos por dia."}
+                    {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta, só precisa de poucos minutos por dia."}
                   </p>
                 </div>
 
@@ -402,9 +484,11 @@ function Index() {
                   Quero Meu Truque da Virgínia Agora →
                 </button>
               </div>
-            )}
+              );
+            })()}
         </div>
       </div>
     </div>
   );
 }
+
