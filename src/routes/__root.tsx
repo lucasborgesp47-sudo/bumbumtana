@@ -80,11 +80,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Truque da Virgínia — Protocolo Bumbum Tanajura" },
-      { name: "description", content: "20 minutos por dia em casa, sem leg press, sem academia. O método que mais de 3.000 mulheres usaram para levantar o bumbum sem engrossar a coxa." },
-      { name: "author", content: "Bumbum Tanajura" },
-      { property: "og:title", content: "Truque da Virgínia — Protocolo Bumbum Tanajura" },
-      { property: "og:description", content: "20 minutos por dia em casa, sem leg press, sem academia. O método que mais de 3.000 mulheres usaram para levantar o bumbum sem engrossar a coxa." },
+      { title: "Truque da Virgínia — bumbum empinado sem agachamento" },
+      { name: "description", content: "20 minutos por dia em casa, sem leg press, sem academia. O Truque da Virgínia que mais de 2.428 mulheres usaram para levantar o bumbum sem engrossar a coxa." },
+      { name: "author", content: "Truque da Virgínia" },
+      { property: "og:title", content: "Truque da Virgínia — bumbum empinado sem agachamento" },
+      { property: "og:description", content: "20 minutos por dia em casa, sem leg press, sem academia. O Truque da Virgínia que mais de 2.428 mulheres usaram para levantar o bumbum sem engrossar a coxa." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -169,3 +169,4 @@ function RouterListener() {
 
   return null;
 }
+
