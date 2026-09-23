@@ -1,5 +1,21 @@
 import { useState, useEffect } from 'react';
-import { trackQuizStep } from '../lib/analytics';
+import { trackQuizStep, trackEvent, cleanAnswer } from '../lib/analytics';
+
+// Nome legível de cada etapa (usado nos relatórios do GA4)
+export const STEP_NAMES: Record<number, string> = {
+  1: 'idade',
+  2: 'objetivo',
+  3: 'sentimento',
+  4: 'local_esforco',
+  5: 'ja_tentou',
+  6: 'tempo_disponivel',
+  7: 'nivel_atividade',
+  8: 'dados_fisicos',
+  9: 'resultado',
+};
+
+// Campos que NUNCA vão para o GA4 (dados pessoais)
+const PRIVATE_FIELDS = new Set(['name', 'weight', 'height']);
 
 export interface QuizData {
   name?: string;
@@ -59,6 +75,25 @@ export const useQuiz = () => {
   const nextStep = (stepData?: Partial<QuizData>) => {
     if (stepData) {
       updateData(stepData);
+      for (const [pergunta, value] of Object.entries(stepData)) {
+        if (PRIVATE_FIELDS.has(pergunta) || typeof value !== 'string') continue;
+        trackEvent('quiz_resposta', {
+          etapa: step,
+          nome_etapa: STEP_NAMES[step],
+          resposta: cleanAnswer(value),
+        });
+      }
+    }
+    if (step === 5) {
+      // Múltipla escolha: uma linha por opção marcada
+      const triedList = Array.isArray(data.tried) ? data.tried : [];
+      for (const option of triedList) {
+        trackEvent('quiz_resposta', {
+          etapa: 5,
+          nome_etapa: STEP_NAMES[5],
+          resposta: cleanAnswer(option),
+        });
+      }
     }
 
     // Step mapping (Total steps increased due to split + new diagnostic question):
