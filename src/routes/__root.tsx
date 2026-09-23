@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { useUtmifyPixel } from "../hooks/useUtmifyPixel";
-import { useGA4 } from "../lib/analytics";
+import { useGA4, trackPageView } from "../lib/analytics";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -155,10 +155,15 @@ function RouterListener() {
     const unsub2 = router.subscribe('onLoad', () => {
       finish();
     });
+    // GA4: registra page_view a cada troca de rota (ex.: quiz → /sales)
+    const unsub3 = router.subscribe('onResolved', () => {
+      trackPageView();
+    });
 
     return () => {
       unsub();
       unsub2();
+      unsub3();
     };
   }, [router, start, finish]);
 
