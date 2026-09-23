@@ -10,7 +10,7 @@ export const STEP_NAMES: Record<number, string> = {
   5: 'ja_tentou',
   6: 'tempo_disponivel',
   7: 'nivel_atividade',
-  8: 'dados_fisicos',
+  8: 'nome',
   9: 'resultado',
 };
 
@@ -108,7 +108,7 @@ export const useQuiz = () => {
     // 6: Time (Minutes)
     // 7: Activity Level
     // (Dopamine 3)
-    // 8: Physical Data (Weight/Height)
+    // 8: Name
     // (Loading)
     // 9: Results
 
@@ -130,7 +130,7 @@ export const useQuiz = () => {
       trackQuizStep('dopamina_3');
       setDopamineType(3);
       setShowDopamine(true);
-    } else if (step === 8) { // Now happens after step 8 (Physical Data)
+    } else if (step === 8) { // Now happens after step 8 (Name)
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
