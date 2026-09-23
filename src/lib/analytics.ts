@@ -6,6 +6,25 @@ const measurementId = import.meta.env["VITE_LOVABLE_CONNECTOR_GOOGLE_ANALYTICS_A
   | undefined;
 
 const GA_SCRIPT_ID = "ga4-gtag-script";
+const UTM_STORAGE_KEY = "bbg_utms";
+// Parâmetros de rastreio repassados ao checkout (UTMify/Kiwify leem utm_*, src e sck).
+const TRACKING_PARAMS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_content",
+  "utm_term",
+  "utm_id",
+  "src",
+  "sck",
+  "fbclid",
+  "gclid",
+  "xcod",
+];
+
+let lastTrackedPath: string | null = null;
+
+type EventParams = Record<string, string | number | boolean | undefined | unknown[]>;
 const GA_INIT_KEY = "__bumbumtanaGa4Initialized";
 const GA_READY_KEY = "__bumbumtanaGa4Ready";
 
@@ -66,45 +85,114 @@ function initializeGA4() {
   }
 
   // Queue an initial page view after config; it will be processed in order.
-  window.gtag!("event", "page_view", {
-    page_location: window.location.href,
-    page_path: `${window.location.pathname}${window.location.search}`,
-    page_title: document.title,
-    send_to: measurementId,
-  });
+  trackPageView();
 }
 
 /** Hook called once from the app root. */
 export function useGA4() {
   useEffect(() => {
+    captureTrackingParams();
     initializeGA4();
   }, []);
 }
 
-/** Track a virtual page view after client-side navigation. */
+/**
+ * Track a page view. Called on first load and on every client-side navigation
+ * (quiz → /sales). Deduplicated by path so the same page is not counted twice.
+ */
 export function trackPageView() {
   if (typeof window === "undefined" || !measurementId) return;
+  const path = `${window.location.pathname}${window.location.search}`;
+  if (path === lastTrackedPath) return;
+  lastTrackedPath = path;
   ensureGtagQueue();
   window.gtag!("event", "page_view", {
     page_location: window.location.href,
-    page_path: `${window.location.pathname}${window.location.search}`,
+    page_path: path,
     page_title: document.title,
     send_to: measurementId,
   });
 }
 
-/** Send quiz events to GA4 and preserve existing Meta custom events. */
-export function trackQuizStep(step: string) {
+/** Send a GA4-only event with parameters (never send name, e-mail, weight or height). */
+export function trackEvent(name: string, params: EventParams = {}) {
+  if (typeof window === "undefined" || !measurementId) return;
+  ensureGtagQueue();
+  window.gtag!("event", name, { ...params, send_to: measurementId });
+}
+
+/** Meta-only custom event. Keeps the legacy event names used by existing audiences/conversions. */
+export function trackMetaCustom(name: string) {
+  if (typeof window === "undefined") return;
+  if (typeof window.fbq === "function") {
+    window.fbq("trackCustom", name);
+  }
+}
+
+/** Remove emojis/símbolos das respostas para relatórios mais limpos no GA4. */
+export function cleanAnswer(value: string) {
+  return value
+    .replace(/\p{Extended_Pictographic}|\u200d|\ufe0f/gu, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 100);
+}
+
+/** Faixa de IMC (nunca enviar peso/altura exatos). */
+export function imcBand(weightKg: number, heightCm: number) {
+  if (!weightKg || !heightCm) return "nao_informado";
+  const imc = weightKg / Math.pow(heightCm / 100, 2);
+  if (!Number.isFinite(imc)) return "nao_informado";
+  if (imc < 18.5) return "abaixo";
+  if (imc < 25) return "normal";
+  if (imc < 30) return "sobrepeso";
+  return "obesidade";
+}
+
+/** Guarda UTMs da primeira página (a navegação para /sales perde a query string). */
+export function captureTrackingParams() {
+  if (typeof window === "undefined") return;
+  try {
+    const current = new URLSearchParams(window.location.search);
+    const found: Record<string, string> = {};
+    for (const key of TRACKING_PARAMS) {
+      const value = current.get(key);
+      if (value) found[key] = value;
+    }
+    if (Object.keys(found).length > 0) {
+      window.localStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(found));
+    }
+  } catch {
+    // storage indisponível (aba anônima restrita): segue sem persistir
+  }
+}
+
+/** Anexa as UTMs salvas ao link do checkout sem sobrescrever parâmetros já existentes. */
+export function withTrackingParams(url: string) {
+  if (typeof window === "undefined") return url;
+  try {
+    const target = new URL(url);
+    const saved = JSON.parse(window.localStorage.getItem(UTM_STORAGE_KEY) || "{}") as Record<
+      string,
+      string
+    >;
+    const current = new URLSearchParams(window.location.search);
+    for (const key of TRACKING_PARAMS) {
+      const value = current.get(key) || saved[key];
+      if (value && !target.searchParams.has(key)) target.searchParams.set(key, value);
+    }
+    return target.toString();
+  } catch {
+    return url;
+  }
+}
+
+/** Send an event to GA4 (with optional params) and the same name to Meta. */
+export function trackQuizStep(step: string, params: EventParams = {}) {
   if (typeof window === "undefined") return;
 
-  ensureGtagQueue();
-  if (measurementId) {
-    window.gtag!("event", step, { send_to: measurementId });
-  }
-
-  if (typeof window.fbq === "function") {
-    window.fbq("trackCustom", step);
-  }
+  trackEvent(step, params);
+  trackMetaCustom(step);
 }
 
 /** A safe, non-PII diagnostic event for validating the configured stream. */
