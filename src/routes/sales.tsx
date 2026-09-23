@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useBlocker } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { trackQuizStep, trackEvent, withTrackingParams } from "../lib/analytics";
 import { 
@@ -74,8 +74,9 @@ function SalesPage() {
     const now = Math.floor(Date.now() / 1000);
     
     let startTime = parseInt(localStorage.getItem(timerStartKey) || '0');
+    const RESET_AFTER = 24 * 60 * 60; // nova janela de 15 min a cada 24h (remarketing volta a ver R$ 29,90)
     
-    if (!startTime) {
+    if (!startTime || now - startTime >= RESET_AFTER) {
       startTime = now;
       localStorage.setItem(timerStartKey, startTime.toString());
     }
@@ -121,9 +122,10 @@ function SalesPage() {
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handlePurchase = (posicao: string) => {
-    const oferta = isExpired ? "expirada" : "regular";
-    const value = isExpired ? PRICE_EXPIRED : PRICE_REGULAR;
+  const handlePurchase = (posicao: string, forcePromo = false) => {
+    const usePromo = forcePromo || !isExpired;
+    const oferta = forcePromo && isExpired ? "resgate_saida" : usePromo ? "regular" : "expirada";
+    const value = usePromo ? PRICE_REGULAR : PRICE_EXPIRED;
     // Meta + GA4 (nome antigo mantido para não quebrar conversões existentes)
     trackQuizStep("clique_checkout", { oferta, posicao, value, currency: "BRL" });
     // GA4: evento recomendado de e-commerce (alimenta relatórios de monetização)
@@ -136,7 +138,7 @@ function SalesPage() {
     });
     start();
     // Repassa as UTMs da origem para a Kiwify/UTMify atribuírem a venda ao anúncio certo
-    const checkoutLink = withTrackingParams(isExpired ? CHECKOUT_URL_EXPIRED : CHECKOUT_URL_REGULAR);
+    const checkoutLink = withTrackingParams(usePromo ? CHECKOUT_URL_REGULAR : CHECKOUT_URL_EXPIRED);
 
     setTimeout(() => {
       finish();
@@ -146,6 +148,41 @@ function SalesPage() {
 
   const currentPrice = isExpired ? "99,90" : "29,90";
   const anchorPrice = "188"; const discountPercent = isExpired ? "47" : "84";
+
+  // ---------- Oferta de saída (1x por visita) ----------
+  const [showExitOffer, setShowExitOffer] = useState(false);
+  const exitShownRef = useRef(false);
+  const isExpiredRef = useRef(isExpired);
+  isExpiredRef.current = isExpired;
+  const quizReady = Boolean(quizData?.name && quizData?.objective);
+
+  const openExitOffer = (gatilho: string) => {
+    if (exitShownRef.current) return false;
+    exitShownRef.current = true;
+    setShowExitOffer(true);
+    trackEvent("oferta_saida_view", {
+      gatilho,
+      oferta: isExpiredRef.current ? "expirada" : "regular",
+    });
+    return true;
+  };
+
+  // Celular: botão "voltar" (a pessoa veio do quiz pela navegação interna)
+  useBlocker({
+    shouldBlockFn: () => openExitOffer("voltar"),
+    enableBeforeUnload: false,
+    disabled: !quizReady,
+  });
+
+  // Computador: mouse saindo pelo topo da janela (em direção à aba/fechar)
+  useEffect(() => {
+    if (!quizReady) return;
+    const onMouseOut = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !e.relatedTarget) openExitOffer("mouse_saida");
+    };
+    document.addEventListener("mouseout", onMouseOut);
+    return () => document.removeEventListener("mouseout", onMouseOut);
+  }, [quizReady]);
 
   if (!hasCheckedQuiz || !quizData?.name) return null;
 
@@ -170,7 +207,7 @@ function SalesPage() {
         <div className="max-w-md mx-auto">
           <img 
             src={resultHero.url} 
-            alt="Resultado real do Protocolo Bumbum Tanajura" 
+            alt="Resultado real do Truque da Virgínia" 
             className="w-full rounded-3xl shadow-xl shadow-[var(--brand)]/10 border border-[var(--line)]"
             loading="eager"
             width={500}
@@ -252,7 +289,7 @@ function SalesPage() {
 
       {/* SECTION 2.5: COMO FUNCIONA */}
       <section className="px-5 py-12 md:px-6 md:py-[72px] max-w-2xl mx-auto space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-center">Como o Protocolo Bumbum Tanajura funciona</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center">Como o Truque da Virgínia funciona</h2>
         <div className="space-y-6">
           {[
             { step: "1", title: "Ativação", desc: "Aprenda a direcionar o estímulo para o glúteo." },
@@ -275,16 +312,16 @@ function SalesPage() {
 
       {/* SECTION 3: O PRODUTO (VISUAL) */}
       <section className="px-5 py-12 bg-[var(--brand-soft)] md:px-6 md:py-[72px] text-center space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold">O Protocolo Bumbum Tanajura</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">O Truque da Virgínia</h2>
         
         {/* CSS-Only Phone Mockup */}
         <div className="relative mx-auto w-[280px] h-[580px] bg-[var(--ink)] rounded-[40px] border-[8px] border-[var(--line)] overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[var(--ink)] rounded-b-2xl z-20" />
           <div className="flex h-full animate-scroll-mockup">
              <div className="min-w-full h-full relative">
-               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Bumbum Tanajura" className="w-full h-full object-cover" />
+               <img src={mockup1} width={500} height={500} loading="lazy" decoding="async" alt="Truque da Virgínia" className="w-full h-full object-cover" />
                <div className="absolute inset-x-0 bottom-8 text-white text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] px-4">
-                 <h3 className="text-2xl font-black uppercase italic leading-tight">Capa Bumbum Tanajura</h3>
+                 <h3 className="text-2xl font-black uppercase italic leading-tight">Truque da Virgínia</h3>
                </div>
              </div>
              <div className="min-w-full h-full relative">
@@ -320,7 +357,7 @@ function SalesPage() {
       <section className="px-5 py-12 md:px-6 md:py-[72px] text-center">
         <div className="max-w-4xl mx-auto space-y-10">
           <h2 className="text-2xl md:text-3xl font-bold max-w-2xl mx-auto leading-tight">
-            O que muda com o Protocolo Bumbum Tanajura
+            O que muda com o Truque da Virgínia
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
@@ -376,7 +413,7 @@ function SalesPage() {
           
           <div className="space-y-3">
             {[
-              { title: "Protocolo Bumbum Tanajura — 20 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: "Protocolo Truque da Virgínia — 20 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
@@ -427,7 +464,7 @@ function SalesPage() {
               name: "Carla Silva",
               age: "43 anos",
               photo: photoCarla,
-              text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias do Protocolo Bumbum Tanajura, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
+              text: "Gente, eu não acreditava. Com 43 anos achei que meu bumbum nunca mais ia subir. Em 21 dias com o Truque da Virgínia, minhas calças jeans voltaram a servir e estão até folgadas na cintura!"
             },
             {
               name: "Mariana Costa",
@@ -610,7 +647,7 @@ function SalesPage() {
           Resultados variam de pessoa para pessoa. Este produto não substitui acompanhamento médico ou de profissional de educação física. Todas as informações contidas aqui são apenas para fins educativos.
         </p>
         <p className="text-[10px] text-[var(--ink-2)] opacity-50">
-          © {new Date().getFullYear()} Protocolo Bumbum Tanajura · Todos os direitos reservados
+          © {new Date().getFullYear()} Truque da Virgínia · Todos os direitos reservados
         </p>
       </footer>
 
@@ -629,6 +666,61 @@ function SalesPage() {
 
       {/* Spacing for sticky bar */}
       <div className="h-[96px]" />
+
+      {/* OFERTA DE SAÍDA */}
+      {showExitOffer && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/60 flex items-end sm:items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="exit-offer-title"
+          onClick={() => setShowExitOffer(false)}
+        >
+          <div
+            className="relative w-full max-w-md bg-white rounded-3xl p-6 text-center space-y-4 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              aria-label="Fechar"
+              onClick={() => setShowExitOffer(false)}
+              className="absolute top-3 right-3 p-2 text-[var(--ink-2)]"
+            >
+              <X size={20} />
+            </button>
+            <p className="text-sm font-bold uppercase tracking-widest text-[var(--brand)]">Espere, {quizData.name}!</p>
+            {isExpired ? (
+              <>
+                <h3 id="exit-offer-title" className="text-2xl font-extrabold leading-tight">
+                  Liberamos o preço promocional para você
+                </h3>
+                <p className="text-[var(--ink-2)]">
+                  Seu protocolo do Truque da Virgínia já está montado. Garanta hoje de <span className="line-through">R$ 99,90</span> por{" "}
+                  <strong className="text-[var(--brand)]">R$ 29,90</strong>.
+                </p>
+              </>
+            ) : (
+              <>
+                <h3 id="exit-offer-title" className="text-2xl font-extrabold leading-tight">
+                  Seu preço de R$ 29,90 ainda está reservado
+                </h3>
+                <p className="text-[var(--ink-2)]">
+                  Seu protocolo do Truque da Virgínia já está montado. O valor promocional vale por mais{" "}
+                  <strong className="text-[var(--brand)]">{formatTime(timeLeft)}</strong>.
+                </p>
+              </>
+            )}
+            <button
+              onClick={() => handlePurchase("saida", true)}
+              className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg active:scale-95 transition-all"
+            >
+              Quero por R$ 29,90
+            </button>
+            <button onClick={() => setShowExitOffer(false)} className="text-sm text-[var(--ink-2)] underline">
+              Não, obrigada
+            </button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes scroll-mockup {
@@ -654,3 +746,4 @@ function SalesPage() {
     </div>
   );
 }
+
