@@ -15,6 +15,9 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LoadingBarProvider, useLoadingBar } from "../components/ui/LoadingBar";
 
+const FONT_CSS_URL =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -103,9 +106,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.gstatic.com",
         crossOrigin: "anonymous",
       },
+    ],
+    scripts: [
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap",
+        // Fonte carregada sem bloquear a renderização: a primeira tela aparece na hora com a
+        // fonte do sistema e troca para a Inter quando ela chega. No navegador do Instagram
+        // (rede móvel), uma folha de estilo externa bloqueante atrasa a página e faz a pessoa
+        // desistir antes de ver o quiz.
+        children: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='${FONT_CSS_URL}';document.head.appendChild(l);})();`,
       },
     ],
   }),
