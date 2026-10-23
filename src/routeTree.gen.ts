@@ -10,11 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DownsellRouteImport } from './routes/downsell'
+import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as SalesRouteImport } from './routes/sales'
+import { Route as UpsellRouteImport } from './routes/upsell'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownsellRoute = DownsellRouteImport.update({
+  id: '/downsell',
+  path: '/downsell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObrigadoRoute = ObrigadoRouteImport.update({
+  id: '/obrigado',
+  path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SalesRoute = SalesRouteImport.update({
@@ -22,31 +35,48 @@ const SalesRoute = SalesRouteImport.update({
   path: '/sales',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UpsellRoute = UpsellRouteImport.update({
+  id: '/upsell',
+  path: '/upsell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/downsell': typeof DownsellRoute
+  '/obrigado': typeof ObrigadoRoute
   '/sales': typeof SalesRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/downsell': typeof DownsellRoute
+  '/obrigado': typeof ObrigadoRoute
   '/sales': typeof SalesRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/downsell': typeof DownsellRoute
+  '/obrigado': typeof ObrigadoRoute
   '/sales': typeof SalesRoute
+  '/upsell': typeof UpsellRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sales'
+  fullPaths: '/' | '/downsell' | '/obrigado' | '/sales' | '/upsell'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sales'
-  id: '__root__' | '/' | '/sales'
+  to: '/' | '/downsell' | '/obrigado' | '/sales' | '/upsell'
+  id: '__root__' | '/' | '/downsell' | '/obrigado' | '/sales' | '/upsell'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DownsellRoute: typeof DownsellRoute
+  ObrigadoRoute: typeof ObrigadoRoute
   SalesRoute: typeof SalesRoute
+  UpsellRoute: typeof UpsellRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +88,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/downsell': {
+      id: '/downsell'
+      path: '/downsell'
+      fullPath: '/downsell'
+      preLoaderRoute: typeof DownsellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/obrigado': {
+      id: '/obrigado'
+      path: '/obrigado'
+      fullPath: '/obrigado'
+      preLoaderRoute: typeof ObrigadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sales': {
       id: '/sales'
       path: '/sales'
@@ -65,12 +109,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SalesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/upsell': {
+      id: '/upsell'
+      path: '/upsell'
+      fullPath: '/upsell'
+      preLoaderRoute: typeof UpsellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DownsellRoute: DownsellRoute,
+  ObrigadoRoute: ObrigadoRoute,
   SalesRoute: SalesRoute,
+  UpsellRoute: UpsellRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
