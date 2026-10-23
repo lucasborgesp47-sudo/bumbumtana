@@ -73,7 +73,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
         </p>
 
         <p className="text-center text-sm leading-relaxed">
-          Mariana conquistou o bumbum dos seus sonhos em apenas 4 semanas com o{" "}
+          Mariana conquistou o bumbum dos seus sonhos em 21 dias com o{" "}
           <strong className="text-primary">Truque da Virgínia</strong>.{" "}
           <strong>SEM AGACHAMENTO.</strong>
         </p>

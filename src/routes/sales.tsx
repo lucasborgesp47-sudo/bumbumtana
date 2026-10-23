@@ -18,12 +18,29 @@ import {
   CreditCard,
   Landmark,
   Wallet,
-  X
+  X,
+  Star
 } from "lucide-react";
 import { useLoadingBar } from "../components/ui/LoadingBar";
-import mockup1 from "@/assets/capa-bumbum-granada.jpg";
-import mockup2 from "@/assets/bumbum-granada.jpg";
-import mockup3 from "@/assets/mapa-da-silhueta.jpg";
+import mockup1 from "@/assets/mockup-ponte.jpg";
+import mockup2 from "@/assets/mockup-coice.jpg";
+import mockup3 from "@/assets/mockup-alimentacao.jpg";
+
+/** Mesmo diagnóstico do resultado do quiz (pergunta 4: onde sente o esforço). */
+function diagnosisFor(effort?: string) {
+  if (effort === "Mais nas coxas (esse é o problema)")
+    return "Seu esforço está indo para as coxas. É por isso que a coxa engrossa e o bumbum não responde.";
+  if (effort === "Sinto pouco o músculo")
+    return "Seu glúteo está sendo pouco recrutado. Sem ativação, ele não recebe o estímulo para ganhar volume.";
+  if (effort === "Principalmente no bumbum")
+    return "Você já sente o glúteo. Agora o ponto é direcionar o estímulo para ganhar volume e empinar.";
+  return "Pelas suas respostas, o glúteo está trabalhando menos do que deveria, e a coxa acaba fazendo o trabalho.";
+}
+
+/** Remove emoji do início da resposta do quiz para exibir na página. */
+function cleanObjective(value?: string) {
+  return (value || "").replace(/^[^\p{L}]+/u, "").trim();
+}
 import resultHero from "@/assets/result-hero.jpeg.asset.json"; import photoCarla from "@/assets/testimonialcarla.jpg"; import photoMariana from "@/assets/testimonialmariana.jpg"; import photoFernanda from "@/assets/testimonialfernanda.jpg";
 
 export const Route = createFileRoute("/sales")({
@@ -45,7 +62,7 @@ function SalesPage() {
   const offerTrackedRef = useRef(false);
   
   // Quiz data (obrigatório: sem quiz respondido, volta para o início)
-  const [quizData, setQuizData] = useState<{name?: string, objective?: string}>(() => {
+  const [quizData, setQuizData] = useState<{name?: string, objective?: string, effortLocation?: string}>(() => {
     return {};
   });
 
@@ -196,13 +213,20 @@ function SalesPage() {
           <span>PROTOCOLO 100% PERSONALIZADO</span>
         </div>
         
+        {/* Big Idea: a mesma promessa da entrada do quiz ("sem agachamento", "sem engrossar a coxa") */}
         <h1 className="text-[32px] leading-[1.15] font-extrabold tracking-tight text-[var(--ink)]">
-          Seu protocolo está pronto, {quizData.name || "Guerreira"}
+          {quizData.name?.trim().split(/\s+/)[0]}, seu protocolo para empinar o bumbum <span className="text-[var(--brand)]">sem agachamento</span> está pronto
         </h1>
-        
+
         <p className="text-base leading-relaxed text-[var(--ink-2)] text-balance">
-          Pelas suas respostas, seu principal ponto de atenção é a <span className="text-[var(--brand)] font-bold">ativação do glúteo</span>. Por isso, ajustamos seu protocolo para trabalhar o glúteo de forma mais direcionada, sem exigir horas de academia.
+          {diagnosisFor(quizData.effortLocation)} Seu protocolo começa <span className="text-[var(--brand)] font-bold">ativando o glúteo</span> para o esforço ir para o lugar certo: em casa e sem engrossar a coxa.
         </p>
+
+        {cleanObjective(quizData.objective) && (
+          <p className="text-sm font-semibold text-[var(--ink)]">
+            🎯 Seu objetivo: {cleanObjective(quizData.objective).toLowerCase()}
+          </p>
+        )}
 
         <div className="max-w-md mx-auto">
           <img 
@@ -228,7 +252,7 @@ function SalesPage() {
                 </div>
                 <div className="mt-2 space-y-1">
                   <div className="text-sm font-bold opacity-75 line-through">
-                    De R$ 99,90 por
+                    De R$ {anchorPrice} por
                   </div>
                   <div className="text-[13px] font-bold text-white animate-pulse">
                     R$ 29,90
@@ -254,7 +278,7 @@ function SalesPage() {
             onClick={() => handlePurchase("topo")}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-lg shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group max-w-md mx-auto"
           >
-            QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
+            QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
@@ -271,9 +295,9 @@ function SalesPage() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
           {[
-            { emoji: "⏰", title: "Rotina sobrecarregada", desc: "Você não precisa de 1 hora. O estímulo certo acontece em minutos." },
-            { emoji: "🍑", title: "Treinos genéricos", desc: "Séries repetitivas que não ativam as fibras profundas do glúteo." },
-            { emoji: "🔥", title: "Falta de ativação", desc: "O problema não é o peso, é a conexão neural que está desligada." }
+            { emoji: "🦵", title: "Agachamento demais", desc: "Agachamento e leg press levam boa parte do esforço para a coxa. A coxa cresce e o bumbum fica para trás." },
+            { emoji: "😴", title: "Glúteo “desligado”", desc: "Sem ativar antes, o glúteo quase não participa do exercício. Quem trabalha é a coxa." },
+            { emoji: "⏰", title: "Rotina sem tempo", desc: "Você não precisa de 1 hora de academia. Com o estímulo no lugar certo, cabe na sua sala." }
           ].map((item, i) => (
             <div key={i} className="bg-[var(--surface)] p-6 rounded-2xl border border-[var(--line)] space-y-3 shadow-lg shadow-[var(--brand)]/5">
               <div className="w-12 h-12 rounded-2xl bg-[var(--brand-soft)] flex items-center justify-center text-2xl">
@@ -289,13 +313,13 @@ function SalesPage() {
 
       {/* SECTION 2.5: COMO FUNCIONA */}
       <section className="px-5 py-12 md:px-6 md:py-[72px] max-w-2xl mx-auto space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-center">Como o Truque da Virgínia funciona</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-center">Como o Truque da Virgínia funciona: 3 fases em 21 dias</h2>
+        {/* [CONFIRMAR] o conteúdo do app precisa seguir estas 3 fases */}
         <div className="space-y-6">
           {[
-            { step: "1", title: "Ativação", desc: "Aprenda a direcionar o estímulo para o glúteo." },
-            { step: "2", title: "Estímulo localizado", desc: "Movimentos selecionados para o objetivo do protocolo." },
-            { step: "3", title: "Rotina curta", desc: "Sessões que cabem no tempo que você tem disponível." },
-            { step: "4", title: "Progressão", desc: "Evolução organizada ao longo dos dias." },
+            { step: "1", title: "Despertar (dias 1 a 7)", desc: "Sequências curtas que “ligam” o glúteo antes do esforço. Você sente o bumbum trabalhar, e não a coxa." },
+            { step: "2", title: "Direcionar (dias 8 a 14)", desc: "Movimentos no tapete de casa que levam o esforço para o glúteo, sem agachamento e sem carga." },
+            { step: "3", title: "Empinar (dias 15 a 21)", desc: "Progressão que aumenta o estímulo aos poucos, no tempo que você tem." },
           ].map((item) => (
             <div key={item.step} className="flex gap-4">
               <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--brand)] text-white flex items-center justify-center font-bold">
@@ -341,7 +365,7 @@ function SalesPage() {
 
         <div className="flex flex-wrap justify-center gap-4 max-w-md mx-auto">
           {[
-            { icon: <Clock size={16} />, text: "Treinos de 20 minutos" },
+            { icon: <Clock size={16} />, text: "Treinos de até 20 minutos" },
             { icon: <Zap size={16} />, text: "Sem equipamento" },
             { icon: <Smartphone size={16} />, text: "Acesso pelo navegador" }
           ].map((item, i) => (
@@ -391,7 +415,7 @@ function SalesPage() {
                   "Ativação correta do glúteo em minutos, sem dor nas articulações",
                   "Confiança para usar a roupa que quiser",
                   "Treino de 20 minutos que cabe em qualquer rotina",
-                  "Resultado visível que comprova que valeu a pena",
+                  "A calça jeans vestindo diferente atrás",
                 ].map((item, i) => (
                   <li key={i} className="flex gap-3 items-start">
                     <div className="mt-1 w-5 h-5 rounded-full bg-[#86EFAC] flex items-center justify-center shrink-0">
@@ -406,6 +430,50 @@ function SalesPage() {
         </div>
       </section>
 
+      {/* SECTION 3.9: CUSTO DO CAMINHO TRADICIONAL + MOTIVO DO PREÇO */}
+      {/* Fontes (out/2026): academia de rede a partir de R$ 99,90/mês; personal R$ 70–150 por aula (Cronoshare, jan/2026) */}
+      <section className="px-5 py-12 md:px-6 md:py-[72px]">
+        <div className="max-w-md mx-auto space-y-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-center leading-tight">
+            Quanto custa tentar do jeito tradicional
+          </h2>
+          <div className="bg-[var(--surface-2)] border border-[var(--line)] rounded-2xl divide-y divide-[var(--line)]">
+            {[
+              { item: "Academia", price: "a partir de R$ 99,90 por mês" },
+              { item: "Personal (2x por semana)", price: "R$ 560 a R$ 1.200 por mês" },
+              { item: "Ida e volta", price: "tempo e passagem ou gasolina, todo dia" },
+            ].map((row) => (
+              <div key={row.item} className="flex items-start justify-between gap-4 px-4 py-3">
+                <span className="font-semibold text-sm">{row.item}</span>
+                <span className="text-sm text-[var(--ink-2)] text-right">{row.price}</span>
+              </div>
+            ))}
+            <div className="px-4 py-3 text-sm text-[#991B1B] font-medium">
+              E, se o treino é na base do agachamento, o esforço continua indo para a coxa.
+            </div>
+          </div>
+
+          <div className="text-center space-y-3">
+            <p className="text-lg font-bold leading-snug">
+              {isExpired ? (
+                <>O Truque da Virgínia custa <span className="text-[var(--brand)]">R$ 99,90 uma vez só</span>: o preço de 1 mês de academia, para usar para sempre.</>
+              ) : (
+                <>O Truque da Virgínia custa <span className="text-[var(--brand)]">R$ 29,90 uma vez só</span>. Menos de um terço de uma mensalidade de academia.</>
+              )}
+            </p>
+            <p className="text-sm text-[var(--ink-2)] leading-relaxed">
+              <strong className="text-[var(--ink)]">Por que tão barato?</strong> Porque não tem academia, personal nem mensalidade: é um protocolo digital que você faz sozinha, no tapete da sala. E porque eu quero que você comece hoje e sinta o glúteo trabalhar já no primeiro treino.
+            </p>
+            <button
+              onClick={() => handlePurchase("custo")}
+              className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg active:scale-95 transition-all"
+            >
+              QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 4: STACK DE ENTREGÁVEIS */}
       <section className="px-5 py-12 bg-[var(--surface-2)] md:px-6 md:py-[72px]">
         <div className="max-w-2xl mx-auto space-y-6 border-2 border-[var(--brand)] rounded-[32px] p-6 md:p-10 bg-[var(--surface)] shadow-2xl shadow-[var(--brand)]/10">
@@ -413,7 +481,7 @@ function SalesPage() {
           
           <div className="space-y-3">
             {[
-              { title: "Protocolo Truque da Virgínia — 20 Minutos", benefit: "Ativação neural profunda para quem tem pressa.", price: "47" },
+              { title: "Protocolo Truque da Virgínia — 20 Minutos", benefit: "Liga o glúteo antes do esforço, para quem tem pouco tempo.", price: "47" },
               { title: 'Rotina Express "Bumbum em Casa"', benefit: "Treinos curtos que cabem em qualquer espaço.", price: "67" },
               { title: "Bônus 1: Mapa da Silhueta Definida", benefit: "Guia alimentar focado em curvas femininas.", price: "47", isBonus: true },
               { title: "Bônus 2: Checklist de Ativação Diária", benefit: "Passo a passo rápido para fazer antes de cada treino.", price: "27", isBonus: true },
@@ -449,7 +517,7 @@ function SalesPage() {
               onClick={() => handlePurchase("bonus")}
               className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
             >
-              QUERO TODOS OS BÔNUS — R$ {currentPrice}
+              QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
             </button>
           </div>
         </div>
@@ -499,7 +567,7 @@ function SalesPage() {
                 "{item.text}"
               </p>
               <div className="flex text-[#FFD700]">
-                {[...Array(5)].map((_, i) => <Zap key={i} size={14} fill="currentColor" />)}
+                {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
               </div>
             </div>
           ))}
@@ -531,7 +599,7 @@ function SalesPage() {
             onClick={() => handlePurchase("preco")}
             className="w-full bg-[var(--brand)] text-white py-5 rounded-2xl font-extrabold text-xl shadow-lg shadow-[var(--brand)]/30 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
-            QUERO ATIVAR MEU GLÚTEO — R$ {currentPrice}
+            QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
@@ -577,15 +645,15 @@ function SalesPage() {
             <Shield size={48} />
           </div>
           <div className="space-y-3">
-            <h3 className="text-xl font-bold text-[var(--ok)]">7 dias para testar sem risco</h3>
+            <h3 className="text-xl font-bold text-[var(--ok)]">Garantia Glúteo Acordado: 7 dias</h3>
             <p className="text-sm text-[var(--ink-2)] leading-relaxed">
-              Entre, abra os treinos e teste. Se não for o que você esperava, é só pedir o reembolso em até 7 dias pelo <a href="mailto:sacbumbumperfeito@gmail.com" className="font-bold underline">sacbumbumperfeito@gmail.com</a>. Devolvemos 100% do valor, sem perguntas.
+              Faça os primeiros treinos. Se você não sentir o glúteo trabalhando, e não a coxa, peça o reembolso direto na Kiwify, pelo link do e-mail da compra, em poucos cliques. Devolvemos 100% do valor, sem perguntas e sem precisar falar com ninguém.
             </p>
-            <button 
+            <button
               onClick={() => handlePurchase("garantia")}
               className="mt-4 w-full bg-[var(--ok)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--ok)]/20 active:scale-95 transition-all"
             >
-              QUERO TESTAR SEM RISCO — R$ {currentPrice}
+              QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
             </button>
           </div>
         </div>
@@ -599,10 +667,10 @@ function SalesPage() {
             { q: "É um aplicativo? Preciso baixar alguma coisa?", a: "Não! É um WebApp (PWA). Você acessa direto pelo navegador e pode adicionar o ícone na tela inicial do celular como se fosse um app, sem ocupar memória." },
             { q: "É cobrança única ou assinatura?", a: "Cobrança única! Você paga uma vez e o acesso é seu para sempre, incluindo todas as atualizações futuras do protocolo." },
             { q: "Como e quando recebo o acesso?", a: "O acesso é enviado automaticamente para o seu e-mail cadastrado no checkout em até 2 minutos após a aprovação." },
-            { q: "Funciona se eu nunca treinei ou estou fora de forma?", a: "Com certeza. O protocolo respeita o seu nível e o estímulo neural não depende de força bruta ou experiência prévia." },
+            { q: "Funciona se eu nunca treinei ou estou fora de forma?", a: "Sim. O protocolo começa leve, sem impacto, e respeita o seu nível. Ativar o glúteo não depende de força nem de experiência." },
             { q: "Preciso de equipamento ou espaço grande?", a: "Absolutamente nada. Você só precisa do seu peso corporal e de um espaço pequeno como um tapete de quarto." },
-            { q: "Em quanto tempo vejo diferença?", a: "A maioria das mulheres relata sentir a musculatura mais 'acordada' nas primeiras 72h e mudanças visíveis de firmeza em 21 dias." },
-            { q: "E se eu não gostar?", a: "Você tem 7 dias de garantia incondicional. Se não gostar, basta enviar um e-mail para o suporte." }
+            { q: "Em quanto tempo vejo diferença?", a: "Você sente o glúteo trabalhando já nos primeiros treinos. A mudança no espelho varia de pessoa para pessoa e depende da constância." },
+            { q: "E se eu não gostar?", a: "Você tem 7 dias de garantia. Se não gostar, pede o reembolso direto na Kiwify, pelo link do e-mail da compra. Não precisa mandar e-mail nem falar com ninguém." }
           ].map((item, i) => (
             <details key={i} className="group border border-[var(--line)] rounded-xl overflow-hidden bg-white">
               <summary className="p-4 flex justify-between items-center font-bold text-sm md:text-base cursor-pointer hover:bg-[var(--surface-2)] transition-colors list-none">
@@ -636,7 +704,7 @@ function SalesPage() {
             onClick={() => handlePurchase("final")}
             className="w-full bg-[var(--brand)] text-white py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-[var(--brand)]/20 active:scale-95 transition-all"
           >
-            SIM, QUERO COMEÇAR HOJE — R$ {currentPrice}
+            QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}
           </button>
         </div>
       </section>
@@ -658,7 +726,7 @@ function SalesPage() {
             onClick={() => handlePurchase("barra_fixa")}
             className="w-full bg-[var(--brand)] text-white h-14 rounded-xl font-bold flex flex-col items-center justify-center leading-tight shadow-lg shadow-[var(--brand)]/20 active:scale-95 transition-transform"
           >
-            <span className="text-base">Quero meu protocolo — R$ {currentPrice}</span>
+            <span className="text-base">QUERO MEU PROTOCOLO —&nbsp;R$&nbsp;{currentPrice}</span>
             <span className="text-[12px] font-medium opacity-90">Pagamento único · Acesso imediato</span>
           </button>
         </div>

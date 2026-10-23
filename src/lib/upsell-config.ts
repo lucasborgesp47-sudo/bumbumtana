@@ -33,7 +33,6 @@ export const DOWNSELL = {
   name: "Turbo Essencial",
   price: "19,90",
   priceValue: 19.9,
-  anchor: "37,00",
 };
 
 export const SUPPORT_EMAIL = "sacbumbumperfeito@gmail.com";

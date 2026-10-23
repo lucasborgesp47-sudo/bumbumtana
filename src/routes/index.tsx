@@ -310,9 +310,8 @@ function Index() {
                 <h1 className="text-2xl md:text-3xl font-bold text-balance">Por dia, quantos minutos você consegue separar?</h1>
                 <div className="grid gap-4">
                   {[
-                    { label: "Menos de 10 minutos", icon: "⏱️" },
-                    { label: "10 a 15 minutos", icon: "⏱️" },
-                    { label: "15 a 30 minutos", icon: "⏳" },
+                    { label: "10 a 20 minutos", icon: "⏱️" },
+                    { label: "20 a 30 minutos", icon: "⏳" },
                     { label: "Sem limite de tempo", icon: "🚀" },
                   ].map((opt) => (
                     <button
@@ -462,12 +461,12 @@ function Index() {
                     )}
                     {getConditional() === 'Z' && (
                       <>
-                        'Não tenho tempo' é a desculpa #1. O <strong className="text-primary not-italic">Truque da Virgínia</strong> resolve isso: leva poucos minutos, em casa, sem equipamento, sem academia.
+                        Se o tempo é curto, o protocolo cabe nele. O <strong className="text-primary not-italic">Truque da Virgínia</strong> leva até 20 minutos, em casa, sem equipamento e sem academia.
                       </>
                     )}
                     {getConditional() === 'X' && (
                       <>
-                        Depois dos 40, o corpo responde a estímulos direcionados, não a agachamentos genéricos. É por isso que o <strong className="text-primary not-italic">Truque da Virgínia</strong> funciona tão bem para mulheres 40+.
+                        Depois dos 40, agachamento pesado pesa nas articulações e ainda leva o esforço para a coxa. Por isso o <strong className="text-primary not-italic">Truque da Virgínia</strong> começa leve e sem impacto, respeitando o seu corpo.
                       </>
                     )}
                     {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta, só precisa de poucos minutos por dia."}

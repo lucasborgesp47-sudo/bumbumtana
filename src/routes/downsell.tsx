@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { Zap, Timer, Check, X } from "lucide-react";
 import { trackEvent } from "../lib/analytics";
 import { KiwifyOfferButtons } from "../components/upsell/KiwifyOfferButtons";
+import { DemoStrip } from "../components/upsell/DemoStrip";
 import {
   useBuyerName,
   goToStep,
@@ -70,10 +71,11 @@ function DownsellPage() {
           <strong>para onde vai o estímulo</strong> de cada treino.
         </p>
         <p className="text-[var(--ink-2)] leading-relaxed">
-          Sem ativar o glúteo antes, parte do esforço escapa para a coxa e a lombar. É o motivo mais
-          comum de quem treina direitinho e não vê o bumbum mudar. Seria uma pena fazer tudo certo e
-          evoluir mais devagar do que poderia.
+          Sem ativar o glúteo antes, parte do esforço escapa para a coxa e a lombar. É um dos
+          motivos de quem treina direitinho e não vê o bumbum mudar. Seria uma pena fazer tudo certo
+          e evoluir mais devagar do que poderia.
         </p>
+        <DemoStrip compact />
       </Section>
 
       {/* 3. POR ISSO FIZ ESSE DESCONTO */}
@@ -128,7 +130,7 @@ function DownsellPage() {
 
           <div className="text-center space-y-1">
             <div className="text-sm text-[var(--ink-2)]">
-              De <span className="line-through">R$ {DOWNSELL.anchor}</span> por
+              O Turbo completo sai por R$ {UPSELL.price}. Esta versão essencial, sem a Fase 2:
             </div>
             <div className="text-[44px] font-black text-[var(--brand)] leading-none">
               R$ {DOWNSELL.price}

@@ -57,7 +57,7 @@ function ObrigadoPage() {
             {
               icon: <Play size={20} />,
               title: "Faça o primeiro treino hoje",
-              desc: "São 20 minutos. Quem começa no mesmo dia tem muito mais chance de seguir até o fim.",
+              desc: "São até 20 minutos. Começar hoje ajuda a criar o hábito.",
             },
           ].map((item, i) => (
             <div

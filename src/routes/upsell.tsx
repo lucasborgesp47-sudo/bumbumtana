@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { Zap, Timer, TrendingUp, Gift, Shield, MessageCircle, ArrowDown } from "lucide-react";
 import { trackEvent } from "../lib/analytics";
 import { KiwifyOfferButtons } from "../components/upsell/KiwifyOfferButtons";
+import { DemoStrip } from "../components/upsell/DemoStrip";
 import {
   useBuyerName,
   goToStep,
@@ -10,12 +11,7 @@ import {
   Section,
   Disclaimer,
 } from "../components/upsell/PostPurchase";
-import {
-  UPSELL,
-  KIWIFY_SNIPPET_UPSELL,
-  FALLBACK_CHECKOUT_UPSELL,
-  SUPPORT_EMAIL,
-} from "../lib/upsell-config";
+import { UPSELL, KIWIFY_SNIPPET_UPSELL, FALLBACK_CHECKOUT_UPSELL } from "../lib/upsell-config";
 
 export const Route = createFileRoute("/upsell")({
   head: () => ({
@@ -151,6 +147,7 @@ function UpsellPage() {
             </div>
           </div>
         ))}
+        <DemoStrip />
         <p className="text-sm text-[var(--ink-2)] text-center">
           Fica tudo no mesmo app do seu protocolo. Sem baixar nada novo.
         </p>
@@ -229,11 +226,8 @@ function UpsellPage() {
             <Shield className="text-[var(--ok)] shrink-0" size={32} />
             <p className="text-sm text-[var(--ink-2)] leading-relaxed">
               <strong className="text-[var(--ok)]">Risco zero:</strong> você tem 7 dias para testar
-              o Turbo. Se não gostar, é só pedir pelo{" "}
-              <a href={`mailto:${SUPPORT_EMAIL}`} className="underline font-semibold">
-                {SUPPORT_EMAIL}
-              </a>{" "}
-              e devolvemos 100% do valor dele.
+              o Turbo. Se não gostar, pede o reembolso direto na Kiwify, pelo link do e-mail da
+              compra, e devolvemos 100% do valor dele. Sem precisar falar com ninguém.
             </p>
           </div>
         </div>
