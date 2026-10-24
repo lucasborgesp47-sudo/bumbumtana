@@ -16,7 +16,7 @@ import { UPSELL, KIWIFY_SNIPPET_UPSELL, FALLBACK_CHECKOUT_UPSELL } from "../lib/
 export const Route = createFileRoute("/upsell")({
   head: () => ({
     meta: [
-      { title: "Seu acesso está sendo liberado — Truque da Virgínia" },
+      { title: "Seu acesso está sendo liberado — Truque do Bumbum na Nuca" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -70,7 +70,7 @@ function UpsellPage() {
           O protocolo funciona. Mas existe uma coisa que pode deixar o seu resultado mais lento.
         </h2>
         <p className="text-[var(--ink-2)] leading-relaxed">
-          O Truque da Virgínia foi montado para <strong>1 sessão de 20 minutos por dia</strong>. É o
+          O Truque do Bumbum na Nuca foi montado para <strong>1 sessão de 20 minutos por dia</strong>. É o
           suficiente para o seu glúteo começar a responder.
         </p>
         <p className="text-[var(--ink-2)] leading-relaxed">

@@ -10,38 +10,38 @@ interface DopamineProps {
 
 const VARIANTS = {
   1: {
-    headline: "🔥 Mais de 2.428 mulheres já descobriram o Truque da Virgínia",
+    headline: "🔥 Mais de 2.428 mulheres já descobriram o Truque do Bumbum na Nuca",
     stat: "E o mais impressionante? boa parte delas tinha mais de 35 anos e achava que já era tarde demais.",
     quote:
-      "Pensei que meu bumbum nunca mais levantaria depois dos 40. Parei de agachar e comecei o Truque da Virgínia em casa. Em 21 dias, meu bumbum ganhou volume e ficou mais empinado — a calça jeans agora fica justinha atrás.",
+      "Pensei que meu bumbum nunca mais levantaria depois dos 40. Parei de agachar e comecei o Truque do Bumbum na Nuca em casa. Em 21 dias, meu bumbum ganhou volume e ficou mais empinado — a calça jeans agora fica justinha atrás.",
     author: "Carla, 43 anos — parou de agachar",
     image: carlaImg.url,
-    alt: "Resultado antes e depois do Truque da Virgínia — Carla, 43 anos",
+    alt: "Resultado antes e depois do Truque do Bumbum na Nuca — Carla, 43 anos",
     transition: "👇 Vamos descobrir por que o agachamento não funcionou para você...",
   },
   2: {
-    headline: "🔥 Mais de 2.428 mulheres pararam de agachar e começaram a usar o Truque da Virgínia",
+    headline: "🔥 Mais de 2.428 mulheres pararam de agachar e começaram a usar o Truque do Bumbum na Nuca",
     stat: "E o que mais impressiona? muitas delas nunca tinham feito nenhum treino em casa antes.",
     quote:
-      "Eu era completamente sedentária. Fazia agachamento e só engrossava a coxa. Com o Truque da Virgínia em casa, em 3 semanas o bumbum subiu.",
+      "Eu era completamente sedentária. Fazia agachamento e só engrossava a coxa. Com o Truque do Bumbum na Nuca em casa, em 3 semanas o bumbum subiu.",
     author: "Juliana, 28 anos — ex-viciada em agachamento",
     image: julianaImg.url,
-    alt: "Resultado antes e depois do Truque da Virgínia — Juliana, 28 anos",
-    transition: "👇 Falta pouco para montar o seu protocolo do Truque da Virgínia...",
+    alt: "Resultado antes e depois do Truque do Bumbum na Nuca — Juliana, 28 anos",
+    transition: "👇 Falta pouco para montar o seu protocolo do Truque do Bumbum na Nuca...",
   },
   3: {
-    headline: "🔥 Mais de 2.428 mulheres já tinham tentado academia, dieta e agachamento antes do Truque da Virgínia",
+    headline: "🔥 Mais de 2.428 mulheres já tinham tentado academia, dieta e agachamento antes do Truque do Bumbum na Nuca",
     stat: "E descobriram que o problema nunca foi falta de esforço: era o estímulo indo para o lugar errado.",
     quote:
-      "Testei academia, agachamento, dieta, de tudo. Só engrossava a coxa. O Truque da Virgínia destravou meu bumbum em 21 dias — sem pisar na academia.",
+      "Testei academia, agachamento, dieta, de tudo. Só engrossava a coxa. O Truque do Bumbum na Nuca destravou meu bumbum em 21 dias — sem pisar na academia.",
     author: "Fernanda, 35 anos — ex-frequentadora de academia",
     image: fernandaImg.url,
-    alt: "Resultado antes e depois do Truque da Virgínia — Fernanda, 35 anos",
-    transition: "👇 Agora vamos calibrar o Truque da Virgínia para o seu corpo...",
+    alt: "Resultado antes e depois do Truque do Bumbum na Nuca — Fernanda, 35 anos",
+    transition: "👇 Agora vamos calibrar o Truque do Bumbum na Nuca para o seu corpo...",
   },
 } as const;
 
-const HIGHLIGHT_PHRASES = ["Mais de 2.428 mulheres", "Truque da Virgínia"];
+const HIGHLIGHT_PHRASES = ["Mais de 2.428 mulheres", "Truque do Bumbum na Nuca"];
 const HIGHLIGHT_PATTERN = new RegExp(
   `(${HIGHLIGHT_PHRASES.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
   "g"

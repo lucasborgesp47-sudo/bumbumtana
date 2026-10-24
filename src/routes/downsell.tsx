@@ -21,7 +21,7 @@ import {
 export const Route = createFileRoute("/downsell")({
   head: () => ({
     meta: [
-      { title: "Uma última condição — Truque da Virgínia" },
+      { title: "Uma última condição — Truque do Bumbum na Nuca" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -57,7 +57,7 @@ function DownsellPage() {
             Eu entendo. Talvez R$&nbsp;{UPSELL.price} agora não caiba no seu momento.
           </h1>
           <p className="text-base text-[var(--ink-2)] leading-relaxed">
-            Seu acesso ao Truque da Virgínia continua garantido. Antes de ir, deixa eu te mostrar
+            Seu acesso ao Truque do Bumbum na Nuca continua garantido. Antes de ir, deixa eu te mostrar
             uma última condição, mais leve.
           </p>
         </div>

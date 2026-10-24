@@ -8,7 +8,7 @@ import { SUPPORT_EMAIL } from "../lib/upsell-config";
 export const Route = createFileRoute("/obrigado")({
   head: () => ({
     meta: [
-      { title: "Acesso liberado — Truque da Virgínia" },
+      { title: "Acesso liberado — Truque do Bumbum na Nuca" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

@@ -23,7 +23,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
           </h1>
           <p className="text-base leading-snug text-muted-foreground text-balance">
             Responda um teste rápido e receba o seu protocolo do{" "}
-            <strong className="text-primary">Truque da Virgínia</strong>, para fazer em casa em
+            <strong className="text-primary">Truque do Bumbum na Nuca</strong>, para fazer em casa em
             poucos minutos por dia.
           </p>
         </div>
@@ -32,7 +32,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
           <figure className="text-center space-y-1">
             <img
               src={antesImg}
-              alt="Mariana antes do Truque da Virgínia"
+              alt="Mariana antes do Truque do Bumbum na Nuca"
               className="w-full aspect-[4/5] object-cover rounded-2xl border-2 border-border"
               loading="eager"
               fetchPriority="high"
@@ -47,7 +47,7 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
           <figure className="text-center space-y-1">
             <img
               src={depoisImg}
-              alt="Mariana depois do Truque da Virgínia"
+              alt="Mariana depois do Truque do Bumbum na Nuca"
               className="w-full aspect-[4/5] object-cover rounded-2xl border-2 border-primary"
               loading="eager"
               fetchPriority="high"
@@ -74,14 +74,14 @@ export const EntryGate = ({ onEnter }: EntryGateProps) => {
 
         <p className="text-center text-sm leading-relaxed">
           Mariana conquistou o bumbum dos seus sonhos em 21 dias com o{" "}
-          <strong className="text-primary">Truque da Virgínia</strong>.{" "}
+          <strong className="text-primary">Truque do Bumbum na Nuca</strong>.{" "}
           <strong>SEM AGACHAMENTO.</strong>
         </p>
 
         <div className="border border-primary/20 bg-primary/5 rounded-xl px-3 py-2 text-center">
           <p className="text-sm text-muted-foreground leading-snug">
             🔥 <span className="font-semibold text-primary">Mais de 2.428 mulheres</span> já
-            descobriram o Truque da Virgínia
+            descobriram o Truque do Bumbum na Nuca
           </p>
         </div>
       </div>

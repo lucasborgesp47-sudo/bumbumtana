@@ -404,7 +404,7 @@ function Index() {
                 <div className="text-center space-y-1">
                   <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Diagnóstico concluído</p>
                   <h2 className="text-2xl font-bold text-primary leading-tight">
-                    {firstName ? `${firstName}, seu protocolo do Truque da Virgínia está pronto` : "Seu protocolo do Truque da Virgínia está pronto"}
+                    {firstName ? `${firstName}, seu protocolo do Truque do Bumbum na Nuca está pronto` : "Seu protocolo do Truque do Bumbum na Nuca está pronto"}
                   </h2>
                 </div>
 
@@ -456,17 +456,17 @@ function Index() {
                   <p className="text-sm italic text-muted-foreground">
                     {getConditional() === 'Y' && (
                       <>
-                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque da Virgínia</strong> ativa o glúteo em poucos minutos por dia, sem academia e sem coxa grande.
+                        Foi vendido para você a ideia de que precisa passar horas na academia. O <strong className="text-primary not-italic">Truque do Bumbum na Nuca</strong> ativa o glúteo em poucos minutos por dia, sem academia e sem coxa grande.
                       </>
                     )}
                     {getConditional() === 'Z' && (
                       <>
-                        Se o tempo é curto, o protocolo cabe nele. O <strong className="text-primary not-italic">Truque da Virgínia</strong> leva até 20 minutos, em casa, sem equipamento e sem academia.
+                        Se o tempo é curto, o protocolo cabe nele. O <strong className="text-primary not-italic">Truque do Bumbum na Nuca</strong> leva até 20 minutos, em casa, sem equipamento e sem academia.
                       </>
                     )}
                     {getConditional() === 'X' && (
                       <>
-                        Depois dos 40, agachamento pesado pesa nas articulações e ainda leva o esforço para a coxa. Por isso o <strong className="text-primary not-italic">Truque da Virgínia</strong> começa leve e sem impacto, respeitando o seu corpo.
+                        Depois dos 40, agachamento pesado pesa nas articulações e ainda leva o esforço para a coxa. Por isso o <strong className="text-primary not-italic">Truque do Bumbum na Nuca</strong> começa leve e sem impacto, respeitando o seu corpo.
                       </>
                     )}
                     {getConditional() === 'W' && "Começar do zero é uma VANTAGEM. Nível 1: em pé, sem impacto, sem equipamento, sem academia. Você não precisa estar pronta, só precisa de poucos minutos por dia."}
@@ -480,7 +480,7 @@ function Index() {
                   }}
                   className="w-full bg-primary hover:bg-primary-hover text-white py-5 px-8 rounded-2xl font-bold text-lg shadow-lg shadow-primary/30"
                 >
-                  Quero Meu Truque da Virgínia Agora →
+                  Quero Meu Truque do Bumbum na Nuca Agora →
                 </button>
               </div>
               );
